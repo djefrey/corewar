@@ -16,6 +16,10 @@
 #define IND_SIZE 2
 #define DIR_SIZE 4
 
+#define TYPE_REG 1
+#define TYPE_DIR 2
+#define TYPE_IND 4
+
 #define CYCLE_TO_DIE 1536
 #define CYCLE_DELTA 5
 #define NBR_LIVE 40
