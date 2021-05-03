@@ -18,7 +18,7 @@ NAME	=	asm
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	gcc $(CFLAGS) -o $(NAME)
+	gcc $(CFLAGS) -o $(NAME) $(OBJ)
 
 debug:	CFLAGS += -g
 debug:	re
