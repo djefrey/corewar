@@ -33,10 +33,10 @@
 #define TYPE_IND 4
 
 typedef struct header_s {
-    short magic_number;
-    char prog_name[PROG_NAME_LENGTH];
+    int magic_number;
+    char prog_name[PROG_NAME_LENGTH + 1];
     int prog_size;
-    char prog_comment[PROG_COMMENT_LENGTH];
+    char prog_comment[PROG_COMMENT_LENGTH + 1];
 } header_t;
 
 #endif /* !ASM_H_ */
