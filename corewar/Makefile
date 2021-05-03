@@ -5,7 +5,9 @@
 ## corewar makefile
 ##
 
-SRC		=	./src/main.c
+SRC		=	src/main.c				\
+			src/cor.c				\
+			src/utils.c
 
 INC_DIR	=	./include
 
@@ -18,7 +20,7 @@ NAME	=	corewar
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	gcc $(CFLAGS) -o $(NAME)
+	gcc $(CFLAGS) -o $(NAME) $(OBJ)
 
 debug:	CFLAGS += -g
 debug:	re

@@ -8,6 +8,9 @@
 #ifndef COREWAR_H_
 #define COREWAR_H_
 
+#include <stdint.h>
+#include <stddef.h>
+
 #define MAGIC_NUMBER 0xea83f3
 
 #define REG_NUMBER 16
@@ -28,10 +31,16 @@
 #define PROG_COMMENT_LENGTH 2048
 
 typedef struct header_s {
-    short magic_number;
-    char prog_name[PROG_NAME_LENGTH];
+    int magic_number;
+    char prog_name[PROG_NAME_LENGTH + 1];
     int prog_size;
-    char prog_comment[PROG_COMMENT_LENGTH];
+    char prog_comment[PROG_COMMENT_LENGTH + 1];
 } header_t;
+
+void open_cor_file(char *filepath);
+header_t *read_header(int fd, int len);
+
+int get_file_size(int fd);
+void inverse_endian(void *data, void *buf, size_t size);
 
 #endif /* !COREWAR_H_ */
