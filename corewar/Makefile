@@ -9,6 +9,7 @@ SRC		=	src/main.c				\
 			src/cor.c				\
 			src/utils.c
 
+LIB_DIR	=	./mylib
 INC_DIR	=	./include
 
 CFLAGS	+=	-W -Wall -I$(INC_DIR)
@@ -20,15 +21,18 @@ NAME	=	corewar
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	gcc $(CFLAGS) -o $(NAME) $(OBJ)
+	make -C $(LIB_DIR)
+	gcc $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lmy
 
 debug:	CFLAGS += -g
 debug:	re
 
 clean:
+	make -C $(LIB_DIR) clean
 	rm -rf $(OBJ)
 
 fclean:	clean
+	make -C $(LIB_DIR) fclean
 	rm -f $(NAME)
 
 re:	fclean all

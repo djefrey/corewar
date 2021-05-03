@@ -9,6 +9,6 @@
 
 int main(int ac, char **av)
 {
-    read_header(av[1]);
+    open_cor_file(av[1]);
     return (0);
 }

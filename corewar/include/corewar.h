@@ -14,7 +14,6 @@
 #define MAGIC_NUMBER 0xea83f3
 
 #define REG_NUMBER 16
-#define REG_SIZE 4
 
 #define IND_SIZE 2
 #define DIR_SIZE 4
@@ -29,6 +28,8 @@
 
 #define PROG_NAME_LENGTH 128
 #define PROG_COMMENT_LENGTH 2048
+
+typedef int register_t;
 
 typedef struct header_s {
     int magic_number;

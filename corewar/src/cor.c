@@ -30,10 +30,8 @@ header_t *read_header(int fd, int len)
 {
     header_t *header;
 
-    else if (!(header = malloc(sizeof(header_t))) || len < sizeof(header_t)) {
-        close(fd);
+    if (len < sizeof(header_t) || !(header = malloc(sizeof(header_t))))
         return (NULL);
-    }
     read(fd, header, sizeof(header_t));
     return (header);
 }
