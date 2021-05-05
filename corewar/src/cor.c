@@ -12,26 +12,16 @@
 #include <fcntl.h>
 #include "corewar.h"
 
-void open_cor_file(char *filepath)
+void read_header(header_t *header, int fd, unsigned int len)
 {
-    int fd = open(filepath, O_RDONLY);
-    unsigned int len;
-    header_t *header;
+    int magic_number;
+    int prog_size;
 
-    if (fd == -1)
+    if (len < sizeof(header_t))
         return;
-    len = get_file_size(fd);
-    header = read_header(fd, len);
-    close(fd);
-    free(header);
-}
-
-header_t *read_header(int fd, int len)
-{
-    header_t *header;
-
-    if (len < sizeof(header_t) || !(header = malloc(sizeof(header_t))))
-        return (NULL);
     read(fd, header, sizeof(header_t));
-    return (header);
+    inverse_endian(&(header->magic_number), &magic_number, sizeof(int));
+    inverse_endian(&(header->prog_size), &prog_size, sizeof(int));
+    header->magic_number = magic_number;
+    header->prog_size = prog_size;
 }

@@ -29,7 +29,7 @@
 #define PROG_NAME_LENGTH 128
 #define PROG_COMMENT_LENGTH 2048
 
-typedef int register_t;
+typedef int reg_t;
 
 typedef struct header_s {
     int magic_number;
@@ -38,8 +38,7 @@ typedef struct header_s {
     char prog_comment[PROG_COMMENT_LENGTH + 1];
 } header_t;
 
-void open_cor_file(char *filepath);
-header_t *read_header(int fd, int len);
+void read_header(header_t *header, int fd, unsigned int len);
 
 int get_file_size(int fd);
 void inverse_endian(void *data, void *buf, size_t size);

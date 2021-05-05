@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include "process.h"
 
-process_t *process(int id, int pc)
+process_t *process_create(int id, int pc)
 {
     process_t *process = malloc(sizeof(process_t));
 

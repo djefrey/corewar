@@ -6,6 +6,9 @@
 ##
 
 SRC		=	src/main.c				\
+			src/vm.c				\
+			src/champion.c			\
+			src/process.c			\
 			src/cor.c				\
 			src/utils.c
 

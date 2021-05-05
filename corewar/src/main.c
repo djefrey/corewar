@@ -6,9 +6,12 @@
 */
 
 #include "corewar.h"
+#include "vm.h"
 
 int main(int ac, char **av)
 {
-    open_cor_file(av[1]);
+    vm_t vm = {NULL, NULL};
+
+    
     return (0);
 }
