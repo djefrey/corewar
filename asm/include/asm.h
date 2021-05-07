@@ -32,6 +32,9 @@
 #define TYPE_DIR 2
 #define TYPE_IND 4
 
+#include <sys/stat.h>
+#include <fcntl.h>
+
 typedef struct header_s {
     int magic_number;
     char prog_name[PROG_NAME_LENGTH + 1];
