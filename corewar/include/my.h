@@ -54,7 +54,6 @@ char *my_strmerge(char *str1, char *str2);
 void my_strinsert(char **str, char *insertion, int pos);
 
 void my_sort_int_array(int *array, int size);
-char **my_str_to_word_array(char const *str);
 void my_intswap(int *a, int *b);
 void my_strswap(char **a, char **b);
 

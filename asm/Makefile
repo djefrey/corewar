@@ -5,7 +5,8 @@
 ## asm makefile
 ##
 
-SRC		=	./src/main.c
+SRC		=	./src/main.c \
+			./src/my_str_to_word_array.c
 
 INC_DIR	=	./include
 
@@ -18,7 +19,7 @@ NAME	=	asm
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	gcc $(CFLAGS) -o $(NAME) $(OBJ)
+	gcc $(CFLAGS) -o $(NAME) $(OBJ) -L ../corewar/mylib -lmy
 
 debug:	CFLAGS += -g
 debug:	re
