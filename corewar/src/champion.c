@@ -14,7 +14,7 @@
 #include "champion.h"
 #include "process.h"
 
-champion_t *champion_create(char *filepath, int id, char *memory, int addr)
+champion_t *champion_create(char *filepath, int id, int addr, vm_t *vm)
 {
     champion_t *champion;
     int fd = open(filepath, O_RDONLY);
@@ -23,15 +23,12 @@ champion_t *champion_create(char *filepath, int id, char *memory, int addr)
     if (fd == -1 || !(champion = malloc(sizeof(champion_t)))
     || champion_read_header(champion, fd))
         return (NULL);
+    champion->id = id;
     champion->dead = 0;
-    champion->prev_live_cycles = 1;
+    champion->prev_live_cycles = 0;
     champion->processes = NULL;
-    if (!(process = process_create(id, addr))) {
-        champion_destroy(champion);
+    if (vm_write_file_in_memory(vm, fd, addr, champion->header->prog_size))
         return (NULL);
-    }
-    create_list(&(champion->processes), process);
-    read(fd, memory + addr, champion->header->prog_size);
     close(fd);
     return (champion);
 }

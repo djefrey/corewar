@@ -10,6 +10,7 @@
 
 typedef struct champion_s {
     header_t *header;
+    int id;
     char dead;
     int prev_live_cycles;
     list_t *processes;

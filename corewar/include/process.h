@@ -19,7 +19,7 @@ typedef struct process_s {
 } process_t;
 
 process_t *process_create(int id, int pc);
-process_t *process_clone(process_t *original);
+process_t *process_fork(process_t *original, int pc);
 void process_execute(process_t *process, vm_t *vm);
 void process_destroy(process_t *process);
 

@@ -15,4 +15,6 @@ typedef struct vm_s {
     list_t *processes;
 } vm_t;
 
+int vm_write_file_in_memory(vm_t *vm, int fd, int addr, int size);
+
 #endif /* !VM_H_ */

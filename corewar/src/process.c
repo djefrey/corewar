@@ -9,21 +9,22 @@
 #include <unistd.h>
 #include "process.h"
 
-process_t *process_create(int id, int pc)
+process_t *process_create(champion_t *champion, int addr, char *memory)
 {
     process_t *process = malloc(sizeof(process_t));
 
     if (!process)
         return (NULL);
-    process->registers[0] = id;
+    process->registers[0] = champion->id;
     for (int i = 1; i < REG_NUMBER; i++)
         process->registers[i] = 0;
-    process->pc = pc;
+    process->pc = addr;
     process->carry = 0;
+    create_list(&(champion->processes), process);
     return (process);
 }
 
-process_t *process_clone(process_t *original)
+process_t *process_fork(process_t *original, int pc)
 {
     process_t *process = malloc(sizeof(process_t));
 
@@ -31,7 +32,7 @@ process_t *process_clone(process_t *original)
         return (NULL);
     for (int i = 0; i < REG_NUMBER; i++)
         process->registers[i] = original->registers[i];
-    process->pc = original->pc;
+    process->pc = pc;
     process->carry = original->carry;
     return (process);
 }
