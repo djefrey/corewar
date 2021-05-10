@@ -13,6 +13,7 @@
 #include "corewar.h"
 #include "champion.h"
 #include "process.h"
+#include "vm.h"
 
 champion_t *champion_create(char *filepath, int id, int addr, vm_t *vm)
 {
@@ -47,6 +48,19 @@ int champion_read_header(champion_t *champion, int fd)
     }
     champion->header = header;
     return (0);
+}
+
+void champion_update(champion_t *champion, vm_t *vm)
+{
+    process_t *process;
+
+    champion->prev_live_cycles++;
+    for (list_t *list = champion->processes; list; list = list->next) {
+        process = (process_t*) list->data;
+        process_update(process, champion, vm);
+    }
+    if (champion->prev_live_cycles >= vm->dead_cycles)
+        champion->dead = 1;
 }
 
 void champion_destroy(champion_t *champion)
