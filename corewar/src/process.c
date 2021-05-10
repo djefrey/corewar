@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "my_list.h"
+#include "corewar.h"
 #include "process.h"
 #include "champion.h"
 #include "vm.h"
@@ -40,9 +41,11 @@ process_t *process_fork(process_t *original, int pc)
     return (process);
 }
 
-void process_update(process_t* process, champion_t *champion, vm_t *vm)
+void process_update(process_t *process, champion_t *champion, vm_t *vm)
 {
+    char instruction = *(vm->memory + (process->pc % MEM_SIZE));
 
+    
 }
 
 void process_destroy(process_t *process)
