@@ -10,33 +10,21 @@
 
 #define MAGIC_NUMBER 0xea83f3
 
-#define COMMENT_CHAR '#'
-#define LABEL_CHAR ':'
-#define DIRECT_CHAR '%'
-#define SEPARATOR_CHAR ','
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include "op.h"
+#include "../../corewar/include/my.h"
 
-#define LABEL_CHAR "abcdefghijklmnopqrstuvwxyz_0123456789"
+typedef struct asms_s {
+    char *output;
+    int fd_in;
+    int fd_out;
+    char *file;
+    char **tab_f;
+} asms_t;
 
-#define NAME_CMD_STRING ".name"
-#define COMMENT_CMD_STRING ".comment"
-
-#define PROG_NAME_LENGTH 128
-#define PROG_COMMENT_LENGTH 2048
-
-#define REG_NUMBER 16
-
-#define IND_SIZE 2
-#define DIR_SIZE 4
-
-#define TYPE_REG 1
-#define TYPE_DIR 2
-#define TYPE_IND 4
-
-typedef struct header_s {
-    int magic_number;
-    char prog_name[PROG_NAME_LENGTH + 1];
-    int prog_size;
-    char prog_comment[PROG_COMMENT_LENGTH + 1];
-} header_t;
+char **my_str_to_word_array(char const *str, int j, int k);
 
 #endif /* !ASM_H_ */
