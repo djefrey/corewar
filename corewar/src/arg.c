@@ -18,7 +18,7 @@ int champ_checker(int ac, char **av, int i, vm_t *vm)
     if (my_strcmp(av[i], "-n")) {
         i += 2;
         id = my_getnbr(av[i - 1]);
-    } if (my_strcmp(av[i], "-a")) {
+    } else if (my_strcmp(av[i], "-a")) {
         i += 2;
         addr = my_getnbr(av[i - 1]);
     } else {

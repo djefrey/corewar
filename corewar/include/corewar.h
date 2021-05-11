@@ -13,7 +13,7 @@
 
 #define MAGIC_NUMBER 0xea83f3
 
-#define MEM_SIZE 6*1024
+#define MEM_SIZE (6*1024)
 
 #define REG_NUMBER 16
 

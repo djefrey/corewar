@@ -16,8 +16,8 @@ int size, process_t *process, vm_t *vm)
     int addr = (process->pc + 2) % MEM_SIZE;
     char code;
 
-    for (int i = 3; i >= 0; i++) {
-        code = (coding & (3 << (i * 2)) >> (i * 3));
+    for (int i = 3; i >= 4 - size; i--) {
+        code = (coding & (3 << (i * 2))) >> (i * 2);
         if (code == 0)
             break;
         values[3 - i] = get_value_from_memory(code, &addr, process, vm);
@@ -27,21 +27,20 @@ int size, process_t *process, vm_t *vm)
 
 int get_value_from_memory(char code, int *addr, process_t *process, vm_t *vm)
 {
-    char buff[sizeof(int)];
+    char buff[sizeof(int)] = {0};
 
-    if (type == TYPE_REG) {
-        for (int i = 0; i < REG_SIZE; i++)
-            buff[REG_SIZE - 1 - i] = *(vm->memory + (*addr + i) % MEM_SIZE);
+    if (code == TYPE_REG) {
+        buff[0] = *(vm->memory + (*addr) % MEM_SIZE);
         *addr += REG_SIZE;
         return (process->registers[*((int*) buff)]);
-    } else if (type == TYPE_DIR) {
+    } else if (code == TYPE_DIR) {
         for (int i = 0; i < DIR_SIZE; i++)
-            buff[DIR_SIZE - 1 - i] = *(vm->memory + (addr + i) % MEM_SIZE);
+            buff[sizeof(int) - 1 - i] = *(vm->memory + (*addr + i) % MEM_SIZE);
         *addr += DIR_SIZE;
         return (*((int*) buff));
     } else {
-        for (int i = 0; i < IND_SIZE; i++)
-            buff[IND_SIZE - 1 - i] = *(vm->memory + (addr + i) % MEM_SIZE);
+        buff[0] = *(vm->memory + (*addr + 1) % MEM_SIZE);
+        buff[1] = *(vm->memory + (*addr) % MEM_SIZE);
         *addr += IND_SIZE;
         return (*(vm->memory + (process->pc + *((int*) buff)) % MEM_SIZE));
     }

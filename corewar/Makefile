@@ -5,27 +5,41 @@
 ## corewar makefile
 ##
 
-SRC		=	src/main.c				\
-			src/vm.c				\
-			src/champion.c			\
-			src/process.c			\
-			src/cor.c				\
-			src/utils.c
+MAIN_SRC	=	src/main.c
 
-LIB_DIR	=	./mylib
-INC_DIR	=	./include
+SRC			=	src/vm.c							\
+				src/champion.c						\
+				src/process.c						\
+				src/cor.c							\
+				src/memory.c						\
+				src/instructions/operations.c		\
+				src/utils.c
 
-CFLAGS	+=	-W -Wall -I$(INC_DIR)
+TESTS_SRC	=	tests/operations.c					\
+				tests/utils.c
 
-OBJ		=	$(SRC:.c=.o)
+LIB_DIR		=	./mylib
+INC_DIR		=	./include
 
-NAME	=	corewar
+CFLAGS		+=	-W -Wall -I$(INC_DIR)
+
+MAIN_OBJ	=	$(MAIN_SRC:.c=.o)
+OBJ			=	$(SRC:.c=.o)
+TESTS_OBJ	=	$(TESTS_SRC:.c=.o)
+
+NAME		=	corewar
+NAME_TESTS	=	corewar_tests
 
 all:	$(NAME)
 
-$(NAME):	$(OBJ)
+$(NAME):	$(MAIN_OBJ)	$(OBJ)
 	make -C $(LIB_DIR)
-	gcc $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lmy
+	gcc $(CFLAGS) -o $(NAME) $(MAIN_OBJ) $(OBJ) -L$(LIB_DIR) -lmy
+
+tests_run:	fclean $(TESTS_OBJ)	$(OBJ)
+	make -C $(LIB_DIR)
+	gcc $(CFLAGS) -o $(NAME_TESTS) $(OBJ) $(TESTS_OBJ) -L$(LIB_DIR) -lmy -lcriterion
+	./$(NAME_TESTS)
 
 debug:	CFLAGS += -g
 debug:	re

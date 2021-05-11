@@ -2,5 +2,6 @@ vgcore*
 **/*.o
 asm/asm
 corewar/corewar
+corewar/corewar_tests
 *.a
 *.cor
