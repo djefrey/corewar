@@ -36,6 +36,7 @@ $(NAME):	$(MAIN_OBJ)	$(OBJ)
 	make -C $(LIB_DIR)
 	gcc $(CFLAGS) -o $(NAME) $(MAIN_OBJ) $(OBJ) -L$(LIB_DIR) -lmy
 
+tests_run: CFLAGS += --coverage
 tests_run:	fclean $(TESTS_OBJ)	$(OBJ)
 	make -C $(LIB_DIR)
 	gcc $(CFLAGS) -o $(NAME_TESTS) $(OBJ) $(TESTS_OBJ) -L$(LIB_DIR) -lmy -lcriterion
@@ -46,7 +47,11 @@ debug:	re
 
 clean:
 	make -C $(LIB_DIR) clean
+	rm -f $(MAIN_OBJ)
 	rm -rf $(OBJ)
+	rm -rf $(TESTS_OBJ)
+	rm -rf $(wildcard **/*.gcno)
+	rm -rf $(wildcard **/*.gcda)
 
 fclean:	clean
 	make -C $(LIB_DIR) fclean

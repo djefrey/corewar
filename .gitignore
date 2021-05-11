@@ -5,3 +5,5 @@ corewar/corewar
 corewar/corewar_tests
 *.a
 *.cor
+**/*.gcno
+**/*.gcda
