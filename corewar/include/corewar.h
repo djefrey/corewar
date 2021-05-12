@@ -65,5 +65,6 @@ int read_indirect_arg(int *addr, vm_t *vm);
 int get_file_size(int fd);
 void inverse_endian(void *data, void *buf, size_t size);
 int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm);
+int read_int(int addr, int size, vm_t *vm);
 
 #endif /* !COREWAR_H_ */

@@ -67,20 +67,16 @@ int read_register_arg(int *addr, vm_t *vm)
 
 int read_direct_arg(int *addr, vm_t *vm)
 {
-    char buff[sizeof(int)] = {0};
+    int value = read_int(*addr, DIR_SIZE, vm);
 
-    for (int i = 0; i < DIR_SIZE; i++)
-        buff[sizeof(int) - 1 - i] = *(vm->memory + (*addr + i) % MEM_SIZE);
     *addr = (*addr + DIR_SIZE) % MEM_SIZE;
-    return (*((int*) buff));
+    return (value);
 }
 
 int read_indirect_arg(int *addr, vm_t *vm)
 {
-    char buff[sizeof(int)] = {0};
+    int value = read_int(*addr, IND_SIZE, vm);
 
-    buff[0] = *(vm->memory + (*addr + 1) % MEM_SIZE);
-    buff[1] = *(vm->memory + *addr);
     *addr = (*addr + IND_SIZE) % MEM_SIZE;
-    return (*((int*) buff));
+    return (value);
 }

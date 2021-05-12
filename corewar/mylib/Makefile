@@ -7,12 +7,14 @@
 
 LIST_SRC	=	$(wildcard ./my_list/*.c)
 STR_SRC		=	$(wildcard ./my_str/*.c)
+PRINT_SRC	=	$(wildcard ./my_printf/*.c)
 
 INC_DIR		=	../include/
+INC_PRINTF	=	./my_printf/include/
 
-CFLAGS		=	-I$(INC_DIR) -W -Wall
+CFLAGS		=	-I$(INC_DIR) -I$(INC_PRINTF) -W -Wall
 
-OBJ			=	$(LIST_SRC:.c=.o) $(STR_SRC:.c=.o)
+OBJ			=	$(LIST_SRC:.c=.o) $(STR_SRC:.c=.o) $(PRINT_SRC:.c=.o)
 
 NAME		=	libmy.a
 

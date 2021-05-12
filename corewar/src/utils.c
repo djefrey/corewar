@@ -33,8 +33,20 @@ int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm)
         case DIRECT:
             return (value);
         case INDIRECT:
-            return ((int) *(vm->memory + (value) % MEM_SIZE));
+            return (read_int((process->pc + value % IDX_MOD)
+            % MEM_SIZE, 1, vm));
         case NONE:
             return (0);
     }
+    return (0);
+}
+
+int read_int(int addr, int size, vm_t *vm)
+{
+    char buff[sizeof(int)] = {0};
+    int off = 4 - size;
+
+    for (int i = 0; i < size; i++)
+        buff[sizeof(int) - 1 - i - off] = *(vm->memory + (addr + i) % MEM_SIZE);
+    return (*((int*) buff));
 }

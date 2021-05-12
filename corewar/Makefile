@@ -16,6 +16,7 @@ SRC			=	src/vm.c							\
 				src/utils.c
 
 TESTS_SRC	=	tests/operations.c					\
+				tests/arguments.c					\
 				tests/utils.c
 
 LIB_DIR		=	./mylib

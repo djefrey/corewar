@@ -22,6 +22,16 @@ void and_instruction(process_t *process, champion_t *champion, vm_t *vm);
 void or_instruction(process_t *process, champion_t *champion, vm_t *vm);
 void xor_instruction(process_t *process, champion_t *champion, vm_t *vm);
 
+void ld_instruction(process_t *process, champion_t *champion, vm_t *vm);
+void ldi_instruction(process_t *process, champion_t *champion, vm_t *vm);
+void lld_instruction(process_t *process, champion_t *champion, vm_t *vm);
+void lldi_instruction(process_t *process, champion_t *champion, vm_t *vm);
+
+void st_instruction(process_t *process, champion_t *champion, vm_t *vm);
+void sti_instruction(process_t *process, champion_t *champion, vm_t *vm);
+void fork_instruction(process_t *process, champion_t *champion, vm_t *vm);
+void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm);
+
 const char INSTRUCTION_VALUE[] = {
     1,
     2,
@@ -43,20 +53,20 @@ const char INSTRUCTION_VALUE[] = {
 
 const instruction_fct_t INSTRUCTION_FCT[] = {
     &live_instruction,
-    NULL,
-    NULL,
+    &ld_instruction,
+    &st_instruction,
     &add_instruction,
     &sub_instruction,
     &and_instruction,
     &or_instruction,
     &xor_instruction,
     NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
+    &ldi_instruction,
+    &sti_instruction,
+    &fork_instruction,
+    &lld_instruction,
+    &lldi_instruction,
+    &lfork_instruction,
     NULL,
 };
 
