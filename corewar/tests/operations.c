@@ -14,7 +14,7 @@ Test(operations, add_instruction)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {4, 252, 1, 2, 3};
+    char instr[] = {4, 84, 1, 2, 3};
 
     if (create_criterion_vm(&vm))
         return;
@@ -34,7 +34,7 @@ Test(operations, sub_instruction)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {4, 252, 1, 2, 3};
+    char instr[] = {4, 84, 1, 2, 3};
 
     if (create_criterion_vm(&vm))
         return;

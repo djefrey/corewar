@@ -12,73 +12,85 @@
 
 void add_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    int reg1 = *(vm->memory + (process->pc + 2) % MEM_SIZE);
-    int reg2 = *(vm->memory + (process->pc + 2 + REG_SIZE) % MEM_SIZE);
-    int reg3 = *(vm->memory + (process->pc + 2 + REG_SIZE * 2) % MEM_SIZE);
+    argument_t args[4];
+    int values[4];
+    int addr;
 
-    process->registers[reg3] =
-    process->registers[reg1] + process->registers[reg2];
-    if (process->registers[reg3] == 0)
+    get_arguments_type(args, process, vm);
+    addr = get_arguments_value(args, values, process, vm);
+    process->registers[values[2]] =
+    process->registers[values[0]] + process->registers[values[1]];
+    process->pc = addr;
+    if (process->registers[values[2]] == 0)
         process->carry = 1;
     else
         process->carry = 0;
-    process->pc = (process->pc + 2 + 3 * REG_SIZE) % MEM_SIZE;
 }
 
 void sub_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    int reg1 = (int) *(vm->memory + (process->pc + 2) % MEM_SIZE);
-    int reg2 = (int) *(vm->memory + (process->pc + 2 + REG_SIZE) % MEM_SIZE);
-    int reg3 = (int) *(vm->memory +
-    (process->pc + 2 + REG_SIZE * 2) % MEM_SIZE);
+    argument_t args[4];
+    int values[4];
+    int addr;
 
-    process->registers[reg3] =
-    process->registers[reg1] - process->registers[reg2];
-    if (process->registers[reg3] == 0)
+    get_arguments_type(args, process, vm);
+    addr = get_arguments_value(args, values, process, vm);
+    process->registers[values[2]] =
+    process->registers[values[0]] - process->registers[values[1]];
+    process->pc = addr;
+    if (process->registers[values[2]] == 0)
         process->carry = 1;
     else
         process->carry = 0;
-    process->pc = (process->pc + 2 + 3 * REG_SIZE) % MEM_SIZE;
 }
 
 void and_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    int values[2] = {0};
-    int addr = get_values_from_coding(values, 2, process, vm);
-    int reg = (int) *(vm->memory + addr % MEM_SIZE);
+    argument_t args[4] = {0};
+    int values[4] = {0};
+    int addr;
 
-    process->registers[reg] = values[0] & values[1];
-    if (process->registers[reg] == 0)
+    get_arguments_type(args, process, vm);
+    addr = get_arguments_value(args, values, process, vm);
+    process->registers[values[2]] = get_arg_real_value(args[0], values[0],
+    process, vm) & get_arg_real_value(args[1], values[1], process, vm);
+    process->pc = addr;
+    if (process->registers[values[2]] == 0)
         process->carry = 1;
     else
         process->carry = 0;
-    process->pc = (addr + REG_SIZE) % MEM_SIZE;
 }
 
 void or_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    int values[2] = {0};
-    int addr = get_values_from_coding(values, 2, process, vm);
-    int reg = (int) *(vm->memory + addr % MEM_SIZE);
+    argument_t args[4] = {0};
+    int values[4] = {0};
+    int addr;
 
-    process->registers[reg] = values[0] | values[1];
-    if (process->registers[reg] == 0)
+    get_arguments_type(args, process, vm);
+    addr = get_arguments_value(args, values, process, vm);
+    process->registers[values[2]] = get_arg_real_value(args[0], values[0],
+    process, vm) | get_arg_real_value(args[1], values[1], process, vm);
+    process->pc = addr;
+    if (process->registers[values[2]] == 0)
         process->carry = 1;
     else
         process->carry = 0;
-    process->pc = (addr + REG_SIZE) % MEM_SIZE;
 }
 
 void xor_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    int values[2] = {0};
-    int addr = get_values_from_coding(values, 2, process, vm);
-    int reg = (int) *(vm->memory + addr % MEM_SIZE);
+    argument_t args[4] = {0};
+    int values[4] = {0};
+    int addr;
 
-    process->registers[reg] = values[0] ^ values[1];
-    if (process->registers[reg] == 0)
+    get_arguments_type(args, process, vm);
+    addr = get_arguments_value(args, values, process, vm);
+    process->registers[values[2]] = get_arg_real_value(args[0], values[0],
+    process, vm) ^ get_arg_real_value(args[1], values[1], process, vm);
+    process->pc = addr;
+    if (process->registers[values[2]] == 0)
         process->carry = 1;
     else
         process->carry = 0;
-    process->pc = (addr + REG_SIZE) % MEM_SIZE;
 }

@@ -39,6 +39,13 @@ typedef int reg_t;
 typedef struct process_s process_t;
 typedef struct vm_s vm_t;
 
+typedef enum argument_e {
+    NONE,
+    REGISTER,
+    DIRECT,
+    INDIRECT,
+} argument_t;
+
 typedef struct header_s {
     int magic_number;
     char prog_name[PROG_NAME_LENGTH + 1];
@@ -48,11 +55,15 @@ typedef struct header_s {
 
 void read_header(header_t *header, int fd, unsigned int len);
 
-int get_values_from_coding(int *values,
-int size, process_t *process, vm_t *vm);
-int get_value_from_memory(char code, int *addr, process_t *process, vm_t *vm);
+void get_arguments_type(argument_t args[], process_t *process, vm_t *vm);
+int get_arguments_value(argument_t args[],
+int values[], process_t *process, vm_t *vm);
+int read_register_arg(int *addr, vm_t *vm);
+int read_direct_arg(int *addr, vm_t *vm);
+int read_indirect_arg(int *addr, vm_t *vm);
 
 int get_file_size(int fd);
 void inverse_endian(void *data, void *buf, size_t size);
+int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm);
 
 #endif /* !COREWAR_H_ */
