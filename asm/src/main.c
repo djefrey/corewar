@@ -16,8 +16,13 @@ int put_error(char *str)
 void reformate_tab(asms_t *asms)
 {
     for (int i = 0; asms->tab_f[i]; i++) {
-        if (asms->tab_f[0][0] == '\0' || asms->tab_f[0][0] == '#') {
+        if (asms->tab_f[0][0] != '.') {
             ++asms->tab_f;
+        }
+    }
+    for (int i = 0; asms->tab_f[i]; i++) {
+        if (asms->tab_f[i][0] == '\0') {
+            asms->tab_f[i] = 0;
         }
     }
 }
@@ -38,9 +43,7 @@ int compile(char *input, asms_t *asms)
     asms->file = realloc(asms->file, (my_strlen(asms->file) + 1));
     asms->tab_f = my_str_to_word_array(asms->file, 0, 0);
     reformate_tab(asms);
-    for (int i = 0; asms->tab_f[i]; i++)
-        printf("%s\n", asms->tab_f[i]);
-    return (0);
+    return (parse_struct(asms));
 }
 
 asms_t *init_struct(void)
