@@ -11,7 +11,7 @@
 #include "../include/asm.h"
 
 op_t    op_tab[] =
-  {
+{
     {"live", 1, {T_DIR}, 1, 10, "alive"},
     {"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load"},
     {"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store"},
@@ -35,4 +35,4 @@ op_t    op_tab[] =
     {"lfork", 1, {T_DIR}, 15, 1000, "long fork"},
     {"aff", 1, {T_REG}, 16, 2, "aff"},
     {0, 0, {0}, 0, 0, 0}
-  };
+};

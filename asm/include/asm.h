@@ -25,6 +25,13 @@ typedef struct asms_s {
     char **tab_f;
 } asms_t;
 
+typedef struct info_s {
+    char *name;
+    char *comment;
+    char **instructions;
+} info_t;
+
 char **my_str_to_word_array(char const *str, int j, int k);
+int parse_struct(asms_t *asms);
 
 #endif /* !ASM_H_ */

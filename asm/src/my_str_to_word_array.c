@@ -16,7 +16,7 @@ int check_carac(int carac)
 
 int jump_non_alpha(char const *str, int k)
 {
-    while (check_carac(str[k + 1]) == 1)
+    while (check_carac(str[k + 1]) == 1 || str[k + 1] == '#')
         k++;
     return (k);
 }
