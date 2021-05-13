@@ -7,6 +7,11 @@
 
 #include "../include/asm.h"
 
+void reformate_string(asms_t *asms, int i)
+{
+    for (; asms->tab_f[i][0] == ' '; ++asms->tab_f[i]);
+}
+
 char *get_name_comment(char *str)
 {
     char *result = malloc((my_strlen(str)));
@@ -31,8 +36,15 @@ char *get_name_comment(char *str)
 int parse_struct(asms_t *asms)
 {
     info_t *info = malloc(sizeof(info_t));
+    int i = 0;
 
     info->name = get_name_comment(asms->tab_f[0]);
-    info->comment = get_name_comment(asms->tab_f[1]);
-    printf("%s, %s\n", info->name, info->comment);
+    ++asms->tab_f;
+    info->comment = get_name_comment(asms->tab_f[0]);
+    ++asms->tab_f;
+    for (; asms->tab_f[i]; ++i);
+    asms->mega_tab = malloc(sizeof(char **) * i + 1);
+    for (i = 0; asms->tab_f[i]; ++i)
+        asms->mega_tab[i] = my_asm_to_word_array(asms->tab_f[i], 0, 0);
+    return (prog(asms));
 }
