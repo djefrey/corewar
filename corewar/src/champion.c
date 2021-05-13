@@ -26,7 +26,7 @@ champion_t *champion_create(char *filepath, int id, int addr, vm_t *vm)
         return (NULL);
     champion->id = id;
     champion->dead = 0;
-    champion->prev_live_cycles = 0;
+    champion->live_cycles = 0;
     champion->processes = NULL;
     if (vm_write_file_in_memory(vm, fd, addr, champion->header->prog_size))
         return (NULL);
@@ -54,12 +54,12 @@ void champion_update(champion_t *champion, vm_t *vm)
 {
     process_t *process;
 
-    champion->prev_live_cycles++;
+    champion->live_cycles++;
     for (list_t *list = champion->processes; list; list = list->next) {
         process = (process_t*) list->data;
         process_update(process, champion, vm);
     }
-    if (champion->prev_live_cycles >= vm->dead_cycles)
+    if (champion->live_cycles >= vm->dead_cycles)
         champion->dead = 1;
 }
 

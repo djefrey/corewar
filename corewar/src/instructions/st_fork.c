@@ -5,6 +5,8 @@
 ** st + fork instructions
 */
 
+#include "my.h"
+#include "my_list.h"
 #include "corewar.h"
 #include "vm.h"
 #include "champion.h"

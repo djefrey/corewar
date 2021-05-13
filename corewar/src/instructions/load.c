@@ -46,7 +46,7 @@ void ldi_instruction(process_t *process, champion_t *champion, vm_t *vm)
     addr = get_arguments_value(args, values, process, vm);
     process->pc = addr;
     process->cycles = 25;
-    if (!(args[1] == DIRECT || args[1] == REGISTER) args[2] != REGISTER)
+    if (!(args[1] == DIRECT || args[1] == REGISTER) || args[2] != REGISTER)
         return;
     read_addr = original_pc
     + (get_arg_real_value(args[0], values[0], process, vm)
@@ -94,7 +94,7 @@ void lldi_instruction(process_t *process, champion_t *champion, vm_t *vm)
     addr = get_arguments_value(args, values, process, vm);
     process->pc = addr;
     process->cycles = 50;
-    if (!(args[1] == DIRECT || args[1] == REGISTER) args[2] != REGISTER)
+    if (!(args[1] == DIRECT || args[1] == REGISTER) || args[2] != REGISTER)
         return;
     read_addr = original_pc
     + get_arg_real_value(args[0], values[0], process, vm)

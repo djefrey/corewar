@@ -15,7 +15,7 @@ typedef struct champion_s {
     header_t *header;
     int id;
     char dead;
-    int prev_live_cycles;
+    int live_cycles;
     list_t *processes;
 } champion_t;
 

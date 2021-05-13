@@ -5,6 +5,8 @@
 ** utilitaries
 */
 
+#include <unistd.h>
+#include "my.h"
 #include "corewar.h"
 #include "vm.h"
 #include "champion.h"
@@ -27,7 +29,8 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
         alive = (champion_t*) list->data;
         if (alive->id == values[0]) {
             my_printf("The player %i(%s) is alive\n",
-            alive->id, alive->header->name);
+            alive->id, alive->header->prog_name);
+            alive->live_cycles = 0;
             break;
         }
     }

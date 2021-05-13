@@ -20,7 +20,7 @@ typedef struct process_s {
     int cycles;
 } process_t;
 
-process_t *process_create(champion_t *champion, int addr, char *memory);
+process_t *process_create(champion_t *champion, int addr);
 process_t *process_fork(process_t *original, int pc);
 void process_update(process_t* process, champion_t *champion, vm_t *vm);
 void process_destroy(process_t *process);

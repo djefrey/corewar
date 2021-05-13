@@ -32,6 +32,9 @@ void sti_instruction(process_t *process, champion_t *champion, vm_t *vm);
 void fork_instruction(process_t *process, champion_t *champion, vm_t *vm);
 void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm);
 
+void live_instruction(process_t *process, champion_t *champion, vm_t *vm);
+void aff_instruction(process_t *process, champion_t *champion, vm_t *vm);
+
 const char INSTRUCTION_VALUE[] = {
     1,
     2,

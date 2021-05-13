@@ -12,8 +12,9 @@
 #include "process.h"
 #include "champion.h"
 #include "vm.h"
+#include "instructions.h"
 
-process_t *process_create(champion_t *champion, int addr, char *memory)
+process_t *process_create(champion_t *champion, int addr)
 {
     process_t *process = malloc(sizeof(process_t));
 
@@ -45,7 +46,17 @@ void process_update(process_t *process, champion_t *champion, vm_t *vm)
 {
     char instruction = *(vm->memory + (process->pc % MEM_SIZE));
 
-    
+    if (process->cycles) {
+        process->cycles--;
+        return;
+    }
+    for (int i = 0; i < INSTRUCTIONS_NB; i++) {
+        if (INSTRUCTION_VALUE[i] == instruction) {
+            INSTRUCTION_FCT[i](process, champion, vm);
+            return;
+        }
+    }
+    process->pc = (process->pc + 1) % MEM_SIZE;
 }
 
 void process_destroy(process_t *process)

@@ -13,6 +13,9 @@ SRC			=	src/vm.c							\
 				src/cor.c							\
 				src/instructions/arguments.c		\
 				src/instructions/operations.c		\
+				src/instructions/load.c				\
+				src/instructions/st_fork.c			\
+				src/instructions/utilitaries.c		\
 				src/utils.c
 
 TESTS_SRC	=	tests/operations.c					\
