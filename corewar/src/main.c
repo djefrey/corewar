@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "corewar.h"
 #include "vm.h"
+#include "champion.h"
 
 int main(int ac, char **av)
 {
@@ -15,5 +16,11 @@ int main(int ac, char **av)
 
     if (!(vm.memory = malloc(sizeof(char) * MEM_SIZE)))
         return (84);
+    else if (argument_managemnt(ac, av, &vm)) {
+        vm_destroy(&vm);
+        return (84);
+    }
+    vm_run(&vm);
+    vm_destroy(&vm);
     return (0);
 }

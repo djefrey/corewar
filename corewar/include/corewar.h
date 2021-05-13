@@ -53,6 +53,19 @@ typedef struct header_s {
     char prog_comment[PROG_COMMENT_LENGTH + 1];
 } header_t;
 
+typedef struct setup_s {
+    int nb;
+    int ids[4];
+    int addrs[4];
+    char *files[4];
+} setup_t;
+
+int argument_managemnt(int ac, char **av, vm_t *vm);
+void argument_setup_struct(setup_t *setup);
+int argument_read_value(int *id, int *addr, char **arg, vm_t *vm);
+int argument_add_champion(setup_t *setup, int *id, int *addr, char *arg);
+int argument_create_champions(setup_t *setup, vm_t *vm);
+
 void read_header(header_t *header, int fd, unsigned int len);
 
 void get_arguments_type(argument_t args[], process_t *process, vm_t *vm);
@@ -66,5 +79,6 @@ int get_file_size(int fd);
 void inverse_endian(void *data, void *buf, size_t size);
 int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm);
 int read_int(int addr, int size, vm_t *vm);
+int str_to_int(char *str);
 
 #endif /* !COREWAR_H_ */

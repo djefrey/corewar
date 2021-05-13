@@ -50,3 +50,16 @@ int read_int(int addr, int size, vm_t *vm)
         buff[sizeof(int) - 1 - i - off] = *(vm->memory + (addr + i) % MEM_SIZE);
     return (*((int*) buff));
 }
+
+int str_to_int(char *str)
+{
+    int value = 0;
+
+    while (*str) {
+        if (*str < '0' || *str > '9')
+            return (-1);
+        value = value * 10 + (*str - '0');
+        str++;
+    }
+    return (value);
+}

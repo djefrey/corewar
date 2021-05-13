@@ -33,6 +33,7 @@ void fork_instruction(process_t *process, champion_t *champion, vm_t *vm);
 void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm);
 
 void live_instruction(process_t *process, champion_t *champion, vm_t *vm);
+void zjmp_instruction(process_t *process, champion_t *champion, vm_t *vm);
 void aff_instruction(process_t *process, champion_t *champion, vm_t *vm);
 
 const char INSTRUCTION_VALUE[] = {
@@ -63,14 +64,14 @@ const instruction_fct_t INSTRUCTION_FCT[] = {
     &and_instruction,
     &or_instruction,
     &xor_instruction,
-    NULL,
+    &zjmp_instruction,
     &ldi_instruction,
     &sti_instruction,
     &fork_instruction,
     &lld_instruction,
     &lldi_instruction,
     &lfork_instruction,
-    NULL,
+    &aff_instruction,
 };
 
 #endif /* !INSTRUCTIONS_H_ */

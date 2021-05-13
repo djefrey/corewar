@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "my.h"
 #include "corewar.h"
 #include "vm.h"
 #include "process.h"
@@ -45,7 +46,20 @@ int vm_write_file_in_memory(vm_t *vm, int fd, int addr, int size)
 
 void vm_dump(vm_t *vm)
 {
+    unsigned char str[3] = {'0', '0', '\n'};
+    unsigned char value;
 
+    for (int i = 0; i < MEM_SIZE; i++) {
+        value =  *(vm->memory + i);
+        str[0] = value / 16 < 10 ?
+        '0' + value / 16 : 'A' + value / 16 - 10;
+        str[1] = value % 16 < 10 ?
+        '0' + value % 16 : 'A' + value % 16 - 10;
+        if (i % 32 == 31)
+            write(1, str, 3);
+        else
+            write(1, str, 2);
+    }
 }
 
 void vm_destroy(vm_t *vm)

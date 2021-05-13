@@ -25,6 +25,7 @@ process_t *process_create(champion_t *champion, int addr)
         process->registers[i] = 0;
     process->pc = addr;
     process->carry = 0;
+    process->cycles = 0;
     create_list(&(champion->processes), process);
     return (process);
 }
@@ -39,6 +40,7 @@ process_t *process_fork(process_t *original, int pc)
         process->registers[i] = original->registers[i];
     process->pc = pc;
     process->carry = original->carry;
+    process->cycles = original->cycles;
     return (process);
 }
 

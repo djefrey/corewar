@@ -11,6 +11,7 @@ SRC			=	src/vm.c							\
 				src/champion.c						\
 				src/process.c						\
 				src/cor.c							\
+				src/arg.c							\
 				src/instructions/arguments.c		\
 				src/instructions/operations.c		\
 				src/instructions/load.c				\

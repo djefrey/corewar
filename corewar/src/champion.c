@@ -19,7 +19,6 @@ champion_t *champion_create(char *filepath, int id, int addr, vm_t *vm)
 {
     champion_t *champion;
     int fd = open(filepath, O_RDONLY);
-    process_t *process;
 
     if (fd == -1 || !(champion = malloc(sizeof(champion_t)))
     || champion_read_header(champion, fd))

@@ -10,6 +10,7 @@
 
 typedef struct vm_s vm_t;
 typedef struct process_s process_t;
+typedef struct header_s header_t;
 
 typedef struct champion_s {
     header_t *header;

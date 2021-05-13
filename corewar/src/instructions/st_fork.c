@@ -45,6 +45,8 @@ void sti_instruction(process_t *process, champion_t *champion, vm_t *vm)
 
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, process, vm);
+    process->pc = addr;
+    process->cycles = 25;
     if (args[0] != REGISTER || args[1] == NONE)
         return;
     write_addr = process->pc
@@ -52,8 +54,6 @@ void sti_instruction(process_t *process, champion_t *champion, vm_t *vm)
     + get_arg_real_value(args[2], values[2], process, vm)) % IDX_MOD;
     *(vm->memory + write_addr % MEM_SIZE) =
     ((char) process->registers[values[0]]);
-    process->pc = addr;
-    process->cycles = 25;
 }
 
 void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
@@ -68,7 +68,7 @@ void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, process, vm);
     process->pc = addr;
-    fork->cycles = 800;
+    process->cycles = 800;
     if (args[0] != DIRECT)
         return;
     fork_addr = original_pc +
@@ -90,7 +90,7 @@ void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm)
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, process, vm);
     process->pc = addr;
-    fork->cycles = 1000;
+    process->cycles = 1000;
     if (args[0] != DIRECT)
         return;
     fork_addr = original_pc +

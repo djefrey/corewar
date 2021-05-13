@@ -3,6 +3,7 @@ vgcore*
 asm/asm
 corewar/corewar
 corewar/corewar_tests
+corewar/champions/
 *.a
 *.cor
 **/*.gcno
