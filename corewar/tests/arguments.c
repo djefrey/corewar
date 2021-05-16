@@ -25,7 +25,7 @@ Test(arguments, read_registers)
     process.registers[1] = 10;
     process.registers[2] = 20;
     process.registers[3] = 30;
-    for (int i = 0; i < sizeof(instr); i++)
+    for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
     get_arguments_type(args, &process, &vm);
     addr = get_arguments_value(args, values, &process, &vm);
@@ -53,7 +53,7 @@ Test(arguments, read_directs)
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
-    for (int i = 0; i < sizeof(instr); i++)
+    for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
     get_arguments_type(args, &process, &vm);
     addr = get_arguments_value(args, values, &process, &vm);
@@ -81,7 +81,7 @@ Test(arguments, read_indirects)
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
-    for (int i = 0; i < sizeof(instr); i++)
+    for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
     get_arguments_type(args, &process, &vm);
     addr = get_arguments_value(args, values, &process, &vm);

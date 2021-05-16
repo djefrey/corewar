@@ -14,21 +14,16 @@
 
 void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    argument_t args[4] = {NONE};
-    int values[4] = {0};
-    int addr = 0;
     champion_t *alive = NULL;
+    int value = -1;
 
-    get_arguments_type(args, process, vm);
-    addr = get_arguments_value(args, values, process, vm);
-    process->pc = addr;
     process->cycles = 10;
-    if (args[0] != DIRECT)
-        return;
+    value = read_int(process->pc + 1, 4, vm);
+    process->pc = (process->pc + 5) % MEM_SIZE;
     for (list_t *list = vm->champions; list; list = list->next) {
         alive = (champion_t*) list->data;
-        if (alive->id == values[0]) {
-            my_printf("The player %i(%s) is alive\n",
+        if (alive->id == value) {
+            my_printf("The player %i(%s) is alive.\n",
             alive->id, alive->header->prog_name);
             alive->live_cycles = 0;
             break;

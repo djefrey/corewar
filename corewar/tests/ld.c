@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2021
 ** corewar
 ** File description:
-** operations
+** load
 */
 
 #include <stdlib.h>
@@ -10,144 +10,132 @@
 #include "my_list.h"
 #include "tests.h"
 
-Test(operations, add_instruction)
+Test(ld, ld_direct_to_reg)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {4, 84, 1, 2, 3};
+    char instr[] = {2, 144, 0, 0, 0, 5, 1};
 
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
-    process.registers[1] = 12;
-    process.registers[2] = 15;
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
-    add_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.registers[1], 12);
-    cr_assert_eq(process.registers[2], 15);
-    cr_assert_eq(process.registers[3], 27);
-    cr_assert_eq(process.pc, 5);
+    ld_instruction(&process, NULL, &vm);
+    cr_assert_eq(process.registers[1], 5);
+    cr_assert_eq(process.pc, 7);
 }
 
-Test(operations, sub_instruction)
+Test(ld, ld_indirect_to_reg)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {4, 84, 1, 2, 3};
+    char instr[] = {2, 208, 0, 5, 1, 15};
 
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
-    process.registers[1] = 15;
-    process.registers[2] = 12;
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
-    sub_instruction(&process, NULL, &vm);
+    ld_instruction(&process, NULL, &vm);
     cr_assert_eq(process.registers[1], 15);
-    cr_assert_eq(process.registers[2], 12);
-    cr_assert_eq(process.registers[3], 3);
     cr_assert_eq(process.pc, 5);
 }
 
-Test(operations, and_instruction)
+Test(ld, ldi_direct_to_reg)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {4, 164, 0, 0, 0, 5, 0, 0, 0, 3, 5};
+    char instr[] = {0xa, 164, 0, 0, 0, 6, 0, 0, 0, 5, 1, 15};
 
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
-    and_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.registers[5], 1);
-    cr_assert_eq(process.carry, 0);
+    ldi_instruction(&process, NULL, &vm);
+    cr_assert_eq(process.registers[1], 15);
     cr_assert_eq(process.pc, 11);
 }
 
-Test(operations, and_null_instruction)
+Test(ld, ldi_reg_indirect_to_reg)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {4, 164, 0, 0, 0, 5, 0, 0, 0, 0, 5};
+    char instr[] = {0xa, 212, 0, 5, 1, 2, 15};
 
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
-    and_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.registers[5], 0);
-    cr_assert_eq(process.carry, 1);
+    process.registers[1] = 4;
+    ldi_instruction(&process, NULL, &vm);
+    cr_assert_eq(process.registers[2], 15);
+    cr_assert_eq(process.pc, 6);
+}
+
+Test(ld, lld_direct_to_reg)
+{
+    vm_t vm;
+    process_t process;
+    char instr[] = {2, 144, 0, 0, 0, 5, 1};
+
+    if (create_criterion_vm(&vm))
+        return;
+    create_criterion_process(&process);
+    for (unsigned int i = 0; i < sizeof(instr); i++)
+        vm.memory[i] = instr[i];
+    lld_instruction(&process, NULL, &vm);
+    cr_assert_eq(process.registers[1], 5);
+    cr_assert_eq(process.pc, 7);
+}
+
+Test(ld, lld_indirect_to_reg)
+{
+    vm_t vm;
+    process_t process;
+    char instr[] = {2, 208, 0, 5, 1, 15};
+
+    if (create_criterion_vm(&vm))
+        return;
+    create_criterion_process(&process);
+    for (unsigned int i = 0; i < sizeof(instr); i++)
+        vm.memory[i] = instr[i];
+    lld_instruction(&process, NULL, &vm);
+    cr_assert_eq(process.registers[1], 15);
+    cr_assert_eq(process.pc, 5);
+}
+
+Test(ld, lldi_direct_to_reg)
+{
+    vm_t vm;
+    process_t process;
+    char instr[] = {0xa, 164, 0, 0, 0, 6, 0, 0, 0, 5, 1, 15};
+
+    if (create_criterion_vm(&vm))
+        return;
+    create_criterion_process(&process);
+    for (unsigned int i = 0; i < sizeof(instr); i++)
+        vm.memory[i] = instr[i];
+    lldi_instruction(&process, NULL, &vm);
+    cr_assert_eq(process.registers[1], 15);
     cr_assert_eq(process.pc, 11);
 }
 
-Test(operations, or_instruction)
+Test(ld, lldi_reg_indirect_to_reg)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {4, 164, 0, 0, 0, 5, 0, 0, 0, 3, 5};
+    char instr[] = {0xa, 212, 0, 5, 1, 2, 15};
 
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
-    or_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.registers[5], 7);
-    cr_assert_eq(process.carry, 0);
-    cr_assert_eq(process.pc, 11);
-}
-
-Test(operations, or_null_instruction)
-{
-    vm_t vm;
-    process_t process;
-    char instr[] = {4, 164, 0, 0, 0, 0, 0, 0, 0, 0, 5};
-
-    if (create_criterion_vm(&vm))
-        return;
-    create_criterion_process(&process);
-    for (unsigned int i = 0; i < sizeof(instr); i++)
-        vm.memory[i] = instr[i];
-    or_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.registers[5], 0);
-    cr_assert_eq(process.carry, 1);
-    cr_assert_eq(process.pc, 11);
-}
-
-Test(operations, xor_instruction)
-{
-    vm_t vm;
-    process_t process;
-    char instr[] = {4, 164, 0, 0, 0, 5, 0, 0, 0, 1, 5};
-
-    if (create_criterion_vm(&vm))
-        return;
-    create_criterion_process(&process);
-    for (unsigned int i = 0; i < sizeof(instr); i++)
-        vm.memory[i] = instr[i];
-    xor_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.registers[5], 4);
-    cr_assert_eq(process.carry, 0);
-    cr_assert_eq(process.pc, 11);
-}
-
-Test(operations, xor_null_instruction)
-{
-    vm_t vm;
-    process_t process;
-    char instr[] = {4, 164, 0, 0, 0, 5, 0, 0, 0, 5, 5};
-
-    if (create_criterion_vm(&vm))
-        return;
-    create_criterion_process(&process);
-    for (unsigned int i = 0; i < sizeof(instr); i++)
-        vm.memory[i] = instr[i];
-    xor_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.registers[5], 0);
-    cr_assert_eq(process.carry, 1);
-    cr_assert_eq(process.pc, 11);
+    process.registers[1] = 4;
+    lldi_instruction(&process, NULL, &vm);
+    cr_assert_eq(process.registers[2], 15);
+    cr_assert_eq(process.pc, 6);
 }

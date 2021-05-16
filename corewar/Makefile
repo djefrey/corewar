@@ -20,6 +20,11 @@ SRC			=	src/vm.c							\
 				src/utils.c
 
 TESTS_SRC	=	tests/operations.c					\
+				tests/ld.c							\
+				tests/st.c							\
+				tests/jmp.c							\
+				tests/fork.c						\
+				tests/utilitaries.c					\
 				tests/arguments.c					\
 				tests/utils.c
 
