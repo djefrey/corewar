@@ -54,6 +54,8 @@ asms_t *init_struct(void)
 
     asms->fd_in = 0;
     asms->fd_out = 0;
+    asms->loop = 0;
+    asms->size = 0;
     asms->output = NULL;
     asms->file = malloc(sizeof(char) * 4096);
     asms->tab_f = NULL;
