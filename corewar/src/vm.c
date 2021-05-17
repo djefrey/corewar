@@ -19,6 +19,11 @@ void vm_run(vm_t *vm)
     int living = 4;
 
     while (living > 1) {
+        #ifdef BONUS
+        if (!bonus_update(vm->bonus, vm))
+            break;
+        continue;
+        #endif
         living = 0;
         vm->cycles++;
         for (list_t *list = vm->champions; list; list = list->next) {
@@ -83,4 +88,7 @@ void vm_destroy(vm_t *vm)
         champion_destroy((champion_t*) list->data);
     }
     free(vm->memory);
+    #ifdef BONUS
+    bonus_destroy(vm->bonus);
+    #endif
 }

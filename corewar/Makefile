@@ -20,6 +20,16 @@ SRC			=	src/vm.c							\
 				src/instructions/utilitaries.c		\
 				src/utils.c
 
+BONUS_SRC	=	../bonus/corewar/src/bonus.c		\
+				../bonus/corewar/src/opengl.c		\
+				../bonus/corewar/src/camera.c		\
+				../bonus/corewar/src/mesh.c			\
+				../bonus/corewar/src/shader.c		\
+				../bonus/corewar/src/gameitem.c		\
+				../bonus/corewar/src/scene.c		\
+				../bonus/corewar/src/transform.c	\
+				../bonus/corewar/src/file.c
+
 TESTS_SRC	=	tests/operations.c					\
 				tests/ld.c							\
 				tests/st.c							\
@@ -32,10 +42,15 @@ TESTS_SRC	=	tests/operations.c					\
 LIB_DIR		=	./mylib
 INC_DIR		=	./include
 
+BONUS_INC	=	../bonus/corewar/include
+
+CSFML		=	-lcsfml-window -lcsfml-graphics -lcsfml-system -lGL -lGLU -lGLEW -lm
+
 CFLAGS		+=	-W -Wall -I$(INC_DIR)
 
 MAIN_OBJ	=	$(MAIN_SRC:.c=.o)
 OBJ			=	$(SRC:.c=.o)
+BONUS_OBJ	=	$(BONUS_SRC:.c=.o)
 TESTS_OBJ	=	$(TESTS_SRC:.c=.o)
 
 NAME		=	corewar
@@ -55,6 +70,11 @@ tests_run:	fclean $(TESTS_OBJ)	$(OBJ)
 
 debug:	CFLAGS += -g
 debug:	re
+
+bonus:	CFLAGS += -I$(BONUS_INC) -D BONUS
+bonus: fclean $(MAIN_OBJ) $(OBJ) $(BONUS_OBJ)
+	make -C $(LIB_DIR)
+	gcc $(CFLAGS) -o $(NAME) $(MAIN_OBJ) $(OBJ) $(BONUS_OBJ) -L$(LIB_DIR) -lmy $(CSFML)
 
 clean:
 	make -C $(LIB_DIR) clean

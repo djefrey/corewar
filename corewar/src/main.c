@@ -14,6 +14,9 @@ int main(int ac, char **av)
 {
     vm_t vm = {NULL, 0, CYCLE_TO_DIE, -1, NULL};
 
+    #ifdef BONUS
+    vm.bonus = bonus_create();
+    #endif
     if (!(vm.memory = malloc(sizeof(char) * MEM_SIZE)))
         return (84);
     for (int i = 0; i < MEM_SIZE; i++)
