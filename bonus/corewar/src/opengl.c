@@ -54,7 +54,7 @@ sfWindow *window_create(void)
     glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
     glClearColor(0.0f, 0.1f, 0.0f, 0.0f);
-    sfWindow_setFramerateLimit(window, 30);
+    sfWindow_setFramerateLimit(window, 120);
     return (window);
 }
 

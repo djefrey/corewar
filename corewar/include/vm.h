@@ -15,6 +15,8 @@ typedef struct bonus_s bonus_t;
 
 bonus_t *bonus_create(void);
 int bonus_update(bonus_t *bonus, vm_t *vm);
+void bonus_write_champion_id(bonus_t *bonus, int addr, int size, int id);
+void bonus_set_actual_pc(bonus_t *bonus, int addr, char actual);
 #endif
 
 typedef struct vm_s {

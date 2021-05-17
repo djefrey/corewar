@@ -21,6 +21,7 @@ SRC			=	src/vm.c							\
 				src/utils.c
 
 BONUS_SRC	=	../bonus/corewar/src/bonus.c		\
+				../bonus/corewar/src/memory.c		\
 				../bonus/corewar/src/opengl.c		\
 				../bonus/corewar/src/camera.c		\
 				../bonus/corewar/src/mesh.c			\

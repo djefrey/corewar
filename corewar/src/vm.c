@@ -22,7 +22,6 @@ void vm_run(vm_t *vm)
         #ifdef BONUS
         if (!bonus_update(vm->bonus, vm))
             break;
-        continue;
         #endif
         living = 0;
         vm->cycles++;
@@ -50,8 +49,9 @@ int vm_write_file_in_memory(vm_t *vm, int fd, int addr, int size)
         if (size > MEM_SIZE)
             return (1);
         read(fd, vm->memory, size);
-    } else
+    } else {
         read(fd, vm->memory + addr, size);
+    }
     return (0);
 }
 

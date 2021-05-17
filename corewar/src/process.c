@@ -52,13 +52,22 @@ void process_update(process_t *process, champion_t *champion, vm_t *vm)
         process->cycles--;
         return;
     }
+    #ifdef BONUS
+    bonus_set_actual_pc(vm->bonus, process->pc, 0);
+    #endif
     for (int i = 0; i < INSTRUCTIONS_NB; i++) {
         if (INSTRUCTION_VALUE[i] == instruction) {
             INSTRUCTION_FCT[i](process, champion, vm);
+            #ifdef BONUS
+            bonus_set_actual_pc(vm->bonus, process->pc, 1);
+            #endif
             return;
         }
     }
     process->pc = (process->pc + 1) % MEM_SIZE;
+    #ifdef BONUS
+    bonus_set_actual_pc(vm->bonus, process->pc, 1);
+    #endif
 }
 
 void process_destroy(process_t *process)

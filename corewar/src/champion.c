@@ -29,6 +29,9 @@ champion_t *champion_create(char *filepath, int id, int addr, vm_t *vm)
     champion->processes = NULL;
     if (vm_write_file_in_memory(vm, fd, addr, champion->header->prog_size))
         return (NULL);
+    #ifdef BONUS
+    bonus_write_champion_id(vm->bonus, addr, champion->header->prog_size, id);
+    #endif
     close(fd);
     return (champion);
 }

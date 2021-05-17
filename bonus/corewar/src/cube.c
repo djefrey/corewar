@@ -36,7 +36,14 @@ int get_cube_champion(cube_t *cube, bonus_t *bonus)
 {
     unsigned int value = *(bonus->memory + cube->id);
 
-    return ((value & 0xFF000000) >> 24);
+    return ((value & 0x7F000000) >> 24);
+}
+
+int is_cube_pc(cube_t *cube, bonus_t *bonus)
+{
+    unsigned int value = *(bonus->memory + cube->id);
+
+    return ((value & 2147483648) > 0);
 }
 
 void cube_set_height(cube_t *cube, bonus_t *bonus)
@@ -51,9 +58,11 @@ void cube_set_height(cube_t *cube, bonus_t *bonus)
 void cube_set_color_factor_uniform(cube_t *cube,
 GLuint color_fact_id, bonus_t *bonus)
 {
-    int champion = get_cube_champion(cube, bonus);
-
-    switch (champion) {
+    if (is_cube_pc(cube, bonus)) {
+        glUniform3f(color_fact_id, 1.0f, 1.0f, 1.0f);
+        return;
+    }
+    switch (get_cube_champion(cube, bonus)) {
         case 1:
         glUniform3f(color_fact_id, 1.0f, 0.0f, 0.0f);
         break;
@@ -65,6 +74,9 @@ GLuint color_fact_id, bonus_t *bonus)
         break;
         case 4:
         glUniform3f(color_fact_id, 1.0f, 1.0f, 0.0f);
+        break;
+        case 5:
+        glUniform3f(color_fact_id, 1.0f, 0.0f, 1.0f);
         break;
         default:
         glUniform3f(color_fact_id, 0.5f, 0.5f, 0.5f);

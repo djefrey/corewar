@@ -27,6 +27,9 @@ void st_instruction(process_t *process, champion_t *champion, vm_t *vm)
         else {
             write_addr = (process->pc + values[1] % IDX_MOD) % MEM_SIZE;
             write_int(write_addr, process->registers[values[0]], REG_SIZE, vm);
+            #ifdef BONUS
+            bonus_write_champion_id(vm->bonus, write_addr, REG_SIZE, champion->id);
+            #endif
         }
     }
     process->pc = addr;
@@ -47,6 +50,9 @@ void sti_instruction(process_t *process, champion_t *champion, vm_t *vm)
         + (get_arg_real_value(args[1], values[1], process, vm)
         + get_arg_real_value(args[2], values[2], process, vm)) % IDX_MOD;
         write_int(write_addr, process->registers[values[0]], REG_SIZE, vm);
+        #ifdef BONUS
+        bonus_write_champion_id(vm->bonus, write_addr, REG_SIZE, champion->id);
+        #endif
     }
     process->pc = addr;
     process->cycles = 25;

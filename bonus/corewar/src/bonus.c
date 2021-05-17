@@ -12,35 +12,18 @@
 #include "scene.h"
 #include "mesh.h"
 
-void setup_memory(unsigned int *memory)
-{
-    memset(memory, 0, sizeof(int) * MEM_SIZE);
-    for (int i = 0; i < 128; i++) {
-        *(memory + i) = 0x1000000 | (i * 2);
-    }
-    for (int i = 0; i < 128; i++) {
-        *(memory + MEM_SIZE / 4 + i) = 0x2000000 | (i * 2);
-    }
-    for (int i = 0; i < 128; i++) {
-        *(memory + MEM_SIZE / 4 * 2 + i) = 0x3000000 | (i * 2);
-    }
-    for (int i = 0; i < 128; i++) {
-        *(memory + MEM_SIZE / 4 * 3+ i) = 0x4000000 | (i * 2);
-    }
-}
-
 bonus_t *bonus_create(void)
 {
     bonus_t *bonus = malloc(sizeof(bonus_t));
     sfWindow *window = window_create();
-    unsigned int *memory = malloc(sizeof(int) * 64);
+    unsigned int *memory = malloc(sizeof(int) * MEM_SIZE);
     scene_t *scene = scene_create();
     GLuint program_id = load_shaders("bonus/corewar/res/vertex.glsl",
     "bonus/corewar/res/fragment.glsl");
 
     if (!bonus || !window || !memory || !scene)
         return (NULL);
-    setup_memory(memory);
+    memset(memory, 0, sizeof(int) * MEM_SIZE);
     scene_create_cubes(scene);
     bonus->window = window;
     bonus->memory = memory;

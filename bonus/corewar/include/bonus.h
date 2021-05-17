@@ -32,6 +32,7 @@ typedef struct bonus_s {
 
 bonus_t *bonus_create(void);
 int bonus_update(bonus_t *bonus, vm_t *vm);
+void bonus_event(bonus_t *bonus, int *run);
 void bonus_draw(bonus_t *bonus);
 void bonus_destroy(bonus_t *bonus);
 
