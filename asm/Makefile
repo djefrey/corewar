@@ -13,6 +13,10 @@ SRC		=	./src/main.c \
 			./src/funct_one.c	\
 			./src/funct_two.c	\
 			./src/funct_three.c	\
+			./src/print_file.c	\
+			./src/my_strjoin.c	\
+			./src/my_strjoin_char.clean \
+			./src/utils.c
 
 
 INC_DIR	=	./include
