@@ -29,6 +29,10 @@ void vm_run(vm_t *vm)
         if (vm->cycles == vm->dump_cycles) {
             vm_dump(vm);
             break;
+        } else if (vm->cycles % NBR_LIVE == 0) {
+            vm->dead_cycles -= CYCLE_DELTA;
+            if (vm->dead_cycles <= 0)
+                vm->dead_cycles = 1;
         }
     }
 }
