@@ -26,8 +26,10 @@ void vm_run(vm_t *vm)
             champion_update(champion, vm);
             living += !champion->dead;
         }
-        if (vm->dump_cycles > -1 && vm->cycles % vm->dump_cycles == 0)
+        if (vm->cycles == vm->dump_cycles) {
             vm_dump(vm);
+            break;
+        }
     }
 }
 
