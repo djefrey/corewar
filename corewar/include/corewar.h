@@ -53,6 +53,11 @@ typedef struct header_s {
     char prog_comment[PROG_COMMENT_LENGTH + 1];
 } header_t;
 
+typedef struct couple_s {
+    process_t *process;
+    vm_t *vm;
+} couple_t;
+
 typedef struct setup_s {
     int nb;
     int ids[4];
@@ -70,9 +75,9 @@ void read_header(header_t *header, int fd, unsigned int len);
 
 void get_arguments_type(argument_t args[], process_t *process, vm_t *vm);
 int get_arguments_value(argument_t args[],
-int values[], process_t *process, vm_t *vm);
+int values[], char indexes, couple_t couple);
 int read_register_arg(int *addr, vm_t *vm);
-int read_direct_arg(int *addr, vm_t *vm);
+int read_direct_arg(int *addr, char indexes, vm_t *vm);
 int read_indirect_arg(int *addr, vm_t *vm);
 
 int read_int(int addr, int size, vm_t *vm);

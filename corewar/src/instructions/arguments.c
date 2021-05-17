@@ -34,20 +34,20 @@ void get_arguments_type(argument_t args[], process_t *process, vm_t *vm)
 }
 
 int get_arguments_value(argument_t args[],
-int values[], process_t *process, vm_t *vm)
+int values[], char indexes, couple_t couple)
 {
-    int addr = (process->pc + 2) % MEM_SIZE;
+    int addr = (couple.process->pc + 2) % MEM_SIZE;
 
     for (int i = 0; i < 4; i++) {
         switch (args[i]) {
             case REGISTER:
-                values[i] = read_register_arg(&addr, vm);
+                values[i] = read_register_arg(&addr, couple.vm);
                 break;
             case DIRECT:
-                values[i] = read_direct_arg(&addr, vm);
+                values[i] = read_direct_arg(&addr, indexes, couple.vm);
                 break;
             case INDIRECT:
-                values[i] = read_indirect_arg(&addr, vm);
+                values[i] = read_indirect_arg(&addr, couple.vm);
                 break;
             case NONE:
                 break;
@@ -65,11 +65,15 @@ int read_register_arg(int *addr, vm_t *vm)
     return (*((int*) buff) - 1);
 }
 
-int read_direct_arg(int *addr, vm_t *vm)
+int read_direct_arg(int *addr, char indexes, vm_t *vm)
 {
-    int value = read_int(*addr, DIR_SIZE, vm);
+    int value = !indexes
+    ? read_int(*addr, DIR_SIZE, vm)
+    : read_int(*addr, IND_SIZE, vm);
 
-    *addr = (*addr + DIR_SIZE) % MEM_SIZE;
+    *addr = !indexes
+    ? (*addr + DIR_SIZE) % MEM_SIZE
+    : (*addr + IND_SIZE) % MEM_SIZE;
     return (value);
 }
 

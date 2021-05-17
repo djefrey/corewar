@@ -4,6 +4,7 @@ asm/asm
 corewar/corewar
 corewar/corewar_tests
 corewar/champions/
+corewar/dump.txt
 *.a
 *.cor
 **/*.gcno
