@@ -92,7 +92,7 @@ Test(arguments, read_indirects)
     cr_assert_eq(values[1], 1);
     cr_assert_eq(values[2], 8);
     cr_assert_eq(get_arg_real_value(args[0], values[0], &process, &vm), 1);
-    cr_assert_eq(get_arg_real_value(args[1], values[1], &process, &vm), 252);
+    cr_assert_eq(get_arg_real_value(args[1], values[1], &process, &vm), -4);
     cr_assert_eq(get_arg_real_value(args[2], values[2], &process, &vm), 15);
     cr_assert_eq(addr, 8);
 }

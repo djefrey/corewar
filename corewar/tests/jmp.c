@@ -14,7 +14,7 @@ Test(zjmp, zjmp_carry_0)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {9, 128, 0, 1};
+    char instr[] = {9, 0, 1};
 
     if (create_criterion_vm(&vm))
         return;
@@ -23,14 +23,14 @@ Test(zjmp, zjmp_carry_0)
         vm.memory[i] = instr[i];
     process.carry = 0;
     zjmp_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.pc, 4);
+    cr_assert_eq(process.pc, 3);
 }
 
 Test(zjmp, zjmp_carry_1)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {9, 128, 0, 1};
+    char instr[] = {9, 0, 1};
 
     if (create_criterion_vm(&vm))
         return;

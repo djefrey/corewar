@@ -54,39 +54,30 @@ void sti_instruction(process_t *process, champion_t *champion, vm_t *vm)
 
 void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    argument_t args[4] = {NONE};
-    int values[4] = {0};
-    int addr = 0;
+    int value = read_int(process->pc + 1, IND_SIZE, vm);
     int fork_addr = 0;
     process_t *fork = NULL;
 
-    get_arguments_type(args, process, vm);
-    addr = get_arguments_value(args, values, 1, (couple_t) {process, vm});
     process->cycles = 800;
-    if (args[0] == DIRECT) {
-        fork_addr = (process->pc + values[0] % IDX_MOD) % MEM_SIZE;
-        if ((fork = process_fork(process, fork_addr)))
-            create_list(&(champion->processes), fork);
-    }
-    process->pc = addr;
+    fork_addr = (process->pc + value % IDX_MOD) % MEM_SIZE;
+    if (fork_addr < 0)
+        fork_addr += MEM_SIZE;
+    if ((fork = process_fork(process, fork_addr)))
+        create_list(&(champion->processes), fork);
+    process->pc = (process->pc + 3) % MEM_SIZE;
 }
 
 void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    argument_t args[4] = {NONE};
-    int values[4] = {0};
-    int addr = 0;
+    int value = read_int(process->pc + 1, IND_SIZE, vm);
     int fork_addr = 0;
-    int original_pc = process->pc;
     process_t *fork = NULL;
 
-    get_arguments_type(args, process, vm);
-    addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
-    process->cycles = 1000;
-    if (args[0] == DIRECT) {
-        fork_addr = (original_pc + values[0]) % MEM_SIZE;
-        if ((fork = process_fork(process, fork_addr)))
-            create_list(&(champion->processes), fork);
-    }
-    process->pc = addr;
+    process->cycles = 800;
+    fork_addr = (process->pc + value) % MEM_SIZE;
+    if (fork_addr < 0)
+        fork_addr += MEM_SIZE;
+    if ((fork = process_fork(process, fork_addr)))
+        create_list(&(champion->processes), fork);
+    process->pc = (process->pc + 3) % MEM_SIZE;
 }

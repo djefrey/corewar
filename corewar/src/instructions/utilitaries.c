@@ -23,7 +23,7 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
     for (list_t *list = vm->champions; list; list = list->next) {
         alive = (champion_t*) list->data;
         if (alive->id == value) {
-            my_printf("The player %i (%s) is alive.\n",
+            my_printf("Le joueur %i (%s) est en vie.\n",
             alive->id, alive->header->prog_name);
             alive->live_cycles = 0;
             break;
@@ -44,17 +44,11 @@ void zjmp_instruction(process_t *process, champion_t *champion, vm_t *vm)
 
 void aff_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    argument_t args[4] = {NONE};
-    int values[4] = {0};
-    int addr = 0;
+    int value = read_int(process->pc + 1, 1, vm);
     char c;
 
-    get_arguments_type(args, process, vm);
-    addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
-    process->pc = addr;
+    process->pc = (process->pc + 2) % MEM_SIZE;
     process->cycles = 10;
-    if (args[0] != REGISTER)
-        return;
-    c = process->registers[values[0]] % 256;
+    c = process->registers[value - 1] % 256;
     write(1, &c, 1);
 }

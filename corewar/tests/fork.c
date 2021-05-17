@@ -16,7 +16,7 @@ Test(fork, fork_instruction)
     vm_t vm;
     champion_t champion;
     process_t process;
-    char instr[] = {0xc, 128, 0, 1};
+    char instr[] = {0xc, 0, 1};
 
     if (create_real_test_environment(&vm, &champion, &process))
         return;
@@ -24,7 +24,7 @@ Test(fork, fork_instruction)
         vm.memory[i] = instr[i];
     fork_instruction(&process, &champion, &vm);
     cr_assert_eq(((process_t*) champion.processes->data)->pc, 1);
-    cr_assert_eq(((process_t*) champion.processes->next->data)->pc, 4);
+    cr_assert_eq(((process_t*) champion.processes->next->data)->pc, 3);
     free(champion.header);
 }
 
@@ -33,7 +33,7 @@ Test(fork, lfork_instruction)
     vm_t vm;
     champion_t champion;
     process_t process;
-    char instr[] = {0xc, 128, 0, 0, 4, 0};
+    char instr[] = {0xc, 4, 0};
 
     if (create_real_test_environment(&vm, &champion, &process))
         return;
@@ -41,6 +41,6 @@ Test(fork, lfork_instruction)
         vm.memory[i] = instr[i];
     lfork_instruction(&process, &champion, &vm);
     cr_assert_eq(((process_t*) champion.processes->data)->pc, 1024);
-    cr_assert_eq(((process_t*) champion.processes->next->data)->pc, 6);
+    cr_assert_eq(((process_t*) champion.processes->next->data)->pc, 3);
     free(champion.header);
 }
