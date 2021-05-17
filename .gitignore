@@ -9,3 +9,4 @@ corewar/dump.txt
 *.cor
 **/*.gcno
 **/*.gcda
+.vscode/
