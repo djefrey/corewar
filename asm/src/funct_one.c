@@ -20,7 +20,7 @@ void live(asms_t *asms, char **tab)
 
 void add(asms_t *asms, char **tab)
 {
-    int a = 0x02;
+    int a = 0x04;
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] != NULL || tab[4] != NULL)
         exit (84);
@@ -53,7 +53,7 @@ void st(asms_t *asms, char **tab)
 
 void ld(asms_t *asms, char **tab)
 {
-    int a = 0x04;
+    int a = 0x02;
     char *str;
     int dec;
 
