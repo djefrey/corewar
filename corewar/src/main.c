@@ -16,7 +16,9 @@ int main(int ac, char **av)
 
     if (!(vm.memory = malloc(sizeof(char) * MEM_SIZE)))
         return (84);
-    else if (argument_managemnt(ac, av, &vm)) {
+    for (int i = 0; i < MEM_SIZE; i++)
+        *(vm.memory + i) = 0;
+    if (argument_managemnt(ac, av, &vm)) {
         vm_destroy(&vm);
         return (84);
     }

@@ -39,10 +39,10 @@ Test(aff, aff_instruction, .init = cr_redirect_stdout)
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
-    process.registers[1] = 't';
-    process.registers[2] = 'e';
-    process.registers[3] = 's';
-    process.registers[4] = '\n';
+    process.registers[0] = 't';
+    process.registers[1] = 'e';
+    process.registers[2] = 's';
+    process.registers[3] = '\n';
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
     aff_instruction(&process, NULL, &vm);

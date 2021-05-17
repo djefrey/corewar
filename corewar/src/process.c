@@ -20,9 +20,9 @@ process_t *process_create(champion_t *champion, int addr)
 
     if (!process)
         return (NULL);
-    process->registers[0] = champion->id;
-    for (int i = 1; i < REG_NUMBER; i++)
+    for (int i = 0; i < REG_NUMBER; i++)
         process->registers[i] = 0;
+    process->registers[0] = champion->id;
     process->pc = addr;
     process->carry = 0;
     process->cycles = 0;

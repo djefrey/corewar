@@ -18,21 +18,19 @@ void st_instruction(process_t *process, champion_t *champion, vm_t *vm)
     int values[4] = {0};
     int addr = 0;
     int write_addr = 0;
-    int original_pc = process->pc;
 
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, process, vm);
+    if (args[0] == REGISTER && (args[1] == REGISTER || args[1] == INDIRECT)) {
+        if (args[1] == REGISTER)
+            process->registers[values[1]] = process->registers[values[0]];
+        else {
+            write_addr = (process->pc + values[1] % IDX_MOD) % MEM_SIZE;
+            write_int(write_addr, process->registers[values[0]], REG_SIZE, vm);
+        }
+    }
     process->pc = addr;
     process->cycles = 5;
-    if (args[0] != REGISTER || !(args[1] == REGISTER || args[1] == INDIRECT))
-        return;
-    if (args[1] == REGISTER)
-        process->registers[values[1]] = process->registers[values[0]];
-    else {
-        write_addr = original_pc + values[1] % IDX_MOD;
-        *(vm->memory + write_addr % MEM_SIZE) =
-        ((char) process->registers[values[0]]);
-    }
 }
 
 void sti_instruction(process_t *process, champion_t *champion, vm_t *vm)
@@ -41,22 +39,17 @@ void sti_instruction(process_t *process, champion_t *champion, vm_t *vm)
     int values[4] = {0};
     int addr = 0;
     int write_addr = 0;
-    int original_pc = process->pc;
 
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, process, vm);
-    process->cycles = 25;
-    if (args[0] != REGISTER || args[1] == NONE) {
-        process->pc = addr;
-        return;
+    if (args[0] == REGISTER && args[1] != NONE && args[2] != NONE) {
+        write_addr = process->pc
+        + (get_arg_real_value(args[1], values[1], process, vm)
+        + get_arg_real_value(args[2], values[2], process, vm)) % IDX_MOD;
+        write_int(write_addr, process->registers[values[0]], REG_SIZE, vm);
     }
-    process->pc = original_pc;
-    write_addr = original_pc
-    + (get_arg_real_value(args[1], values[1], process, vm)
-    + get_arg_real_value(args[2], values[2], process, vm)) % IDX_MOD;
-    *(vm->memory + write_addr % MEM_SIZE) =
-    ((char) process->registers[values[0]]);
     process->pc = addr;
+    process->cycles = 25;
 }
 
 void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
@@ -65,19 +58,17 @@ void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
     int values[4] = {0};
     int addr = 0;
     int fork_addr = 0;
-    int original_pc = process->pc;
     process_t *fork = NULL;
 
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, process, vm);
+    if (args[0] == DIRECT) {
+        fork_addr = (process->pc + values[0] % IDX_MOD) % MEM_SIZE;
+        if ((fork = process_fork(process, fork_addr)))
+            create_list(&(champion->processes), fork);
+    }
     process->pc = addr;
     process->cycles = 800;
-    if (args[0] != DIRECT)
-        return;
-    fork_addr = original_pc + values[0] % IDX_MOD;
-    if (!(fork = process_fork(process, fork_addr)))
-        return;
-    create_list(&(champion->processes), fork);
 }
 
 void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm)
@@ -91,12 +82,11 @@ void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm)
 
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, process, vm);
+    if (args[0] == DIRECT) {
+        fork_addr = (original_pc + values[0]) % MEM_SIZE;
+        if ((fork = process_fork(process, fork_addr)))
+            create_list(&(champion->processes), fork);
+    }
     process->pc = addr;
     process->cycles = 1000;
-    if (args[0] != DIRECT)
-        return;
-    fork_addr = original_pc + values[0];
-    if (!(fork = process_fork(process, fork_addr)))
-        return;
-    create_list(&(champion->processes), fork);
 }

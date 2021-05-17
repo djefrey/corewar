@@ -69,7 +69,7 @@ void champion_destroy(champion_t *champion)
     for (list_t *list = champion->processes; list; list = next) {
         next = list->next;
         process_destroy((process_t*) list->data);
-        free(next);
+        free(list);
     }
     free(champion->header);
     free(champion);

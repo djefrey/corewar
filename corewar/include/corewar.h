@@ -17,9 +17,9 @@
 
 #define REG_NUMBER 16
 
-#define REG_SIZE 1
 #define IND_SIZE 2
 #define DIR_SIZE 4
+#define REG_SIZE 4
 
 #define TYPE_REG 1
 #define TYPE_DIR 2
@@ -75,10 +75,12 @@ int read_register_arg(int *addr, vm_t *vm);
 int read_direct_arg(int *addr, vm_t *vm);
 int read_indirect_arg(int *addr, vm_t *vm);
 
+int read_int(int addr, int size, vm_t *vm);
+void write_int(int addr, int value, int size, vm_t *vm);
+
 int get_file_size(int fd);
 void inverse_endian(void *data, void *buf, size_t size);
 int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm);
-int read_int(int addr, int size, vm_t *vm);
 int str_to_int(char *str);
 
 #endif /* !COREWAR_H_ */

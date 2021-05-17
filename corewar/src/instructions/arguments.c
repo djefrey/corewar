@@ -61,8 +61,8 @@ int read_register_arg(int *addr, vm_t *vm)
     char buff[sizeof(int)] = {0};
 
     buff[0] = *(vm->memory + *addr);
-    *addr = (*addr + REG_SIZE) % MEM_SIZE;
-    return (*((int*) buff));
+    *addr = (*addr + 1) % MEM_SIZE;
+    return (*((int*) buff) - 1);
 }
 
 int read_direct_arg(int *addr, vm_t *vm)

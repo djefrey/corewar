@@ -22,9 +22,9 @@ Test(arguments, read_registers)
     if (create_criterion_vm(&vm))
         return;
     create_criterion_process(&process);
-    process.registers[1] = 10;
-    process.registers[2] = 20;
-    process.registers[3] = 30;
+    process.registers[0] = 10;
+    process.registers[1] = 20;
+    process.registers[2] = 30;
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
     get_arguments_type(args, &process, &vm);
@@ -32,9 +32,9 @@ Test(arguments, read_registers)
     cr_assert_eq(args[0], REGISTER);
     cr_assert_eq(args[1], REGISTER);
     cr_assert_eq(args[2], REGISTER);
-    cr_assert_eq(values[0], 1);
-    cr_assert_eq(values[1], 2);
-    cr_assert_eq(values[2], 3);
+    cr_assert_eq(values[0], 0);
+    cr_assert_eq(values[1], 1);
+    cr_assert_eq(values[2], 2);
     cr_assert_eq(get_arg_real_value(args[0], values[0], &process, &vm), 10);
     cr_assert_eq(get_arg_real_value(args[1], values[1], &process, &vm), 20);
     cr_assert_eq(get_arg_real_value(args[2], values[2], &process, &vm), 30);

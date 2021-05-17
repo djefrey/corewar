@@ -23,7 +23,7 @@ Test(zjmp, zjmp_carry_0)
         vm.memory[i] = instr[i];
     process.carry = 0;
     zjmp_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.pc, 1);
+    cr_assert_eq(process.pc, 6);
 }
 
 Test(zjmp, zjmp_carry_1)
@@ -39,5 +39,5 @@ Test(zjmp, zjmp_carry_1)
         vm.memory[i] = instr[i];
     process.carry = 1;
     zjmp_instruction(&process, NULL, &vm);
-    cr_assert_eq(process.pc, 6);
+    cr_assert_eq(process.pc, 1);
 }

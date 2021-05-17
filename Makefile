@@ -12,6 +12,9 @@ all:
 	make -C $(ASM)
 	make -C $(COREWAR)
 
+tests_run:
+	make -C $(COREWAR) tests_run
+
 clean:
 	make -C $(ASM) clean
 	make -C $(COREWAR) clean

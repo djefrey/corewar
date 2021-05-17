@@ -36,19 +36,14 @@ void zjmp_instruction(process_t *process, champion_t *champion, vm_t *vm)
     argument_t args[4] = {NONE};
     int values[4] = {0};
     int addr = 0;
-    int original_pc = process->pc;
-    champion_t *alive = NULL;
 
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, process, vm);
     process->cycles = 20;
-    process->pc = addr;
-    if (!(args[0] == DIRECT || args[0] == INDIRECT))
-        return;
-    if (process->carry == 0) {
-        process->pc = original_pc
-        + get_arg_real_value(args[0], values[0], process, vm) % IDX_MOD;
-    }
+    if (args[0] == DIRECT && process->carry == 1)
+        process->pc = (process->pc + values[0] % IDX_MOD) % MEM_SIZE;
+    else
+        process->pc = addr;
 }
 
 void aff_instruction(process_t *process, champion_t *champion, vm_t *vm)

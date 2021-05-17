@@ -29,7 +29,8 @@ int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm)
 {
     switch (arg) {
         case REGISTER:
-            return (process->registers[value]);
+            return (value - 1 > REG_NUMBER ?
+            0 : process->registers[value]);
         case DIRECT:
             return (value);
         case INDIRECT:
@@ -39,16 +40,6 @@ int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm)
             return (0);
     }
     return (0);
-}
-
-int read_int(int addr, int size, vm_t *vm)
-{
-    char buff[sizeof(int)] = {0};
-    int off = 4 - size;
-
-    for (int i = 0; i < size; i++)
-        buff[sizeof(int) - 1 - i - off] = *(vm->memory + (addr + i) % MEM_SIZE);
-    return (*((int*) buff));
 }
 
 int str_to_int(char *str)
