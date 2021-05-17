@@ -28,8 +28,10 @@ void compile_shader(int shader_id, char *filepath)
     int info_log_length = 0;
     char *error;
 
-    if (!code)
+    if (!code) {
+        printf("WARNING: cannot open/read '%s' !\n", filepath);
         return;
+    }
     glShaderSource(shader_id, 1, (const char * const *) &code, NULL);
     glCompileShader(shader_id);
     glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &info_log_length);

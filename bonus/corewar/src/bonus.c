@@ -17,8 +17,8 @@ bonus_t *bonus_create(void)
     sfWindow *window = window_create();
     unsigned int *memory = malloc(sizeof(int) * 64);
     scene_t *scene = scene_create();
-    GLuint program_id = load_shaders("bonus/corewar/res/shaders/vertex.glsl",
-    "bonus/corewar/res/shaders/fragment.glsl");
+    GLuint program_id = load_shaders("bonus/corewar/res/vertex.glsl",
+    "bonus/corewar/res/fragment.glsl");
 
     if (!bonus || !window || !memory || !scene)
         return (NULL);
@@ -34,7 +34,6 @@ int bonus_update(bonus_t *bonus, vm_t *vm)
 {
     int run = 1;
 
-    camera_set_pos(bonus->scene->camera, bonus->scene->camera->pos[0] + 0.1, 6, 2);
     bonus_event(bonus, &run);
     bonus_draw(bonus);
     return (run);
@@ -54,10 +53,13 @@ void bonus_event(bonus_t *bonus, int *run)
 
 void bonus_draw(bonus_t *bonus)
 {
-    GLuint matrix_id = glGetUniformLocation(bonus->program_id, "MVP");
+    GLuint matrix_id;
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glUseProgram(bonus->program_id);
+    matrix_id = glGetUniformLocation(bonus->program_id, "MVP");
     scene_draw(bonus->scene, matrix_id);
+	glUseProgram(0);
     sfWindow_display(bonus->window);
 }
 

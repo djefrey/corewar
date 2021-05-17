@@ -98,7 +98,7 @@ sfWindow *window_create(void)
     glewInit();
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    sfWindow_setFramerateLimit(window, 60);
+    sfWindow_setFramerateLimit(window, 30);
     return (window);
 }
 
@@ -110,9 +110,9 @@ void scene_create_cubes(scene_t *scene)
     if (!cube)
         return (NULL);
     create_list(&(scene->meshes), cube);
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < MEM_SIZE; i++) {
         item = gameitem_create(cube);
-        transform_set_translation(item->transform, i % 32 * 2, 0, i / 32 * 2);
+        transform_set_translation(item->transform, i % 32 * 5, 0, i / 32 * 5);
         create_list(&(cube->items), item);
         create_list(&(scene->cubes), item);
     }

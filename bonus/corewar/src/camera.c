@@ -18,7 +18,7 @@ camera_t *camera_create(void)
         return (NULL);
     glm_vec3_copy((vec3) {0.0f, 0.0f, 1.0f}, camera->pos);
     glm_vec3_copy((vec3) {0.0f, 0.0f, 0.0f}, camera->target);
-    glm_perspective(fov, aspect_ratio, 0.1f, 100.0f, camera->projection_matrix);
+    glm_perspective(fov, aspect_ratio, 0.1f, 1500.0f, camera->projection_matrix);
     return (camera);
 }
 

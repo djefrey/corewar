@@ -17,8 +17,8 @@ scene_t *scene_create(void)
 
     if (!scene || !camera)
         return;
-    camera_set_pos(camera, 2, 6, 2);
-    camera_set_target(camera, -4, 0, -4);
+    camera_set_pos(camera, 240, 320, 480);
+    camera_set_target(camera, 80, 0, 480);
     scene->meshes = NULL;
     scene->cubes = NULL;
     scene->camera = camera;

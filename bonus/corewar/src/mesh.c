@@ -32,10 +32,10 @@ mesh_t *mesh_create(GLfloat vertex_array[], GLfloat color_array[], int vertices)
 void mesh_drawinit(mesh_t *mesh)
 {
     glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, mesh->vertex_buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, mesh->color_buffer);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, mesh->color_buffer);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 }
 
@@ -48,7 +48,7 @@ void mesh_drawlist(mesh_t *mesh, GLuint matrix_id, mat4 projection_matrix)
     for (list_t *list = mesh->items; list; list = list->next) {
         item = (gameitem_t*) list->data;
         get_transform_matrix(item->transform, mvp);
-        glm_mat4_mul(mvp, projection_matrix, mvp);
+        glm_mat4_mul(projection_matrix, mvp, mvp);
         glUniformMatrix4fv(matrix_id, 1, GL_FALSE, &mvp[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, mesh->vertices);
     }

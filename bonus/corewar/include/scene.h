@@ -25,6 +25,7 @@ typedef struct scene_s {
 } scene_t;
 
 scene_t *scene_create(void);
+void scene_draw(scene_t *scene, GLuint matrix_id);
 void scene_destroy(scene_t *scene);
 
 #endif /* !SCENE_H_ */
