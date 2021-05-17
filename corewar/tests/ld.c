@@ -46,7 +46,7 @@ Test(ld, ldi_direct_to_reg)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {0xa, 164, 0, 0, 0, 6, 0, 0, 0, 5, 1, 0, 0, 0, 15};
+    char instr[] = {0xa, 164, 0, 5, 0, 2, 1, 0, 0, 0, 15};
 
     if (create_criterion_vm(&vm))
         return;
@@ -55,7 +55,7 @@ Test(ld, ldi_direct_to_reg)
         vm.memory[i] = instr[i];
     ldi_instruction(&process, NULL, &vm);
     cr_assert_eq(process.registers[0], 15);
-    cr_assert_eq(process.pc, 11);
+    cr_assert_eq(process.pc, 7);
 }
 
 Test(ld, ldi_reg_indirect_to_reg)
@@ -111,7 +111,7 @@ Test(ld, lldi_direct_to_reg)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {0xa, 164, 0, 0, 0, 6, 0, 0, 0, 5, 1, 0, 0, 0, 15};
+    char instr[] = {0xa, 164, 0, 4, 0, 3, 1, 0, 0, 0, 15};
 
     if (create_criterion_vm(&vm))
         return;
@@ -120,7 +120,7 @@ Test(ld, lldi_direct_to_reg)
         vm.memory[i] = instr[i];
     lldi_instruction(&process, NULL, &vm);
     cr_assert_eq(process.registers[0], 15);
-    cr_assert_eq(process.pc, 11);
+    cr_assert_eq(process.pc, 7);
 }
 
 Test(ld, lldi_reg_indirect_to_reg)

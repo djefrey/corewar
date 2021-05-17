@@ -12,10 +12,17 @@ int read_int(int addr, int size, vm_t *vm)
 {
     char buff[sizeof(int)] = {0};
     int off = 4 - size;
+    int value = 0;
 
     for (int i = 0; i < size; i++)
         buff[sizeof(int) - 1 - i - off] = *(vm->memory + (addr + i) % MEM_SIZE);
-    return (*((int*) buff));
+    value = *((int*) buff);
+    if (size == sizeof(char))
+        return ((char) value);
+    else if (size == sizeof(short))
+        return ((short) value);
+    else
+        return (value);
 }
 
 void write_int(int addr, int value, int size, vm_t *vm)

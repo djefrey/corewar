@@ -33,17 +33,13 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
 
 void zjmp_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    argument_t args[4] = {NONE};
-    int values[4] = {0};
-    int addr = 0;
+    int value = read_int(process->pc + 1, IND_SIZE, vm);
 
-    get_arguments_type(args, process, vm);
-    addr = get_arguments_value(args, values, 1, (couple_t) {process, vm});
     process->cycles = 20;
-    if (args[0] == DIRECT && process->carry == 1)
-        process->pc = (process->pc + values[0] % IDX_MOD) % MEM_SIZE;
+    if (process->carry == 1)
+        process->pc = (process->pc + value % IDX_MOD) % MEM_SIZE;
     else
-        process->pc = addr;
+        process->pc = (process->pc + 3) % MEM_SIZE;
 }
 
 void aff_instruction(process_t *process, champion_t *champion, vm_t *vm)

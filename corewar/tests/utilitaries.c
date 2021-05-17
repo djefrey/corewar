@@ -24,7 +24,7 @@ Test(live, live_instruction, .init = cr_redirect_stdout)
         vm.memory[i] = instr[i];
     champion.live_cycles = 10;
     live_instruction(&process, &champion, &vm);
-    cr_assert_stdout_eq_str("The player 1(TestChamp) is alive.\n");
+    cr_assert_stdout_eq_str("The player 1 (TestChamp) is alive.\n");
     cr_assert_eq(champion.live_cycles, 0);
     cr_assert_eq(process.pc, 5);
     free(champion.header);

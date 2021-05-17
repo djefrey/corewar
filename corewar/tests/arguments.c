@@ -28,7 +28,7 @@ Test(arguments, read_registers)
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
     get_arguments_type(args, &process, &vm);
-    addr = get_arguments_value(args, values, &process, &vm);
+    addr = get_arguments_value(args, values, 0, (couple_t) {&process, &vm});
     cr_assert_eq(args[0], REGISTER);
     cr_assert_eq(args[1], REGISTER);
     cr_assert_eq(args[2], REGISTER);
@@ -56,7 +56,7 @@ Test(arguments, read_directs)
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
     get_arguments_type(args, &process, &vm);
-    addr = get_arguments_value(args, values, &process, &vm);
+    addr = get_arguments_value(args, values, 0, (couple_t) {&process, &vm});
     cr_assert_eq(args[0], DIRECT);
     cr_assert_eq(args[1], DIRECT);
     cr_assert_eq(args[2], DIRECT);
@@ -84,7 +84,7 @@ Test(arguments, read_indirects)
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
     get_arguments_type(args, &process, &vm);
-    addr = get_arguments_value(args, values, &process, &vm);
+    addr = get_arguments_value(args, values, 0, (couple_t) {&process, &vm});
     cr_assert_eq(args[0], INDIRECT);
     cr_assert_eq(args[1], INDIRECT);
     cr_assert_eq(args[2], INDIRECT);

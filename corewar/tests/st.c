@@ -53,7 +53,7 @@ Test(st, sti_add_direct)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {3, 104, 1, 0, 0, 0, 6, 0, 0, 0, 5, 0, 0, 0, 0};
+    char instr[] = {3, 104, 1, 0, 5, 0, 2, 0, 0, 0, 0};
 
     if (create_criterion_vm(&vm))
         return;
@@ -63,11 +63,11 @@ Test(st, sti_add_direct)
         vm.memory[i] = instr[i];
     sti_instruction(&process, NULL, &vm);
     cr_assert_eq(process.registers[0], 12);
-    cr_assert_eq(*(vm.memory + 11), 0);
-    cr_assert_eq(*(vm.memory + 12), 0);
-    cr_assert_eq(*(vm.memory + 13), 0);
-    cr_assert_eq(*(vm.memory + 14), 12);
-    cr_assert_eq(process.pc, 11);
+    cr_assert_eq(*(vm.memory + 7), 0);
+    cr_assert_eq(*(vm.memory + 8), 0);
+    cr_assert_eq(*(vm.memory + 9), 0);
+    cr_assert_eq(*(vm.memory + 10), 12);
+    cr_assert_eq(process.pc, 7);
 }
 
 

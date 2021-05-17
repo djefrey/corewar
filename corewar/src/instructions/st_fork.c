@@ -62,13 +62,13 @@ void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
 
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, 1, (couple_t) {process, vm});
+    process->cycles = 800;
     if (args[0] == DIRECT) {
         fork_addr = (process->pc + values[0] % IDX_MOD) % MEM_SIZE;
         if ((fork = process_fork(process, fork_addr)))
             create_list(&(champion->processes), fork);
     }
     process->pc = addr;
-    process->cycles = 800;
 }
 
 void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm)
@@ -82,11 +82,11 @@ void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm)
 
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
+    process->cycles = 1000;
     if (args[0] == DIRECT) {
         fork_addr = (original_pc + values[0]) % MEM_SIZE;
         if ((fork = process_fork(process, fork_addr)))
             create_list(&(champion->processes), fork);
     }
     process->pc = addr;
-    process->cycles = 1000;
 }

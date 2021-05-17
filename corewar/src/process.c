@@ -32,23 +32,23 @@ process_t *process_create(champion_t *champion, int addr)
 
 process_t *process_fork(process_t *original, int pc)
 {
-    process_t *process = malloc(sizeof(process_t));
+    process_t *fork = malloc(sizeof(process_t));
 
-    if (!process)
+    if (!fork)
         return (NULL);
     for (int i = 0; i < REG_NUMBER; i++)
-        process->registers[i] = original->registers[i];
-    process->pc = pc;
-    process->carry = original->carry;
-    process->cycles = original->cycles;
-    return (process);
+        fork->registers[i] = original->registers[i];
+    fork->pc = pc;
+    fork->carry = original->carry;
+    fork->cycles = original->cycles;
+    return (fork);
 }
 
 void process_update(process_t *process, champion_t *champion, vm_t *vm)
 {
     char instruction = *(vm->memory + (process->pc % MEM_SIZE));
 
-    if (process->cycles) {
+    if (process->cycles > 0) {
         process->cycles--;
         return;
     }
