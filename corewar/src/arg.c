@@ -85,7 +85,7 @@ int argument_create_champions(setup_t *setup, vm_t *vm)
         return (1);
     for (int i = 0; i < 4; i++) {
         if (setup->ids[i] == -1)
-            setup->ids[i] = i;
+            setup->ids[i] = i + 1;
         if (setup->addrs[i] == -1)
             setup->addrs[i] = (MEM_SIZE / 4) * i;
         champion = champion_create(setup->files[i],
