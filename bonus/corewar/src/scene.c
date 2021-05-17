@@ -17,7 +17,7 @@ scene_t *scene_create(void)
 
     if (!scene || !camera)
         return;
-    camera_set_pos(camera, 240, 320, 480);
+    camera_set_pos(camera, 240, 15, 480);
     camera_set_target(camera, 80, 0, 480);
     scene->meshes = NULL;
     scene->cubes = NULL;
@@ -25,14 +25,15 @@ scene_t *scene_create(void)
     return (scene);
 }
 
-void scene_draw(scene_t *scene, GLuint matrix_id)
+void scene_draw(scene_t *scene, GLuint program_id, bonus_t *bonus)
 {
     mat4 projection_matrix;
 
     glm_mat4_identity(projection_matrix);
     camera_get_projection_matrix(scene->camera, projection_matrix);
     for (list_t *list = scene->meshes; list; list = list->next)
-        mesh_drawlist((mesh_t*) list->data, matrix_id, projection_matrix);
+        mesh_drawlist((mesh_t*) list->data,
+        program_id, projection_matrix, bonus);
 }
 
 void scene_destroy(scene_t *scene)

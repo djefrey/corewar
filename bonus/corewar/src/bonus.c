@@ -7,9 +7,27 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "bonus.h"
 #include "scene.h"
 #include "mesh.h"
+
+void setup_memory(unsigned int *memory)
+{
+    memset(memory, 0, sizeof(int) * MEM_SIZE);
+    for (int i = 0; i < 128; i++) {
+        *(memory + i) = 0x1000000 | (i * 2);
+    }
+    for (int i = 0; i < 128; i++) {
+        *(memory + MEM_SIZE / 4 + i) = 0x2000000 | (i * 2);
+    }
+    for (int i = 0; i < 128; i++) {
+        *(memory + MEM_SIZE / 4 * 2 + i) = 0x3000000 | (i * 2);
+    }
+    for (int i = 0; i < 128; i++) {
+        *(memory + MEM_SIZE / 4 * 3+ i) = 0x4000000 | (i * 2);
+    }
+}
 
 bonus_t *bonus_create(void)
 {
@@ -22,6 +40,7 @@ bonus_t *bonus_create(void)
 
     if (!bonus || !window || !memory || !scene)
         return (NULL);
+    setup_memory(memory);
     scene_create_cubes(scene);
     bonus->window = window;
     bonus->memory = memory;
@@ -53,13 +72,10 @@ void bonus_event(bonus_t *bonus, int *run)
 
 void bonus_draw(bonus_t *bonus)
 {
-    GLuint matrix_id;
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glUseProgram(bonus->program_id);
-    matrix_id = glGetUniformLocation(bonus->program_id, "MVP");
-    scene_draw(bonus->scene, matrix_id);
-	glUseProgram(0);
+    glUseProgram(bonus->program_id);
+    scene_draw(bonus->scene, bonus->program_id, bonus);
+    glUseProgram(0);
     sfWindow_display(bonus->window);
 }
 

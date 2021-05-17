@@ -26,6 +26,7 @@ BONUS_SRC	=	../bonus/corewar/src/bonus.c		\
 				../bonus/corewar/src/mesh.c			\
 				../bonus/corewar/src/shader.c		\
 				../bonus/corewar/src/gameitem.c		\
+				../bonus/corewar/src/cube.c			\
 				../bonus/corewar/src/scene.c		\
 				../bonus/corewar/src/transform.c	\
 				../bonus/corewar/src/file.c
