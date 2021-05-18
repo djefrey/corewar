@@ -29,8 +29,8 @@ int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm)
 {
     switch (arg) {
         case REGISTER:
-            return (value - 1 < 0 || value - 1 >= REG_NUMBER ?
-            0 : process->registers[value - 1]);
+            return (value < 0 || value >= REG_NUMBER ?
+            0 : process->registers[value]);
         case DIRECT:
             return (value);
         case INDIRECT:
