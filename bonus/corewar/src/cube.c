@@ -48,7 +48,7 @@ int is_cube_pc(cube_t *cube, bonus_t *bonus)
 
 void cube_set_height(cube_t *cube, bonus_t *bonus)
 {
-    float size = get_cube_size(cube, bonus) / 50.0 + 1;
+    float size = get_cube_size(cube, bonus) / 2.0 + 1;
 
     transform_set_scale(cube->transform, 1, size, 1);
     transform_set_translation(cube->transform, cube->transform->translation[0],

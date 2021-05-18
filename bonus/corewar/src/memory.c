@@ -19,6 +19,7 @@ void bonus_write_champion_id(bonus_t *bonus, int addr, int size, int id)
 
     for (int i = 0; i < size; i++) {
         value = *(bonus->memory + addr) & 0x00FFFFFF;
+        value = value < 0x00FFFFFF ? (value + 1) & 0x00FFFFFF : value;
         value |= (id & 0x7F) << 24;
         *(bonus->memory + addr) = value;
         addr = (addr + 1) % MEM_SIZE;
