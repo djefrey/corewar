@@ -43,7 +43,7 @@ int compile(char *input, asms_t *asms)
     if (read(asms->fd_in, asms->file, 4095) == -1)
         return (put_error("Fail with read\n"));
     asms->file = realloc(asms->file, (my_strlen(asms->file) + 1));
-    asms->tab_f = my_str_to_word_array(asms->file, 0, 0);
+    asms->tab_f = my_str_to_word_array(asms->file);
     reformate_tab(asms);
     return (parse_struct(asms));
 }

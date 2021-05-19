@@ -6,7 +6,6 @@
 ##
 
 SRC		=	./src/main.c 					\
-			./src/my_str_to_word_array.c	\
 			./src/parsing.c					\
 			./src/my_asm_to_word_array.c 	\
 			./src/core.c					\
@@ -14,8 +13,6 @@ SRC		=	./src/main.c 					\
 			./src/funct_two.c				\
 			./src/funct_three.c				\
 			./src/print_file.c				\
-			./src/my_strjoin.c				\
-			./src/my_strjoin_char.c 		\
 			./src/utils.c
 
 LIB_DIR	=	./mylib

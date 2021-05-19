@@ -18,11 +18,11 @@ char *get_name_comment(char *str)
     int i = 0;
     int j = 0;
 
-    for (i; str[i] != '"'; ++i);
+    for (; str[i] != '"'; ++i);
     i++;
     if (str[i] == ' ')
         ++i;
-    for (i; str[i] != '"'; ++i) {
+    for (; str[i] != '"'; ++i) {
             result[j] = str[i];
             j++;
     }
