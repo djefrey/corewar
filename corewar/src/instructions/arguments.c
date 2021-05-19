@@ -8,6 +8,7 @@
 #include "corewar.h"
 #include "vm.h"
 #include "process.h"
+#include "instructions.h"
 
 void get_arguments_type(argument_t args[], process_t *process, vm_t *vm)
 {
@@ -56,31 +57,48 @@ int values[], char indexes, couple_t couple)
     return (addr);
 }
 
-int read_register_arg(int *addr, vm_t *vm)
+/*
+** Check if arguments from coding byte are valid
+** Return 1 if valid, 0 if not
+*/
+int check_args_validity(argument_t args[], int values[],
+char instruction_value)
 {
-    char buff[sizeof(int)] = {0};
+    instruction_t instruction = INSTRUCTIONS[instruction_value - 1];
+    int nb_args = 0;
 
-    buff[0] = *(vm->memory + *addr);
-    *addr = (*addr + 1) % MEM_SIZE;
-    return (*((int*) buff) - 1);
+    for(; nb_args < 4 && args[nb_args] != NONE; nb_args++);
+    if (instruction.nb_args != nb_args)
+        return (0);
+    for (int i = 0; i < instruction.nb_args; i++) {
+        if (!(instruction.args[i] & args[i]))
+            return (0);
+        else if (args[i] == REGISTER
+        && (values[i] < 0 || values[i] >= REG_NUMBER))
+            return (0);
+    }
+    return (1);
 }
 
-int read_direct_arg(int *addr, char indexes, vm_t *vm)
+/*
+** Return argument "real" value
+** - Register: return process->register[VALUE]
+** - Direct: return VALUE
+** - Indirect: return value at PC + VALUE % IDX_MOD
+*/
+int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm)
 {
-    int value = !indexes
-    ? read_int(*addr, DIR_SIZE, vm)
-    : read_int(*addr, IND_SIZE, vm);
-
-    *addr = !indexes
-    ? (*addr + DIR_SIZE) % MEM_SIZE
-    : (*addr + IND_SIZE) % MEM_SIZE;
-    return (value);
-}
-
-int read_indirect_arg(int *addr, vm_t *vm)
-{
-    int value = read_int(*addr, IND_SIZE, vm);
-
-    *addr = (*addr + IND_SIZE) % MEM_SIZE;
-    return (value);
+    switch (arg) {
+        case REGISTER:
+            return (value < 0 || value >= REG_NUMBER ?
+            0 : process->registers[value]);
+        case DIRECT:
+            return (value);
+        case INDIRECT:
+            return (read_int((process->pc + value % IDX_MOD)
+            % MEM_SIZE, 1, vm));
+        case NONE:
+            return (0);
+    }
+    return (0);
 }

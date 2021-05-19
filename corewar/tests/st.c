@@ -75,7 +75,7 @@ Test(st, sti_add_indirect)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {3, 124, 1, 0, 6, 0, 7, 4, 0, 0, 0, 0, 0, 0};
+    char instr[] = {3, 120, 1, 0, 7, 0, 4, 7, 0, 0, 0, 0, 0, 0};
 
     if (create_criterion_vm(&vm))
         return;

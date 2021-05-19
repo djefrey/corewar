@@ -38,6 +38,7 @@ int print_nb(void *value, int flags, int fwidth, int precision)
 
 int print_char(void *value, int flags, int fwidth, int precision)
 {
+    ((void) precision);
     flags = flags & FLAG_ZERO ? flags - FLAG_ZERO : flags;
     print_left_spaces(fwidth - 1, flags);
     my_putchar(*((char*) (value)));

@@ -25,23 +25,6 @@ void inverse_endian(void *data, void *buf, size_t size)
         ((char*) buf)[size - i - 1] = ((char*) data)[i];
 }
 
-int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm)
-{
-    switch (arg) {
-        case REGISTER:
-            return (value - 1 < 0 || value - 1 >= REG_NUMBER ?
-            0 : process->registers[value - 1]);
-        case DIRECT:
-            return (value);
-        case INDIRECT:
-            return (read_int((process->pc + value % IDX_MOD)
-            % MEM_SIZE, 1, vm));
-        case NONE:
-            return (0);
-    }
-    return (0);
-}
-
 int str_to_int(char *str)
 {
     int value = 0;
