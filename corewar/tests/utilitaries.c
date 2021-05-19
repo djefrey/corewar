@@ -34,7 +34,7 @@ Test(aff, aff_instruction, .init = cr_redirect_stdout)
 {
     vm_t vm;
     process_t process;
-    char instr[] = {10, 1, 10, 2, 10, 3, 10, 1, 10, 4};
+    char instr[] = {10, 64, 1, 10, 64, 2, 10, 64, 3, 10, 64, 1, 10, 64, 4};
 
     if (create_criterion_vm(&vm))
         return;
@@ -51,5 +51,5 @@ Test(aff, aff_instruction, .init = cr_redirect_stdout)
     aff_instruction(&process, NULL, &vm);
     aff_instruction(&process, NULL, &vm);
     cr_assert_stdout_eq_str("test\n");
-    cr_assert_eq(process.pc, 10);
+    cr_assert_eq(process.pc, 15);
 }

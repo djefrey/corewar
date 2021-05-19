@@ -15,6 +15,7 @@ SRC			=	src/vm.c							\
 				src/arg.c							\
 				src/instructions/instructions.c		\
 				src/instructions/arguments.c		\
+				src/instructions/read_args.c		\
 				src/instructions/operations.c		\
 				src/instructions/load.c				\
 				src/instructions/st_fork.c			\
@@ -84,8 +85,8 @@ clean:
 	rm -f $(MAIN_OBJ)
 	rm -rf $(OBJ)
 	rm -rf $(TESTS_OBJ)
-	rm -rf $(wildcard **/*.gcno)
-	rm -rf $(wildcard **/*.gcda)
+	rm -rf **/*.gcno
+	rm -rf **/*.gcda
 
 fclean:	clean
 	make -C $(LIB_DIR) fclean

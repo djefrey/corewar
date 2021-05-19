@@ -34,6 +34,8 @@
 #define PROG_NAME_LENGTH 128
 #define PROG_COMMENT_LENGTH 2048
 
+#define UNUSED(value) ((void) value)
+
 typedef int reg_t;
 
 typedef struct process_s process_t;
@@ -76,6 +78,8 @@ void read_header(header_t *header, int fd, unsigned int len);
 void get_arguments_type(argument_t args[], process_t *process, vm_t *vm);
 int get_arguments_value(argument_t args[],
 int values[], char indexes, couple_t couple);
+int check_args_validity(argument_t args[], int values[],
+char instruction_value);
 int read_register_arg(int *addr, vm_t *vm);
 int read_direct_arg(int *addr, char indexes, vm_t *vm);
 int read_indirect_arg(int *addr, vm_t *vm);

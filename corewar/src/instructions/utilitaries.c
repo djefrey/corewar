@@ -17,6 +17,7 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
     champion_t *alive = NULL;
     int value = -1;
 
+    UNUSED(champion);
     value = read_int(process->pc + 1, 4, vm);
     process->pc = (process->pc + 5) % MEM_SIZE;
     for (list_t *list = vm->champions; list; list = list->next) {
@@ -34,6 +35,7 @@ void zjmp_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
     int value = read_int(process->pc + 1, IND_SIZE, vm);
 
+    UNUSED(champion);
     if (process->carry == 1)
         process->pc = (process->pc + value % IDX_MOD) % MEM_SIZE;
     else
@@ -44,15 +46,15 @@ void aff_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
     argument_t args[4] = {NONE};
     int values[4] = {0};
-    int addr = 0;
+    int addr;
     char c;
 
+    UNUSED(champion);
     get_arguments_type(args, process, vm);
-    addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
-    if (args[0] == REGISTER && values[0] >= 0 && values < REG_NUMBER) {
+    addr = get_arguments_value(args, values, 1, (couple_t) {process, vm});
+    if (check_args_validity(args, values, 0x10)) {
         c = process->registers[values[0]] % 256;
         write(1, &c, 1);
     }
-    process->pc= addr;
-    process->cycles = 10;
+    process->pc = addr;
 }
