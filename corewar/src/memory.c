@@ -17,7 +17,8 @@ int read_int(int addr, int size, vm_t *vm)
     if (addr < 0)
         addr += MEM_SIZE;
     for (int i = 0; i < size; i++)
-        buff[sizeof(int) - 1 - i - off] = *(vm->memory + (addr + i) % MEM_SIZE);
+        buff[sizeof(int) - 1 - i - off] =
+        *(vm->memory + (addr + i) % MEM_SIZE);
     value = *((int*) buff);
     if (size == sizeof(char))
         return ((char) value);
