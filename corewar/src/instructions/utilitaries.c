@@ -26,6 +26,7 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
         if (alive->id == value) {
             my_printf("Le joueur %i (%s) est en vie.\n",
             alive->id, alive->header->prog_name);
+            vm->last_live = alive->id;
             break;
         }
     }
