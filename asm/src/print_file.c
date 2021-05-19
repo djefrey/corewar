@@ -5,7 +5,7 @@
 ** print_file
 */
 
-#include "../include/asm.h"
+#include "asm.h"
 
 void swap(void *data)
 {
@@ -26,7 +26,7 @@ void indir_or_dir(char *str, asms_t *asms)
             asms->size += 4;
             return;
         }
-        nb = my_getnbr(str);
+        nb = str_to_int(str);
         nb = BIT_SWAP(nb);
         nb = (nb << 16) | (nb >> 16);
         write(asms->fd_out, &nb, 4);
@@ -36,7 +36,7 @@ void indir_or_dir(char *str, asms_t *asms)
             asms->size += 2;
             return;
         }
-        nb = my_getnbr(str);
+        nb = str_to_int(str);
         swap(&nb);
         write(asms->fd_out, &nb, 2);
     }

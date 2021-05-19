@@ -5,7 +5,7 @@
 ** funct1
 */
 
-#include "../include/asm.h"
+#include "asm.h"
 
 void and(asms_t *asms, char **tab)
 {
@@ -19,13 +19,13 @@ void and(asms_t *asms, char **tab)
     print_reg(a, asms);
     str = coding_byte_first(asms, tab);
     str = coding_byte(asms, tab, str);
-    dec = my_getnbr(str);
+    dec = str_to_int(str);
     dec = bin_to_dec(dec);
     double_print_register(asms, tab, 0);
     double_print_ind(asms, tab, 0);
     its_first(asms, tab, 0);
     its_last(asms, tab, 0);
-    print_reg(my_getnbr(tab[3]), asms);
+    print_reg(str_to_int(tab[3]), asms);
     return;
 }
 
@@ -41,13 +41,13 @@ void or(asms_t *asms, char **tab)
     print_reg(a, asms);
     str = coding_byte_first(asms, tab);
     str = coding_byte(asms, tab, str);
-    dec = my_getnbr(str);
+    dec = str_to_int(str);
     dec = bin_to_dec(dec);
     double_print_register(asms, tab, 0);
     double_print_ind(asms, tab, 0);
     its_first(asms, tab, 0);
     its_last(asms, tab, 0);
-    print_reg(my_getnbr(tab[3]), asms);
+    print_reg(str_to_int(tab[3]), asms);
     return;
 }
 
@@ -63,13 +63,13 @@ void xor(asms_t *asms, char **tab)
     print_reg(a, asms);
     str = coding_byte_first(asms, tab);
     str = coding_byte(asms, tab, str);
-    dec = my_getnbr(str);
+    dec = str_to_int(str);
     dec = bin_to_dec(dec);
     double_print_register(asms, tab, 0);
     double_print_ind(asms, tab, 0);
     its_first(asms, tab, 0);
     its_last(asms, tab, 0);
-    print_reg(my_getnbr(tab[3]), asms);
+    print_reg(str_to_int(tab[3]), asms);
     return;
 }
 
@@ -84,10 +84,10 @@ void aff(asms_t *asms, char **tab)
     print_reg(a, asms);
     str = coding_byte_first(asms, tab);
     str = coding_byte(asms, tab, str);
-    dec = my_getnbr(str);
+    dec = str_to_int(str);
     dec = bin_to_dec(dec);
     print_reg(dec, asms);
-    print_reg(my_getnbr(tab[1]), asms);
+    print_reg(str_to_int(tab[1]), asms);
     return;
 }
 
@@ -102,10 +102,10 @@ void lld(asms_t *asms, char **tab)
     print_reg(a, asms);
     str = coding_byte_first(asms, tab);
     str = coding_byte(asms, tab, str);
-    dec = my_getnbr(str);
+    dec = str_to_int(str);
     dec = bin_to_dec(dec);
     print_reg(dec, asms);
     indir_or_dir(tab[1], asms);
-    print_reg(my_getnbr(tab[2]), asms);
+    print_reg(str_to_int(tab[2]), asms);
     return;
 }

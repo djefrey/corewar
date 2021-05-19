@@ -5,7 +5,7 @@
 ** funct1
 */
 
-#include "../include/asm.h"
+#include "asm.h"
 
 char *coding_byte(asms_t *asms, char **tab, char *ret)
 {
@@ -72,9 +72,9 @@ void sti(asms_t *asms, char **tab)
     print_reg(a, asms);
     str = coding_byte_first(asms, tab);
     str = coding_byte(asms, tab, str);
-    dec = my_getnbr(str);
+    dec = str_to_int(str);
     dec = bin_to_dec(dec);
-    print_reg(my_getnbr(tab[1]), asms);
+    print_reg(str_to_int(tab[1]), asms);
     double_print_register(asms, tab, 1);
     double_print_ind(asms, tab, 1);
     its_first(asms, tab, 1);

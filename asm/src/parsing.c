@@ -5,7 +5,7 @@
 ** asm parsing
 */
 
-#include "../include/asm.h"
+#include "asm.h"
 
 void reformate_string(asms_t *asms, int i)
 {

@@ -5,7 +5,7 @@
 ** asm main
 */
 
-#include "../include/asm.h"
+#include "asm.h"
 
 int put_error(char *str)
 {
