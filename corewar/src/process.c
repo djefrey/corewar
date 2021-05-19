@@ -26,6 +26,7 @@ process_t *process_create(champion_t *champion, int addr)
     process->pc = addr;
     process->carry = 0;
     process->cycles = -1;
+    process->live_cycles = 0;
     create_list(&(champion->processes), process);
     return (process);
 }
@@ -41,20 +42,20 @@ process_t *process_fork(process_t *original, int pc)
     fork->pc = pc;
     fork->carry = original->carry;
     fork->cycles = original->cycles;
+    fork->live_cycles = 0;
     return (fork);
 }
 
-void process_update(process_t *process, champion_t *champion, vm_t *vm)
+int process_update(process_t *process, champion_t *champion, vm_t *vm)
 {
     char instruction = 0;
 
+    if (process->live_cycles >= vm->dead_cycles)
+        return (1);
     if (process->cycles > 0) {
         process->cycles--;
-        return;
-    }
-    if (process->cycles == -1) {
-        process_next_instruction(process, vm);
-    } else {
+        return (0);
+    } else if (process->cycles == 0) {
         instruction = *(vm->memory + process->pc % MEM_SIZE);
         for (int i = 0; i < INSTRUCTIONS_NB; i++) {
             if (INSTRUCTIONS[i].value == instruction) {
@@ -62,8 +63,9 @@ void process_update(process_t *process, champion_t *champion, vm_t *vm)
                 break;
             }
         }
-        process_next_instruction(process, vm);
     }
+    process_next_instruction(process, vm);
+    return (0);
 }
 
 /*

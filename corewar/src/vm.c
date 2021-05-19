@@ -23,6 +23,7 @@ int vm_init(vm_t *vm)
     vm->cycles = 0;
     vm->dead_cycles = CYCLE_TO_DIE;
     vm->dump_cycles = -1;
+    vm->last_live = -1;
     vm->champions = NULL;
     for (int i = 0; i < MEM_SIZE; i++)
         *(memory + i) = 0;
@@ -59,7 +60,7 @@ int vm_update_champions(vm_t *vm)
     for (list_t *list = vm->champions; list; list = list->next) {
         champion = (champion_t*) list->data;
         champion_update(champion, vm);
-        living += !champion->dead;
+        living += !champion->nb_processes;
     }
     return (living);
 }
