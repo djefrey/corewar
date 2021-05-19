@@ -27,7 +27,7 @@ champion_t *champion_create(char *filepath, int id, int addr, vm_t *vm)
     champion->dead = 0;
     champion->live_cycles = 0;
     champion->processes = NULL;
-    if (vm_write_file_in_memory(vm, fd, addr, champion->header->prog_size))
+    if (write_file_in_memory(addr, fd, champion->header->prog_size, vm))
         return (NULL);
     #ifdef BONUS
     bonus_write_champion_id(vm->bonus, addr, champion->header->prog_size, id);

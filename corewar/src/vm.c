@@ -13,46 +13,64 @@
 #include "process.h"
 #include "champion.h"
 
+int vm_init(vm_t *vm)
+{
+    #ifdef BONUS
+    bonus_t *bonus = bonus_create();
+    #endif
+    char *memory = malloc(sizeof(char) * MEM_SIZE);
+
+    if (!memory)
+        return (1);
+    vm->memory = memory;
+    vm->cycles = 0;
+    vm->dead_cycles = CYCLE_TO_DIE;
+    vm->dump_cycles = -1;
+    vm->champions = NULL;
+    #ifdef BONUS
+    vm->bonus = bonus;
+    #endif
+    for (int i = 0; i < MEM_SIZE; i++)
+        *(memory + i) = 0;
+    return (0);
+}
+
 void vm_run(vm_t *vm)
 {
-    champion_t *champion;
     int living = 4;
 
     while (living > 1) {
-        #ifdef BONUS
-        if (!bonus_update(vm->bonus, vm))
-            break;
-        #endif
-        living = 0;
-        vm->cycles++;
-        for (list_t *list = vm->champions; list; list = list->next) {
-            champion = (champion_t*) list->data;
-            champion_update(champion, vm);
-            living += !champion->dead;
-        }
+        living = vm_update_champions(vm);
         if (vm->cycles == vm->dump_cycles) {
             vm_dump(vm);
             break;
-        } else if (vm->cycles % NBR_LIVE == 0) {
+        } else if (vm->cycles && vm->cycles % NBR_LIVE == 0) {
             vm->dead_cycles -= CYCLE_DELTA;
             if (vm->dead_cycles <= 0)
                 vm->dead_cycles = 1;
         }
+        #ifdef BONUS
+        bonus_update(vm->bonus, vm);
+        #endif
+        vm->cycles++;
     }
 }
 
-int vm_write_file_in_memory(vm_t *vm, int fd, int addr, int size)
+/*
+** Update all champions
+** Return the number of living ones
+*/
+int vm_update_champions(vm_t *vm)
 {
-    if ((addr + size) > MEM_SIZE) {
-        read(fd, vm->memory + addr, size % MEM_SIZE);
-        size -= size % MEM_SIZE;
-        if (size > MEM_SIZE)
-            return (1);
-        read(fd, vm->memory, size);
-    } else {
-        read(fd, vm->memory + addr, size);
+    champion_t *champion;
+    int living = 0;
+
+    for (list_t *list = vm->champions; list; list = list->next) {
+        champion = (champion_t*) list->data;
+        champion_update(champion, vm);
+        living += !champion->dead;
     }
-    return (0);
+    return (living);
 }
 
 void vm_dump(vm_t *vm)
