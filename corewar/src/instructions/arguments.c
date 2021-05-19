@@ -10,6 +10,9 @@
 #include "process.h"
 #include "instructions.h"
 
+/*
+** Fill args[] with the arguments of the coding byte
+*/
 void get_arguments_type(argument_t args[], process_t *process, vm_t *vm)
 {
     char coding = *(vm->memory + (process->pc + 1) % MEM_SIZE);
@@ -34,6 +37,10 @@ void get_arguments_type(argument_t args[], process_t *process, vm_t *vm)
     }
 }
 
+/*
+** Fill values[] with the arguments' values (values written in the memory)
+** Return the end address of the actuel instruction
+*/
 int get_arguments_value(argument_t args[],
 int values[], char indexes, couple_t couple)
 {
