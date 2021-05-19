@@ -80,7 +80,7 @@ void process_next_instruction(process_t *process, vm_t *vm)
             process->cycles = process->cycles == 0
             ? INSTRUCTIONS[i].cycles
             : INSTRUCTIONS[i].cycles - 1;
-            break;
+            return;
         }
     }
     process->cycles = -1;
