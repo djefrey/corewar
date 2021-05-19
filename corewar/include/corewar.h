@@ -86,6 +86,7 @@ int read_indirect_arg(int *addr, vm_t *vm);
 
 int read_int(int addr, int size, vm_t *vm);
 void write_int(int addr, int value, int size, vm_t *vm);
+int write_file_in_memory(int addr, int fd, int size, vm_t *vm);
 
 int get_file_size(int fd);
 void inverse_endian(void *data, void *buf, size_t size);
