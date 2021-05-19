@@ -13,6 +13,7 @@ SRC			=	src/vm.c							\
 				src/cor.c							\
 				src/memory.c						\
 				src/arg.c							\
+				src/instructions/instructions.c		\
 				src/instructions/arguments.c		\
 				src/instructions/operations.c		\
 				src/instructions/load.c				\

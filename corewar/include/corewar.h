@@ -40,10 +40,10 @@ typedef struct process_s process_t;
 typedef struct vm_s vm_t;
 
 typedef enum argument_e {
-    NONE,
-    REGISTER,
-    DIRECT,
-    INDIRECT,
+    NONE = 1,
+    REGISTER = 2,
+    DIRECT = 4,
+    INDIRECT = 8,
 } argument_t;
 
 typedef struct header_s {

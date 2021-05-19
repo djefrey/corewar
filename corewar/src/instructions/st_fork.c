@@ -30,7 +30,6 @@ void st_instruction(process_t *process, champion_t *champion, vm_t *vm)
         }
     }
     process->pc = addr;
-    process->cycles = 5;
 }
 
 void sti_instruction(process_t *process, champion_t *champion, vm_t *vm)
@@ -49,7 +48,6 @@ void sti_instruction(process_t *process, champion_t *champion, vm_t *vm)
         write_int(write_addr, process->registers[values[0]], REG_SIZE, vm);
     }
     process->pc = addr;
-    process->cycles = 25;
 }
 
 void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
@@ -58,7 +56,6 @@ void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
     int fork_addr = 0;
     process_t *fork = NULL;
 
-    process->cycles = 800;
     fork_addr = (process->pc + value % IDX_MOD) % MEM_SIZE;
     if (fork_addr < 0)
         fork_addr += MEM_SIZE;
@@ -73,7 +70,6 @@ void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm)
     int fork_addr = 0;
     process_t *fork = NULL;
 
-    process->cycles = 800;
     fork_addr = (process->pc + value) % MEM_SIZE;
     if (fork_addr < 0)
         fork_addr += MEM_SIZE;

@@ -36,42 +36,14 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm);
 void zjmp_instruction(process_t *process, champion_t *champion, vm_t *vm);
 void aff_instruction(process_t *process, champion_t *champion, vm_t *vm);
 
-const char INSTRUCTION_VALUE[] = {
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-};
+typedef struct instruction_s {
+    char value;
+    int cycles;
+    char nb_args;
+    char args[4];
+    instruction_fct_t fct;
+} instruction_t;
 
-const instruction_fct_t INSTRUCTION_FCT[] = {
-    &live_instruction,
-    &ld_instruction,
-    &st_instruction,
-    &add_instruction,
-    &sub_instruction,
-    &and_instruction,
-    &or_instruction,
-    &xor_instruction,
-    &zjmp_instruction,
-    &ldi_instruction,
-    &sti_instruction,
-    &fork_instruction,
-    &lld_instruction,
-    &lldi_instruction,
-    &lfork_instruction,
-    &aff_instruction,
-};
+extern const instruction_t INSTRUCTIONS[INSTRUCTIONS_NB];
 
 #endif /* !INSTRUCTIONS_H_ */

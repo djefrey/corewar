@@ -19,7 +19,6 @@ void add_instruction(process_t *process, champion_t *champion, vm_t *vm)
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
     process->pc = addr;
-    process->cycles = 10;
     if (args[0] != REGISTER || args[1] != REGISTER || args[2] != REGISTER)
         return;
     process->registers[values[2]] =
@@ -39,7 +38,6 @@ void sub_instruction(process_t *process, champion_t *champion, vm_t *vm)
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
     process->pc = addr;
-    process->cycles = 10;
     if (args[0] != REGISTER || args[1] != REGISTER || args[2] != REGISTER)
         return;
     process->registers[values[2]] =
@@ -59,7 +57,6 @@ void and_instruction(process_t *process, champion_t *champion, vm_t *vm)
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
     process->pc = addr;
-    process->cycles = 6;
     if (args[0] == NONE || args[1] == NONE || args[2] != REGISTER)
         return;
     process->registers[values[2]] = get_arg_real_value(args[0], values[0],
@@ -79,7 +76,6 @@ void or_instruction(process_t *process, champion_t *champion, vm_t *vm)
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
     process->pc = addr;
-    process->cycles = 6;
     if (args[0] == NONE || args[1] == NONE  || args[2] != REGISTER)
         return;
     process->registers[values[2]] = get_arg_real_value(args[0], values[0],
@@ -99,7 +95,6 @@ void xor_instruction(process_t *process, champion_t *champion, vm_t *vm)
     get_arguments_type(args, process, vm);
     addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
     process->pc = addr;
-    process->cycles = 6;
     if (args[0] == NONE || args[1] == NONE  || args[2] != REGISTER)
         return;
     process->registers[values[2]] = get_arg_real_value(args[0], values[0],

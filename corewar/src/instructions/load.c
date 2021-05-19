@@ -30,7 +30,6 @@ void ld_instruction(process_t *process, champion_t *champion, vm_t *vm)
         else
             process->carry = 0;
     }
-    process->cycles = 5;
     process->pc = addr;
 }
 
@@ -54,7 +53,6 @@ void ldi_instruction(process_t *process, champion_t *champion, vm_t *vm)
         else
             process->carry = 0;
     }
-    process->cycles = 25;
     process->pc = addr;
 }
 
@@ -78,7 +76,6 @@ void lld_instruction(process_t *process, champion_t *champion, vm_t *vm)
             process->carry = 0;
     }
     process->pc = addr;
-    process->cycles = 10;
 }
 
 void lldi_instruction(process_t *process, champion_t *champion, vm_t *vm)
@@ -102,5 +99,4 @@ void lldi_instruction(process_t *process, champion_t *champion, vm_t *vm)
             process->carry = 0;
     }
     process->pc = addr;
-    process->cycles = 50;
 }
