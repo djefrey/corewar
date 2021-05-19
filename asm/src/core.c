@@ -6,6 +6,7 @@
 */
 
 #include "asm.h"
+#include "inst.h"
 
 int prog(asms_t *asms)
 {

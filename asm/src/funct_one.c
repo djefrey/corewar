@@ -41,8 +41,8 @@ void st(asms_t *asms, char **tab)
     tab[1][0] != REGISTER)
         exit (84);
     print_reg(a, asms);
-    str = coding_byte_first(asms, tab);
-    str = coding_byte(asms, tab, str);
+    str = coding_byte_first(tab);
+    str = coding_byte(tab, str);
     dec = str_to_int(str);
     dec = bin_to_dec(dec);
     print_reg(dec, asms);
@@ -60,8 +60,8 @@ void ld(asms_t *asms, char **tab)
     if (tab[1] == NULL || tab[2] == NULL || tab[2][0] != 'r' || tab[3] != NULL)
         exit (84);
     print_reg(a, asms);
-    str = coding_byte_first(asms, tab);
-    str = coding_byte(asms, tab, str);
+    str = coding_byte_first(tab);
+    str = coding_byte(tab, str);
     dec = str_to_int(str);
     dec = bin_to_dec(dec);
     print_reg(dec, asms);
