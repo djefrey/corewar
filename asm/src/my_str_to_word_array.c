@@ -5,7 +5,7 @@
 ** my_str_to_word_array
 */
 
-#include "../include/asm.h"
+#include "asm.h"
 
 static int check_carac(int carac)
 {

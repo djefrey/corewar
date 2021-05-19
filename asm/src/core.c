@@ -5,13 +5,14 @@
 ** core function
 */
 
-#include "../include/asm.h"
+#include "asm.h"
+#include "inst.h"
 
 int prog(asms_t *asms)
 {
     char **tab;
-    void (*func[])(asms_t *, char **) = {live, add, sub, ld, st, and, or, xor, aff, lld,
-        sti, NULL};
+    void (*func[])(asms_t *, char **) = {live, add, sub, ld, st,
+    and, or, xor, aff, lld, sti, NULL};
 
     for (int i = 0; asms->mega_tab[i]; i++) {
         for (int j = 0; j < 11; j++) {

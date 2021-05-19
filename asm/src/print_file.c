@@ -5,16 +5,16 @@
 ** print_file
 */
 
-#include "../include/asm.h"
+#include "asm.h"
 
-void swap(void *data)
+void inverse_endian(void *data, size_t size)
 {
-    unsigned char *temp;
+    char buff[size];
 
-    bytes *byte = (bytes *)data;
-    temp = (*byte)[0];
-    (*byte)[0] = (*byte)[1];
-    (*byte)[1] = temp;
+    for (unsigned i = 0; i < size; i++)
+        (buff)[size - i - 1] = ((char*) data)[i];
+    for (unsigned i = 0; i < size; i++)
+        ((char *) data)[i] = buff[i];
 }
 
 void indir_or_dir(char *str, asms_t *asms)
@@ -26,7 +26,7 @@ void indir_or_dir(char *str, asms_t *asms)
             asms->size += 4;
             return;
         }
-        nb = my_getnbr(str);
+        nb = str_to_int(str);
         nb = BIT_SWAP(nb);
         nb = (nb << 16) | (nb >> 16);
         write(asms->fd_out, &nb, 4);
@@ -36,17 +36,17 @@ void indir_or_dir(char *str, asms_t *asms)
             asms->size += 2;
             return;
         }
-        nb = my_getnbr(str);
-        swap(&nb);
+        nb = str_to_int(str);
+        inverse_endian(&nb, sizeof(int));
         write(asms->fd_out, &nb, 2);
     }
 }
 
-int print_reg(int nb, asms_t *asms)
+void print_reg(int nb, asms_t *asms)
 {
     if (asms->loop == 0) {
         asms->size++;
-        return (0);
+        return;
     }
     write(asms->fd_out, &nb, 1);
 }

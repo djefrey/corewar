@@ -8,7 +8,7 @@
 ** Last update Tue Mar 22 16:44:20 2011 Astek
 */
 
-#include "../include/asm.h"
+#include "asm.h"
 
 op_t    op_tab[] =
 {

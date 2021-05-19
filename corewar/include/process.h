@@ -23,6 +23,7 @@ typedef struct process_s {
 process_t *process_create(champion_t *champion, int addr);
 process_t *process_fork(process_t *original, int pc);
 void process_update(process_t* process, champion_t *champion, vm_t *vm);
+void process_next_instruction(process_t *process, vm_t *vm);
 void process_destroy(process_t *process);
 
 #endif /* !PROCESS_H_ */
