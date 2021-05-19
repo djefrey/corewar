@@ -44,11 +44,17 @@ void zjmp_instruction(process_t *process, champion_t *champion, vm_t *vm)
 
 void aff_instruction(process_t *process, champion_t *champion, vm_t *vm)
 {
-    int value = read_int(process->pc + 1, 1, vm);
+    argument_t args[4] = {NONE};
+    int values[4] = {0};
+    int addr = 0;
     char c;
 
-    process->pc = (process->pc + 2) % MEM_SIZE;
+    get_arguments_type(args, process, vm);
+    addr = get_arguments_value(args, values, 0, (couple_t) {process, vm});
+    if (args[0] == REGISTER && values[0] >= 0 && values < REG_NUMBER) {
+        c = process->registers[values[0]] % 256;
+        write(1, &c, 1);
+    }
+    process->pc= addr;
     process->cycles = 10;
-    c = process->registers[value - 1] % 256;
-    write(1, &c, 1);
 }
