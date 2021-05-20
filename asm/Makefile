@@ -8,6 +8,7 @@
 SRC		=	./src/main.c 					\
 			./src/parsing.c					\
 			./src/my_asm_to_word_array.c 	\
+			./src/my_str_to_word_array.c 	\
 			./src/core.c					\
 			./src/funct_one.c				\
 			./src/funct_two.c				\
