@@ -26,6 +26,8 @@ typedef struct vm_s {
     int cycles;
     int dead_cycles;
     int dump_cycles;
+    int last_live;
+    int nb_lives;
     list_t *champions;
 #ifdef BONUS
     bonus_t *bonus;

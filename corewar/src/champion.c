@@ -24,8 +24,7 @@ champion_t *champion_create(char *filepath, int id, int addr, vm_t *vm)
     || champion_read_header(champion, fd))
         return (NULL);
     champion->id = id;
-    champion->dead = 0;
-    champion->live_cycles = 0;
+    champion->nb_processes = 0;
     champion->processes = NULL;
     if (write_file_in_memory(addr, fd, champion->header->prog_size, vm))
         return (NULL);
@@ -52,17 +51,26 @@ int champion_read_header(champion_t *champion, int fd)
     return (0);
 }
 
+void champion_add_process(champion_t *champion, process_t *process)
+{
+    champion->nb_processes++;
+    create_list(&(champion->processes), process);
+}
+
 void champion_update(champion_t *champion, vm_t *vm)
 {
     process_t *process;
+    list_t *next;
 
-    champion->live_cycles++;
-    for (list_t *list = champion->processes; list; list = list->next) {
+    for (list_t *list = champion->processes; list; list = next) {
+        next = list->next;
         process = (process_t*) list->data;
-        process_update(process, champion, vm);
+        if (process_update(process, champion, vm)) {
+            my_delete_node(&(champion->processes), process);
+            process_destroy(process);
+            champion->nb_processes--;
+        }
     }
-    if (champion->live_cycles >= vm->dead_cycles)
-        champion->dead = 1;
 }
 
 void champion_destroy(champion_t *champion)

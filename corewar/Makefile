@@ -72,7 +72,7 @@ tests_run:	fclean $(TESTS_OBJ)	$(OBJ)
 	gcc $(CFLAGS) -o $(NAME_TESTS) $(OBJ) $(TESTS_OBJ) -L$(LIB_DIR) -lmy -lcriterion
 	./$(NAME_TESTS)
 
-debug:	CFLAGS += -g
+debug:	CFLAGS += -g -gdwarf-3
 debug:	re
 
 bonus:	CFLAGS += -I$(BONUS_INC) -D BONUS
