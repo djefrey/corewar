@@ -50,7 +50,8 @@ int process_update(process_t *process, champion_t *champion, vm_t *vm)
 {
     char instruction = 0;
 
-    if (process->live_cycles >= vm->dead_cycles)
+    process->live_cycles++;
+    if (process->live_cycles > vm->dead_cycles)
         return (1);
     if (process->cycles > 0) {
         process->cycles--;

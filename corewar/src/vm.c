@@ -24,6 +24,7 @@ int vm_init(vm_t *vm)
     vm->dead_cycles = CYCLE_TO_DIE;
     vm->dump_cycles = -1;
     vm->last_live = -1;
+    vm->nb_lives = 0;
     vm->champions = NULL;
     for (int i = 0; i < MEM_SIZE; i++)
         *(memory + i) = 0;
@@ -39,7 +40,8 @@ void vm_run(vm_t *vm)
         if (vm->cycles == vm->dump_cycles) {
             vm_dump(vm);
             break;
-        } else if (vm->cycles && vm->cycles % NBR_LIVE == 0) {
+        } else if (vm->nb_lives == NBR_LIVE) {
+            vm->nb_lives = 0;
             vm->dead_cycles -= CYCLE_DELTA;
             if (vm->dead_cycles <= 0)
                 vm->dead_cycles = 1;

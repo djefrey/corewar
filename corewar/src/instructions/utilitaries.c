@@ -21,6 +21,7 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
     value = read_int(process->pc + 1, 4, vm);
     process->pc = (process->pc + 5) % MEM_SIZE;
     process->live_cycles = 0;
+    vm->nb_lives++;
     for (list_t *list = vm->champions; list; list = list->next) {
         alive = (champion_t*) list->data;
         if (alive->id == value) {
