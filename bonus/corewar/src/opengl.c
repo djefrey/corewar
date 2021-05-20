@@ -9,37 +9,6 @@
 #include "mesh.h"
 #include "gameitem.h"
 
-GLfloat cube_vertex[24] = {
-    -1.0f, 1.0f, -1.0f,
-    -1.0f, -1.0f, -1.0f,
-    -1.0f, 1.0f, 1.0f,
-    -1.0f, -1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f,
-    1.0f, -1.0f, 1.0f,
-    1.0f, 1.0f, -1.0f,
-    1.0f, -1.0f, -1.0f
-};
-
-GLfloat cube_colors[24] = {
-    1.0f, 1.0f, 1.0f,
-    0.5f, 0.5f, 0.5f,
-    1.0f, 1.0f, 1.0f,
-    0.5f, 0.5f, 0.5f,
-    1.0f, 1.0f, 1.0f,
-    0.5f, 0.5f, 0.5f,
-    1.0f, 1.0f, 1.0f,
-    0.5f, 0.5f, 0.5f,
-};
-
-GLuint cube_indices[36] = {
-    0,1,2,2,1,3,
-    4,5,6,6,5,7,
-    3,1,5,5,1,7,
-    0,2,6,6,2,4,
-    6,7,0,0,7,1,
-    2,3,4,4,3,5
-};
-
 sfWindow *window_create(void)
 {
     sfVideoMode mode = {WINDOW_WIDTH, WINDOW_HEIGHT, 32};
@@ -53,6 +22,9 @@ sfWindow *window_create(void)
     glDepthRange(0.0f, 1.0f);
     glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0.0f, 0.1f, 0.0f, 0.0f);
     sfWindow_setFramerateLimit(window, 120);
     return (window);
@@ -60,17 +32,16 @@ sfWindow *window_create(void)
 
 void scene_create_cubes(scene_t *scene)
 {
-    mesh_t *cube = mesh_create(cube_vertex,
-    cube_colors, cube_indices, (int[2]) {24, 36});
+    mesh_t *cube_mesh = cube_mesh_create();
     gameitem_t *item;
 
-    if (!cube)
+    if (!cube_mesh)
         return (NULL);
-    create_list(&(scene->meshes), cube);
+    create_list(&(scene->meshes), cube_mesh);
     for (int i = 0; i < MEM_SIZE; i++) {
-        item = cube_create(cube, i);
+        item = cube_create(cube_mesh, i);
         transform_set_translation(item->transform, i % 32 * 5, 0, i / 32 * 5);
-        create_list(&(cube->items), item);
+        create_list(&(cube_mesh->items), item);
         create_list(&(scene->cubes), item);
     }
 }

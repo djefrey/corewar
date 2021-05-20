@@ -17,6 +17,7 @@
 #include "my_list.h"
 
 #include "camera.h"
+#include "hud.h"
 
 typedef struct bonus_s bonus_t;
 
@@ -24,10 +25,11 @@ typedef struct scene_s {
     list_t *meshes;
     list_t *cubes;
     camera_t *camera;
+    hud_t *hud;
 } scene_t;
 
 scene_t *scene_create(void);
-void scene_draw(scene_t *scene, GLuint program_id, bonus_t *bonus);
+void scene_draw(scene_t *scene, bonus_t *bonus);
 void scene_destroy(scene_t *scene);
 
 #endif /* !SCENE_H_ */

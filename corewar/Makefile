@@ -22,17 +22,20 @@ SRC			=	src/vm.c							\
 				src/instructions/utilitaries.c		\
 				src/utils.c
 
-BONUS_SRC	=	../bonus/corewar/src/bonus.c		\
-				../bonus/corewar/src/memory.c		\
-				../bonus/corewar/src/opengl.c		\
-				../bonus/corewar/src/camera.c		\
-				../bonus/corewar/src/mesh.c			\
-				../bonus/corewar/src/shader.c		\
-				../bonus/corewar/src/gameitem.c		\
-				../bonus/corewar/src/cube.c			\
-				../bonus/corewar/src/scene.c		\
-				../bonus/corewar/src/transform.c	\
-				../bonus/corewar/src/file.c
+BONUS_SRC	=	../bonus/corewar/src/bonus.c						\
+				../bonus/corewar/src/memory.c						\
+				../bonus/corewar/src/opengl.c						\
+				../bonus/corewar/src/file.c							\
+				../bonus/corewar/src/graphics/camera.c				\
+				../bonus/corewar/src/graphics/hud.c					\
+				../bonus/corewar/src/graphics/scene.c				\
+				../bonus/corewar/src/graphics/shader.c				\
+				../bonus/corewar/src/graphics/text.c				\
+				../bonus/corewar/src/graphics/transform.c			\
+				../bonus/corewar/src/graphics/mesh/mesh.c			\
+				../bonus/corewar/src/graphics/mesh/cube_mesh.c		\
+				../bonus/corewar/src/graphics/gameitems/gameitem.c	\
+				../bonus/corewar/src/graphics/gameitems/cube.c		\
 
 TESTS_SRC	=	tests/operations.c					\
 				tests/ld.c							\

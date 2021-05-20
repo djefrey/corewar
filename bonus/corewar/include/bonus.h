@@ -27,7 +27,6 @@ typedef struct bonus_s {
     sfWindow *window;
     unsigned int *memory;
     scene_t *scene;
-    GLuint program_id;
 } bonus_t;
 
 bonus_t *bonus_create(void);

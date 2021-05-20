@@ -18,8 +18,6 @@ bonus_t *bonus_create(void)
     sfWindow *window = window_create();
     unsigned int *memory = malloc(sizeof(int) * MEM_SIZE);
     scene_t *scene = scene_create();
-    GLuint program_id = load_shaders("bonus/corewar/res/vertex.glsl",
-    "bonus/corewar/res/fragment.glsl");
 
     if (!bonus || !window || !memory || !scene)
         return (NULL);
@@ -28,7 +26,6 @@ bonus_t *bonus_create(void)
     bonus->window = window;
     bonus->memory = memory;
     bonus->scene = scene;
-    bonus->program_id = program_id;
     return (bonus);
 }
 
@@ -56,9 +53,7 @@ void bonus_event(bonus_t *bonus, int *run)
 void bonus_draw(bonus_t *bonus)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glUseProgram(bonus->program_id);
-    scene_draw(bonus->scene, bonus->program_id, bonus);
-    glUseProgram(0);
+    scene_draw(bonus->scene, bonus);
     sfWindow_display(bonus->window);
 }
 

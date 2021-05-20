@@ -27,14 +27,24 @@ typedef struct mesh_s {
     int vertices;
     int triangles;
     list_t *items;
+    GLuint program_id;
+    void (*mesh_drawlist_fct)(struct mesh_s *mesh,
+    mat4 projection_matrix, bonus_t *bonus);
+    void (*mesh_destroy_fct)(struct mesh_s *mesh);
 } mesh_t;
+
+typedef void (*mesh_drawlist_fct_t)(mesh_t *mesh,
+mat4 projection_matrix, bonus_t *bonus);
+typedef void (*mesh_destroy_fct_t)(mesh_t *mesh);
 
 mesh_t *mesh_create(GLfloat vertex_array[],
 GLfloat color_array[], GLuint indices_array[], int size[2]);
-void mesh_drawinit(mesh_t *mesh);
-void mesh_drawlist(mesh_t *mesh, GLuint program_id,
-mat4 projection_matrix, bonus_t *bonus);
-void mesh_drawend(mesh_t *mesh);
 void mesh_destroy(mesh_t *mesh);
+
+mesh_t *cube_mesh_create(void);
+void cube_mesh_drawinit(mesh_t *mesh);
+void cube_mesh_drawlist(mesh_t *mesh, mat4 projection_matrix, bonus_t *bonus);
+void cube_mesh_drawend(mesh_t *mesh);
+void cube_mesh_destroy(mesh_t *mesh);
 
 #endif /* !MESH_H_ */
