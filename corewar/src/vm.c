@@ -50,7 +50,8 @@ void vm_run(vm_t *vm)
                 vm->dead_cycles = 1;
         }
         #ifdef BONUS
-        bonus_update(vm->bonus, vm);
+        if (!bonus_update(vm->bonus, vm))
+            break;
         #endif
         vm->cycles++;
     }
