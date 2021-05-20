@@ -47,7 +47,7 @@ static int total_word(char const *str)
     return (carac);
 }
 
-char **my_str_to_word_array(char const *str, int j, int k)
+char **my_str_to_asm_array(char const *str, int j, int k)
 {
     char **tab = malloc(sizeof(char *) * (total_word(str) + 1));
     int l = 0;

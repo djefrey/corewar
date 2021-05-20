@@ -9,7 +9,8 @@
 
 void reformate_string(asms_t *asms, int i)
 {
-    for (; asms->tab_f[i][0] == ' '; ++asms->tab_f[i]);
+    for (; asms->tab_f[i][0] == ' ' || asms->tab_f[i][0] == '\t';
+         ++asms->tab_f[i]);
 }
 
 char *get_name_comment(char *str)
@@ -18,11 +19,11 @@ char *get_name_comment(char *str)
     int i = 0;
     int j = 0;
 
-    for (; str[i] != '"'; ++i);
+    for (; str[i] != '"'; i++);
     i++;
     if (str[i] == ' ')
         ++i;
-    for (; str[i] != '"'; ++i) {
+    for (; str[i] != '"'; i++) {
             result[j] = str[i];
             j++;
     }
