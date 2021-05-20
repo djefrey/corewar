@@ -94,7 +94,6 @@ int argument_create_champions(setup_t *setup, vm_t *vm)
         if (!champion || !process)
             return (1);
         create_list(&(vm->champions), champion);
-        create_list(&(champion->processes), process);
     }
     return (0);
 }
