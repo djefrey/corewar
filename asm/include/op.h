@@ -27,7 +27,6 @@ typedef struct header_s {
    char prog_name[PROG_NAME_LENGTH + 1];
    int prog_size;
    char comment[COMMENT_LENGTH + 1];
-   char align[4];
 } header_t;
 
 typedef struct op_s {

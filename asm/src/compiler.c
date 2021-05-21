@@ -44,6 +44,10 @@ void precompile(asms_t *asms)
 
 /*
 ** Write the header in fd_out
+** There is a problem with variable alignment
+** Garbage values are written at the end
+** The solution was to write outside of the struct,
+** but it's dangerous
 */
 void write_header(asms_t *asms)
 {
@@ -56,8 +60,7 @@ void write_header(asms_t *asms)
     header.prog_size = asms->prog_size;
     inverse_endian(&(header.prog_size), sizeof(int));
     get_cmd(COMMENT_CMD_STRING, asms->lines[1],
-    (char*) &(header.comment), COMMENT_LENGTH + 1);
-    my_strncpy(header.align, "\0\0\0\0", 4);
+    (char*) &(header.comment), COMMENT_LENGTH + 4);
     write(asms->fd_out, &header, sizeof(header_t));
 }
 
