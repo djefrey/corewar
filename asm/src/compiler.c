@@ -52,11 +52,12 @@ void write_header(asms_t *asms)
     header.magic = COREWAR_MAGIC_NUMBER;
     inverse_endian(&(header.magic), sizeof(int));
     get_cmd(NAME_CMD_STRING, asms->lines[0],
-    (char*) &(header.prog_name), PROG_NAME_LENGTH);
+    (char*) &(header.prog_name), PROG_NAME_LENGTH + 1);
     header.prog_size = asms->prog_size;
     inverse_endian(&(header.prog_size), sizeof(int));
     get_cmd(COMMENT_CMD_STRING, asms->lines[1],
-    (char*) &(header.comment), COMMENT_LENGTH);
+    (char*) &(header.comment), COMMENT_LENGTH + 1);
+    my_strncpy(header.align, "\0\0\0\0", 4);
     write(asms->fd_out, &header, sizeof(header_t));
 }
 

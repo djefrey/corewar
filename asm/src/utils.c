@@ -49,6 +49,7 @@ char *get_cmd(char *cmd_name, char *line, char *buff, int buff_size)
         exit(put_error("Invalid command value\n"));
     if (!(value = malloc(sizeof(char) * (size))))
         exit(84);
+    my_strncpy(value, line + start, size);
     copy_to_buffer(value, buff, size, buff_size);
     return (value);
 }

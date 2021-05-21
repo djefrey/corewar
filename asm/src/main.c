@@ -30,7 +30,6 @@ int init_compilation(char *input, asms_t *asms)
         return (84);
     close(in_fd);
     asms->lines = split_file(file_content);
-    precompile(asms);
     compile(asms);
     free_split(asms->lines);
     free(file_content);
