@@ -43,6 +43,7 @@ int parse_struct(asms_t *asms)
     ++asms->tab_f;
     info->comment = get_name_comment(asms->tab_f[0]);
     ++asms->tab_f;
+    header(asms, info);
     for (; asms->tab_f[i]; ++i);
     asms->mega_tab = malloc(sizeof(char **) * i + 1);
     for (i = 0; asms->tab_f[i]; ++i)
