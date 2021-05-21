@@ -10,12 +10,13 @@ SRC		=	./src/main.c 					\
 			./src/my_asm_to_word_array.c 	\
 			./src/my_str_to_word_array.c 	\
 			./src/core.c					\
-			./src/funct_one.c				\
-			./src/funct_two.c				\
-			./src/funct_three.c				\
-			./src/print_file.c				\
-			./src/op.c						\
-			./src/utils.c
+			./src/write_file.c				\
+			./src/file_reader.c				\
+			./src/label.c					\
+			./src/utils.c					\
+			./src/operations/arguments.c	\
+			./src/operations/operations.c	\
+			./src/operations/op_list.c
 
 LIB_DIR	=	./mylib
 INC_DIR	=	./include

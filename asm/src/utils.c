@@ -1,53 +1,26 @@
 /*
 ** EPITECH PROJECT, 2021
-** B-CPE-201-STG-2-1-corewar-thomas.parenteau
+** asm
 ** File description:
 ** utils
 */
 
 #include "asm.h"
 
-void its_last(asms_t *asms, char **tab, int inc)
-{
-    if (tab[1 + inc][0] != REGISTER && tab[2 + inc][0] == REGISTER) {
-        indir_or_dir(tab[1 + inc], asms);
-        print_reg(str_to_int(tab[2 + inc]), asms);
-    }
-}
-
-void its_first(asms_t *asms, char **tab, int inc)
-{
-    if (tab[1 + inc][0] == REGISTER && tab[2 + inc][0] != REGISTER) {
-        print_reg(str_to_int(tab[1 + inc]), asms);
-        indir_or_dir(tab[2 + inc], asms);
-    }
-}
-
-void double_print_register(asms_t *asms, char **tab, int inc)
-{
-    if (tab[1 + inc][0] == REGISTER && tab[2 + inc][0] == REGISTER) {
-        print_reg(str_to_int(tab[1 + inc]), asms);
-        print_reg(str_to_int(tab[2 + inc]), asms);
-    }
-}
-
-void double_print_ind(asms_t *asms, char **tab, int inc)
-{
-    if (tab[1 + inc][0] != REGISTER && tab[2 + inc][0] != REGISTER) {
-        indir_or_dir(tab[1 + inc], asms);
-        indir_or_dir(tab[2 + inc], asms);
-    }
-}
-
 int str_to_int(char *str)
 {
+    char neg = 0;
     int value = 0;
 
+    if (*str == '-') {
+        neg = 1;
+        str++;
+    }
     while (*str) {
         if (*str < '0' || *str > '9')
-            return (-1);
+            return (0);
         value = value * 10 + (*str - '0');
         str++;
     }
-    return (value);
+    return (neg ? -value : value);
 }

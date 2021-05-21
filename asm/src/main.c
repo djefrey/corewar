@@ -7,10 +7,29 @@
 
 #include "asm.h"
 
-int put_error(char *str)
+int main(int ac, char **av)
 {
-    my_putstr(str);
-    return (84);
+    asms_t asms = {0};
+
+    if (ac != 2)
+        return (put_error("usage: ./asm file_name[.s]\n"));
+    else if (my_strcmp(&av[1][my_strlen(av[1]) - 2], ".s") != 0)
+        return (put_error("Can't read file\n"));
+    return (compile(av[1], &asms));
+}
+
+int compile(char *input, asms_t *asms)
+{
+    if ((asms->fd_in = open(input, O_RDONLY)) < 0)
+        return (put_error("Can't read file\n"));
+    name_new_file(input, asms);
+    if ((asms->fd_out = open(asms->output, O_CREAT | O_RDWR, 0644)) < 0)
+        return (put_error("Fail with open\n"));
+    else if (read_source_file(asms))
+        return (84);
+    asms->tab_f = my_str_to_asm_array(asms->file, 0, 0);
+    reformate_tab(asms);
+    return (parse_struct(asms));
 }
 
 void reformate_tab(asms_t *asms)
@@ -27,43 +46,8 @@ void reformate_tab(asms_t *asms)
     }
 }
 
-int compile(char *input, asms_t *asms)
+int put_error(char *str)
 {
-    if ((asms->fd_in = open(input, O_RDONLY)) < 0)
-        return (put_error("Can't read file\n"));
-    input[my_strlen(input) - 2] = '\0';
-    name_new_file(input, asms);
-    if ((asms->fd_out = open(asms->output, O_CREAT | O_RDWR, 0644)) < 0)
-        return (put_error("Fail with open\n"));
-    if (read(asms->fd_in, asms->file, 4095) == -1)
-        return (put_error("Fail with read\n"));
-    asms->file = realloc(asms->file, (my_strlen(asms->file) + 1));
-    asms->tab_f = my_str_to_asm_array(asms->file, 0, 0);
-    reformate_tab(asms);
-    return (parse_struct(asms));
-}
-
-asms_t *init_struct(void)
-{
-    asms_t *asms = malloc(sizeof(asms_t));
-
-    asms->fd_in = 0;
-    asms->fd_out = 0;
-    asms->loop = 0;
-    asms->size = 0;
-    asms->output = NULL;
-    asms->file = malloc(sizeof(char) * 4096);
-    asms->tab_f = NULL;
-    return (asms);
-}
-
-int main(int ac, char **av)
-{
-    asms_t *asms = init_struct();
-
-    if (ac != 2)
-        return (put_error("usage: ./asm file_name[.s]\n"));
-    if (my_strcmp(&av[1][my_strlen(av[1]) - 2], ".s") != 0)
-        return (put_error("Can't read file\n"));
-    return (compile(av[1], asms));
+    my_putstr(str);
+    return (84);
 }
