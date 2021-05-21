@@ -23,8 +23,9 @@ int read_source_file(asms_t *asms)
 
     if (size == 0)
         return (1);
-    buff = malloc(sizeof(char) * size);
+    buff = malloc(sizeof(char) * (size + 1));
     read(asms->fd_in, buff, size);
+    buff[size] = '\0';
     asms->file = buff;
     return (0);
 }

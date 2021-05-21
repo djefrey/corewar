@@ -7,5 +7,5 @@
 
 int get_label_value()
 {
-    return (0);
+    return (0x1234);
 }

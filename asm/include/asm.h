@@ -8,18 +8,33 @@
 #ifndef ASM_H_
 #define ASM_H_
 
-#define MAGIC_NUMBER 0xea83f3
-# define BIT_SWAP(x) ((x >> 24) & 0xff) | ((x << 8) & 0xff0000) \
-    | ((x >> 8) & 0xff00) | ((x << 24) & 0xff000000)
-
-typedef unsigned char bytes[2];
-
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include "op.h"
 #include "my.h"
+
+#define MAX_ARGS_NUMBER 4
+
+#define COMMENT_CHAR '#'
+#define LABEL_CHAR ':'
+#define DIRECT_CHAR '%'
+#define REGISTER_CHAR 'r'
+#define SEPARATOR_CHAR ','
+
+#define LABEL_CHARS "abcdefghijklmnopqrstuvwxyz_0123456789"
+
+#define NAME_CMD_STRING ".name"
+#define COMMENT_CMD_STRING ".comment"
+
+#define REG_NUMBER 16
+
+#define IND_SIZE 2
+#define DIR_SIZE 4
+#define REG_SIZE 4
+
+#define COREWAR_MAGIC_NUMBER 0xea83f3
 
 typedef struct asms_s {
     char *output;
@@ -50,6 +65,10 @@ void reformate_string(asms_t *asms, int i);
 char **my_str_to_asm_array(char const *str, int j, int k);
 
 void name_new_file(char *input, asms_t *asms);
+
+char **split_file(char *str);
+char **split_line(char *line);
+void free_split(char **split);
 
 int read_source_file(asms_t *asms);
 

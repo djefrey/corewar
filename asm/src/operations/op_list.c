@@ -25,7 +25,7 @@ op_t OPS[] = {
     {0x08, 6, 3, {REG_ARG | DIR_ARG | IND_ARG, REG_ARG | DIR_ARG | IND_ARG,
         REG_ARG, NONE_ARG}, "xor", 0, 1},
     {0x09, 20, 1, {DIR_ARG, NONE_ARG, NONE_ARG, NONE_ARG},
-        "zjmp", 0, 0},
+        "zjmp", 1, 0},
     {0x0a, 25, 3, {REG_ARG | DIR_ARG | IND_ARG, REG_ARG | DIR_ARG,
         REG_ARG, NONE_ARG}, "ldi", 1, 1},
     {0x0b, 25, 3, {REG_ARG, REG_ARG | DIR_ARG | IND_ARG,

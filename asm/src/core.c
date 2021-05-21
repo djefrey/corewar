@@ -14,13 +14,18 @@
 int prog(asms_t *asms)
 {
     char **line;
+    char **cpy;
     op_t *op;
 
-    for (int i = 0; asms->mega_tab[i]; i++) {
-        line = asms->mega_tab[i];
+    for (int i = 0; asms->tab_f[i]; i++) {
+        line = split_line(asms->tab_f[i]);
+        cpy = line;
+        if (line[0][my_strlen(line[0]) - 1] == LABEL_CHAR)
+            line++;
         op = get_op_by_mnemonique(line[0]);
         if (op)
             write_operation_in_output_file(line, op, asms);
+        free_split(cpy);
     }
     return (0);
 }
@@ -49,7 +54,7 @@ void header(asms_t *asms, info_t *info)
 {
     header_t *header;
 
-    header->magic = COREWAR_EXEC_MAGIC;
+    header->magic = COREWAR_MAGIC_NUMBER;
     my_strcpy(header->prog_name, info->name);
     my_strcpy(header->comment, info->comment);
     header->prog_size = asms->size;

@@ -30,8 +30,11 @@ int get_operation_size(char **line)
 {
     op_t *op = get_op_by_mnemonique(line[0]);
     argument_t args[4] = {NONE_ARG};
-    int size = 1;
+    int size = 0;
 
+    if (!op)
+        return (0);
+    size = op->has_coding_byte ? 2 : 1;
     get_operation_arguments(line, args);
     for (int i = 0; i < 4; i++) {
         if (args[i] == NONE_ARG)

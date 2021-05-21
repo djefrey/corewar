@@ -16,7 +16,7 @@ void get_operation_arguments(char *args[], argument_t args_type[4])
 {
     char *arg;
 
-    for (int i = 0; i < 4 && args[i]; i++) {
+    for (int i = 0; i < 4 && args[i + 1]; i++) {
         arg = args[i + 1];
         if (arg[0] == DIRECT_CHAR)
             args_type[i] = DIR_ARG;
@@ -36,19 +36,19 @@ int values[4], asms_t *asms)
 {
     int value;
 
-    for (int i = 0; i < 4 && args_type[i] != NONE_ARG; i++) {
+    for (int i = 0; i < 4 && args_type[i] && args_type[i] != NONE_ARG; i++) {
         if ((args_type[i] == DIR_ARG && args[i + 1][1] == LABEL_CHAR)
         || (args_type[i] == IND_ARG && args[i + 1][0] == LABEL_CHAR))
             value = get_label_value();
-        if (args_type[i] == DIR_ARG || args_type[i] == REG_ARG)
+        else if (args_type[i] == DIR_ARG || args_type[i] == REG_ARG)
             value = str_to_int(args[i + 1] + 1);
         else
             value = str_to_int(args[i + 1] + 1);
-        if (((args_type[i] == DIR_ARG || args_type[i] == REG_ARG)
-        && !my_str_isnum(args[i + 1] + 1))
+        if ((((args_type[i] == DIR_ARG && args[i + 1][1] != LABEL_CHAR)
+        || args_type[i] == REG_ARG) && !my_str_isnum(args[i + 1] + 1))
         || (args_type[i] == IND_ARG && !my_str_isnum(args[i]))
         || (args_type[i] == REG_ARG && (value < 1 || value > REG_NUMBER)))
-            exit(put_error("Invalid argument value"));
+            exit(put_error("Invalid argument value\n"));
         values[i] = value;
     }
 }
@@ -61,7 +61,8 @@ void check_argument_validity(op_t *op, argument_t args[4])
 {
     int nb_args = 0;
 
-    for (; nb_args < 4 && args[nb_args] != NONE_ARG; nb_args++);
+    for (; nb_args < 4 && args[nb_args]
+    && args[nb_args] != NONE_ARG; nb_args++);
     if (op->nb_args != nb_args)
         exit(put_error("Invalid number of argument\n"));
     for (int i = 0; i < nb_args; i++) {
@@ -80,13 +81,13 @@ char generate_coding_byte(argument_t args[4])
     for (int i = 0; i < 4; i++) {
         switch (args[i]) {
             case REG_ARG:
-                value |= 1 << (i * 2);
+                value |= 1 << ((3 - i) * 2);
                 break;
             case DIR_ARG:
-                value |= 2 << (i * 2);
+                value |= 2 << ((3 - i) * 2);
                 break;
             case IND_ARG:
-                value |= 3 << (i * 2);
+                value |= 3 << ((3 - i) * 2);
                 break;
             default:
                 break;
@@ -102,7 +103,7 @@ void write_arguments_value(argument_t args[4],
 int values[4], char indexes, asms_t *asms)
 {
     for (int i = 0; i < 4; i++) {
-        if (args[i] == NONE_ARG)
+        if (!args[i] || args[i] == NONE_ARG)
             continue;
         if (args[i] == REG_ARG)
             write_data(asms->fd_out, (char*) &values[i], 1, 0);

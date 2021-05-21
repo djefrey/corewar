@@ -7,8 +7,7 @@
 
 SRC		=	./src/main.c 					\
 			./src/parsing.c					\
-			./src/my_asm_to_word_array.c 	\
-			./src/my_str_to_word_array.c 	\
+			./src/splitter.c				\
 			./src/core.c					\
 			./src/write_file.c				\
 			./src/file_reader.c				\
@@ -33,7 +32,7 @@ $(NAME):	$(OBJ)
 	make -C $(LIB_DIR)
 	gcc $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIB_DIR) -lmy
 
-debug:	CFLAGS += -g
+debug:	CFLAGS += -g -gdwarf-3
 debug:	re
 
 clean:
