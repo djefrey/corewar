@@ -22,14 +22,10 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
     process->pc = (process->pc + 5) % MEM_SIZE;
     process->live_cycles = 0;
     vm->nb_lives++;
-    for (list_t *list = vm->champions; list; list = list->next) {
-        alive = (champion_t*) list->data;
-        if (alive->id == value) {
-            my_printf("Le joueur %i (%s) est en vie.\n",
-            alive->id, alive->header->prog_name);
-            vm->last_live = alive->id;
-            break;
-        }
+    if ((alive = get_champion_by_id(vm, value))) {
+        my_printf("The player %i (%s) is alive.\n",
+        alive->id, alive->header->prog_name);
+        vm->last_live = alive->id;
     }
 }
 

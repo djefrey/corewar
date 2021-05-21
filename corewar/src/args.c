@@ -47,10 +47,10 @@ int argument_read_value(int *id, int *addr, char **arg, vm_t *vm)
 
     if (len == 2) {
         if (arg[0][1] == 'n') {
-            if ((*id = str_to_int(arg[1])) == -1)
+            if ((*id = str_to_int(arg[1])) < 0)
                 return (1);
         } else if (arg[0][1] == 'a') {
-            if ((*addr = str_to_int(arg[1])) == -1)
+            if ((*addr = str_to_int(arg[1]) % MEM_SIZE) < 0)
                 return (1);
         }
     } else {
@@ -79,21 +79,19 @@ int argument_add_champion(setup_t *setup, int *id, int *addr, char *arg)
 int argument_create_champions(setup_t *setup, vm_t *vm)
 {
     champion_t *champion;
-    process_t *process;
 
     if (setup->nb != 4)
         return (1);
     for (int i = 0; i < 4; i++) {
-        if (setup->ids[i] == -1)
-            setup->ids[i] = i + 1;
+        calculate_minimum_champions_ids(setup);
         if (setup->addrs[i] == -1)
             setup->addrs[i] = (MEM_SIZE / 4) * i;
         champion = champion_create(setup->files[i],
         setup->ids[i], setup->addrs[i], vm);
-        process = process_create(champion, setup->addrs[i]);
-        if (!champion || !process)
+        if (!champion || !(process_create(champion, setup->addrs[i])))
             return (1);
         create_list(&(vm->champions), champion);
     }
+    my_sort_list(&(vm->champions), &champion_cmp_ids);
     return (0);
 }

@@ -8,11 +8,13 @@
 MAIN_SRC	=	src/main.c
 
 SRC			=	src/vm.c							\
+				src/vm_run.c						\
 				src/champion.c						\
 				src/process.c						\
 				src/cor.c							\
 				src/memory.c						\
-				src/arg.c							\
+				src/args.c							\
+				src/args_utils.c					\
 				src/instructions/instructions.c		\
 				src/instructions/arguments.c		\
 				src/instructions/read_args.c		\

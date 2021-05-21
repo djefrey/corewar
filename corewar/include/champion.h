@@ -8,6 +8,8 @@
 #ifndef CHAMPION_H_
 #define CHAMPION_H_
 
+#include "my_list.h"
+
 typedef struct vm_s vm_t;
 typedef struct process_s process_t;
 typedef struct header_s header_t;

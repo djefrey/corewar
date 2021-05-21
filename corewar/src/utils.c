@@ -7,8 +7,9 @@
 
 #include <unistd.h>
 #include "corewar.h"
-#include "vm.h"
+#include "champion.h"
 #include "process.h"
+#include "vm.h"
 
 int get_file_size(int fd)
 {
@@ -36,4 +37,16 @@ int str_to_int(char *str)
         str++;
     }
     return (value);
+}
+
+champion_t *get_champion_by_id(vm_t *vm, int id)
+{
+    champion_t *champion;
+
+    for (list_t *list = vm->champions; list; list = list->next) {
+        champion = (champion_t*) list->data;
+        if (champion->id == id)
+            return (champion);
+    }
+    return (NULL);
 }

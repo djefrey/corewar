@@ -31,42 +31,6 @@ int vm_init(vm_t *vm)
     return (0);
 }
 
-void vm_run(vm_t *vm)
-{
-    int living = 4;
-
-    while (living > 1) {
-        living = vm_update_champions(vm);
-        if (vm->cycles == vm->dump_cycles) {
-            vm_dump(vm);
-            break;
-        } else if (vm->nb_lives == NBR_LIVE) {
-            vm->nb_lives = 0;
-            vm->dead_cycles -= CYCLE_DELTA;
-            if (vm->dead_cycles <= 0)
-                vm->dead_cycles = 1;
-        }
-        vm->cycles++;
-    }
-}
-
-/*
-** Update all champions
-** Return the number of living ones
-*/
-int vm_update_champions(vm_t *vm)
-{
-    champion_t *champion;
-    int living = 0;
-
-    for (list_t *list = vm->champions; list; list = list->next) {
-        champion = (champion_t*) list->data;
-        champion_update(champion, vm);
-        living += !champion->nb_processes;
-    }
-    return (living);
-}
-
 void vm_dump(vm_t *vm)
 {
     unsigned char value_str[4] = {'0', '0', ' ', '\n'};
