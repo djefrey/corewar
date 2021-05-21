@@ -36,6 +36,7 @@ void bonus_draw(bonus_t *bonus);
 void bonus_destroy(bonus_t *bonus);
 
 sfWindow *window_create(void);
+void scene_create_cubes(scene_t *scene);
 
 GLuint load_shaders(char *vertex_filepath, char *fragment_filepath);
 void compile_shader(int shader_id, char *filepath);

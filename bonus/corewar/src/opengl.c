@@ -36,7 +36,7 @@ void scene_create_cubes(scene_t *scene)
     gameitem_t *item;
 
     if (!cube_mesh)
-        return (NULL);
+        return;
     create_list(&(scene->meshes), cube_mesh);
     for (int i = 0; i < MEM_SIZE; i++) {
         item = cube_create(cube_mesh, i);

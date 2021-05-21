@@ -76,12 +76,13 @@ void vm_destroy(vm_t *vm)
 {
     list_t *next;
 
-    for (list_t *list = vm->champions; list; list = next) {
-        next = list->next;
-        champion_destroy((champion_t*) list->data);
-    }
-    free(vm->memory);
     #ifdef BONUS
     bonus_destroy(vm->bonus);
     #endif
+    for (list_t *list = vm->champions; list; list = next) {
+        next = list->next;
+        champion_destroy((champion_t*) list->data);
+        free(list);
+    }
+    free(vm->memory);
 }

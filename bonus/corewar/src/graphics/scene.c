@@ -17,7 +17,7 @@ scene_t *scene_create(void)
     hud_t *hud = hud_create();
 
     if (!scene || !camera || !hud)
-        return;
+        return (NULL);
     camera_set_pos(camera, -120, 320, 480);
     camera_set_target(camera, 80, 0, 480);
     scene->meshes = NULL;
@@ -44,15 +44,16 @@ void scene_draw(scene_t *scene, bonus_t *bonus)
 void scene_destroy(scene_t *scene)
 {
     list_t *next;
+    mesh_t *mesh;
 
     for (list_t *list = scene->meshes; list; list = next) {
         next = list->next;
-        mesh_destroy((mesh_t*) list->data);
+        mesh = (mesh_t*) list->data;
+        mesh->mesh_destroy_fct(mesh);
         free(list);
     }
     for (list_t *list = scene->cubes; list; list = next) {
         next = list->next;
-        gameitem_destroy((gameitem_t*) list->data);
         free(list);
     }
     camera_destroy(scene->camera);

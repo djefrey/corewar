@@ -10,3 +10,4 @@ corewar/dump.txt
 **/*.gcno
 **/*.gcda
 .vscode/
+**/dump*

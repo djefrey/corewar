@@ -41,7 +41,6 @@ text_t *text_create(char *str, sfVector2f pos, texts_t *texts)
 void texts_renderlist(texts_t *texts, GLuint program_id)
 {
     text_t *text;
-    sfVector2u text_size = sfTexture_getSize(texts->font_texture);
 
     glUseProgram(program_id);
     glEnableVertexAttribArray(0);
@@ -50,14 +49,14 @@ void texts_renderlist(texts_t *texts, GLuint program_id)
     sfTexture_bind(texts->font_texture);
     for (list_t *list = texts->texts; list; list = list->next) {
         text = (text_t*) list->data;
-        text_render(text, text_size);
+        text_render(text);
     }
     sfTexture_bind(NULL);
     glDisableVertexAttribArray(0);
     glUseProgram(0);
 }
 
-void text_render(text_t *text, sfVector2u text_size)
+void text_render(text_t *text)
 {
     unsigned int c;
     sfVector2f pos = text->pos;

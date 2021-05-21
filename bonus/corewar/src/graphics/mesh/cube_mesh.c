@@ -6,6 +6,8 @@
 */
 
 #include <stdlib.h>
+#include "corewar.h"
+#include "bonus.h"
 #include "mesh.h"
 #include "transform.h"
 #include "gameitem.h"
@@ -92,6 +94,7 @@ void cube_mesh_drawlist(mesh_t *mesh, mat4 projection_matrix, bonus_t *bonus)
 
 void cube_mesh_drawend(mesh_t *mesh)
 {
+    UNUSED(mesh);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(0);
     glUseProgram(0);

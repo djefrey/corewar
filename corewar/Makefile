@@ -89,6 +89,7 @@ clean:
 	make -C $(LIB_DIR) clean
 	rm -f $(MAIN_OBJ)
 	rm -rf $(OBJ)
+	rm -rf $(BONUS_OBJ)
 	rm -rf $(TESTS_OBJ)
 	rm -rf **/*.gcno
 	rm -rf **/*.gcda

@@ -29,7 +29,7 @@ typedef struct text_s {
 texts_t *texts_create(char *font_path);
 text_t *text_create(char *str, sfVector2f pos, texts_t *texts);
 void texts_renderlist(texts_t *texts, GLuint program_id);
-void text_render(text_t *text, sfVector2u text_size);
+void text_render(text_t *text);
 void texts_destroy(texts_t *texts);
 void text_destroy(text_t *text);
 

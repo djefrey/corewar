@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include "corewar.h"
 #include "bonus.h"
 #include "scene.h"
 #include "mesh.h"
@@ -33,6 +34,7 @@ int bonus_update(bonus_t *bonus, vm_t *vm)
 {
     int run = 1;
 
+    UNUSED(vm);
     bonus_event(bonus, &run);
     bonus_draw(bonus);
     return (run);
