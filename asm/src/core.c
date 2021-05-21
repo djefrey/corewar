@@ -34,3 +34,14 @@ void name_new_file(char *input, asms_t *asms)
     asms->output = my_strcat(output, input + len + 1);
     asms->output = my_strcat(output, ".cor");
 }
+
+void header(asms_t *asms, info_t *info)
+{
+    header_t *header;
+
+    header->magic = COREWAR_EXEC_MAGIC;
+    my_strcpy(header->prog_name, info->name);
+    my_strcpy(header->comment, info->comment);
+    header->prog_size = asms->size;
+    write(asms->fd_out, header, sizeof(header_t));
+}
