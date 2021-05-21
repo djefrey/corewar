@@ -17,7 +17,7 @@ char *coding_byte(char **tab, char *ret)
         else
             ret = my_strmerge(ret, "11");
     }
-    while(my_strlen(ret) < 8)
+    while (my_strlen(ret) < 8)
         ret = my_strmerge(ret, "0");
     return (ret);
 }
@@ -69,7 +69,7 @@ void sti(asms_t *asms, char **tab)
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] != NULL
     || tab[1][0] != REGISTER)
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     str = coding_byte_first(tab);
     str = coding_byte(tab, str);
@@ -80,5 +80,4 @@ void sti(asms_t *asms, char **tab)
     double_print_ind(asms, tab, 1);
     its_first(asms, tab, 1);
     its_last(asms, tab, 1);
-    return;
 }

@@ -1,38 +1,43 @@
 /*
-** op.c for  korewar
-**
-** Made by Astek
-** Login   <astek@epitech.net>
-**
-** Started on  Mon Mar 30 11:14:31 2009 Astek
-** Last update Tue Mar 22 16:44:20 2011 Astek
+** EPITECH PROJECT, 2021
+** corewar
+** File description:
+** instructions list
 */
 
-#include "asm.h"
+#include "op.h"
 
-op_t    op_tab[] =
-{
-    {"live", 1, {T_DIR}, 1, 10, "alive"},
-    {"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load"},
-    {"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store"},
-    {"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition"},
-    {"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction"},
-    {"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,
-     "et (and  r1, r2, r3   r1&r2 -> r3"},
-    {"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 7, 6,
-     "ou  (or   r1, r2, r3   r1 | r2 -> r3"},
-    {"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6,
-     "ou (xor  r1, r2, r3   r1^r2 -> r3"},
-    {"zjmp", 1, {T_DIR}, 9, 20, "jump if zero"},
-    {"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
-     "load index"},
-    {"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
-     "store index"},
-    {"fork", 1, {T_DIR}, 12, 800, "fork"},
-    {"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load"},
-    {"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
-     "long load index"},
-    {"lfork", 1, {T_DIR}, 15, 1000, "long fork"},
-    {"aff", 1, {T_REG}, 16, 2, "aff"},
-    {0, 0, {0}, 0, 0, 0}
+const op_t OPS[] = {
+    {0x01, 10, 0, {NONE_ARG, NONE_ARG, NONE_ARG, NONE_ARG},
+        "live"},
+    {0x02, 5, 2, {DIR_ARG | IND_ARG, REG_ARG, NONE_ARG, NONE_ARG},
+        "ld"},
+    {0x03, 5, 2, {REG_ARG, IND_ARG | REG_ARG, NONE_ARG, NONE_ARG},
+        "st"},
+    {0x04, 10, 3, {REG_ARG, REG_ARG, REG_ARG, NONE_ARG},
+        "add"},
+    {0x05, 10, 3, {REG_ARG, REG_ARG, REG_ARG, NONE_ARG},
+        "sub"},
+    {0x06, 6, 3, {REG_ARG | DIR_ARG | IND_ARG, REG_ARG | DIR_ARG | IND_ARG,
+        REG_ARG, NONE_ARG}, "and"},
+    {0x07, 6, 3, {REG_ARG | DIR_ARG | IND_ARG, REG_ARG | DIR_ARG | IND_ARG,
+        REG_ARG, NONE_ARG}, "or"},
+    {0x08, 6, 3, {REG_ARG | DIR_ARG | IND_ARG, REG_ARG | DIR_ARG | IND_ARG,
+        REG_ARG, NONE_ARG}, "xor"},
+    {0x09, 20, 0, {NONE_ARG, NONE_ARG, NONE_ARG, NONE_ARG},
+        "zjmp"},
+    {0x0a, 25, 3, {REG_ARG | DIR_ARG | IND_ARG, REG_ARG | DIR_ARG,
+        REG_ARG, NONE_ARG}, "ldi"},
+    {0x0b, 25, 3, {REG_ARG, REG_ARG | DIR_ARG | IND_ARG,
+        REG_ARG | DIR_ARG, NONE_ARG}, "sti"},
+    {0x0c, 800, 0, {NONE_ARG, NONE_ARG, NONE_ARG, NONE_ARG},
+        "fork"},
+    {0x0d, 10, 2, {DIR_ARG | IND_ARG, REG_ARG, NONE_ARG, NONE_ARG},
+        "lld"},
+    {0x0e, 50, 3, {REG_ARG | DIR_ARG | IND_ARG,
+        REG_ARG | DIR_ARG, REG_ARG, NONE_ARG}, "lldi"},
+    {0x0f, 1000, 0, {NONE_ARG, NONE_ARG, NONE_ARG, NONE_ARG},
+        "lfork"},
+    {0x010, 2, 1, {REG_ARG, NONE_ARG, NONE_ARG, NONE_ARG},
+        "aff"},
 };

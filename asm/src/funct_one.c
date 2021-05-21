@@ -13,7 +13,7 @@ void live(asms_t *asms, char **tab)
 
     if (tab[1] == NULL || tab[1][0] == ' ' || tab[1][0] == '\0'
     || tab[2] != NULL)
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     indir_or_dir(tab[1], asms);
 }
@@ -23,7 +23,7 @@ void add(asms_t *asms, char **tab)
     int a = 0x04;
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] != NULL || tab[4] != NULL)
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     print_reg(bin_to_dec(str_to_int("01010100")), asms);
     print_reg(str_to_int(tab[1]), asms);
@@ -39,7 +39,7 @@ void st(asms_t *asms, char **tab)
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] != NULL ||
     tab[1][0] != REGISTER)
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     str = coding_byte_first(tab);
     str = coding_byte(tab, str);
@@ -48,7 +48,6 @@ void st(asms_t *asms, char **tab)
     print_reg(dec, asms);
     print_reg(str_to_int(tab[1]), asms);
     indir_or_dir(tab[2], asms);
-    return;
 }
 
 void ld(asms_t *asms, char **tab)
@@ -58,7 +57,7 @@ void ld(asms_t *asms, char **tab)
     int dec;
 
     if (tab[1] == NULL || tab[2] == NULL || tab[2][0] != 'r' || tab[3] != NULL)
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     str = coding_byte_first(tab);
     str = coding_byte(tab, str);
@@ -74,7 +73,7 @@ void sub(asms_t *asms, char **tab)
     int a = 0x05;
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] != NULL || tab[4] != NULL)
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     print_reg(bin_to_dec(str_to_int("01010100")), asms);
     print_reg(str_to_int(tab[1]), asms);

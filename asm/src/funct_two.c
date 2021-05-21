@@ -15,7 +15,7 @@ void and(asms_t *asms, char **tab)
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] == NULL || tab[4] != NULL
     || tab[3][0] != 'r')
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     str = coding_byte_first(tab);
     str = coding_byte(tab, str);
@@ -26,7 +26,6 @@ void and(asms_t *asms, char **tab)
     its_first(asms, tab, 0);
     its_last(asms, tab, 0);
     print_reg(str_to_int(tab[3]), asms);
-    return;
 }
 
 void or(asms_t *asms, char **tab)
@@ -37,7 +36,7 @@ void or(asms_t *asms, char **tab)
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] == NULL || tab[4] != NULL
     || tab[3][0] != 'r')
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     str = coding_byte_first(tab);
     str = coding_byte(tab, str);
@@ -48,7 +47,6 @@ void or(asms_t *asms, char **tab)
     its_first(asms, tab, 0);
     its_last(asms, tab, 0);
     print_reg(str_to_int(tab[3]), asms);
-    return;
 }
 
 void xor(asms_t *asms, char **tab)
@@ -59,7 +57,7 @@ void xor(asms_t *asms, char **tab)
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] == NULL || tab[4] != NULL
     || tab[3][0] != 'r')
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     str = coding_byte_first(tab);
     str = coding_byte(tab, str);
@@ -70,7 +68,6 @@ void xor(asms_t *asms, char **tab)
     its_first(asms, tab, 0);
     its_last(asms, tab, 0);
     print_reg(str_to_int(tab[3]), asms);
-    return;
 }
 
 void aff(asms_t *asms, char **tab)
@@ -80,7 +77,7 @@ void aff(asms_t *asms, char **tab)
     int dec;
 
     if (tab[1] == NULL || tab[1][0] != REGISTER || tab[2] != NULL)
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     str = coding_byte_first(tab);
     str = coding_byte(tab, str);
@@ -88,7 +85,6 @@ void aff(asms_t *asms, char **tab)
     dec = bin_to_dec(dec);
     print_reg(dec, asms);
     print_reg(str_to_int(tab[1]), asms);
-    return;
 }
 
 void lld(asms_t *asms, char **tab)
@@ -98,7 +94,7 @@ void lld(asms_t *asms, char **tab)
     int dec;
 
     if (tab[1] == NULL || tab[2] == NULL || tab[3] != NULL || tab[2][0] != 'r')
-        exit (84);
+        exit(84);
     print_reg(a, asms);
     str = coding_byte_first(tab);
     str = coding_byte(tab, str);
@@ -107,5 +103,4 @@ void lld(asms_t *asms, char **tab)
     print_reg(dec, asms);
     indir_or_dir(tab[1], asms);
     print_reg(str_to_int(tab[2]), asms);
-    return;
 }

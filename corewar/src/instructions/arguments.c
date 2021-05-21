@@ -74,7 +74,7 @@ char instruction_value)
     instruction_t instruction = INSTRUCTIONS[instruction_value - 1];
     int nb_args = 0;
 
-    for(; nb_args < 4 && args[nb_args] != NONE; nb_args++);
+    for (; nb_args < 4 && args[nb_args] != NONE; nb_args++);
     if (instruction.nb_args != nb_args)
         return (0);
     for (int i = 0; i < instruction.nb_args; i++) {

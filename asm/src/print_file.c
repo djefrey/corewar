@@ -17,6 +17,10 @@ void inverse_endian(void *data, size_t size)
         ((char *) data)[i] = buff[i];
 }
 
+/*
+** Too long function!
+** Need to be fixed
+*/
 void indir_or_dir(char *str, asms_t *asms)
 {
     int nb = 0;

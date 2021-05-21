@@ -14,6 +14,7 @@ SRC		=	./src/main.c 					\
 			./src/funct_two.c				\
 			./src/funct_three.c				\
 			./src/print_file.c				\
+			./src/op.c						\
 			./src/utils.c
 
 LIB_DIR	=	./mylib

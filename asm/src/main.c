@@ -18,14 +18,12 @@ void reformate_tab(asms_t *asms)
     for (int i = 0; asms->tab_f[i]; i++)
         reformate_string(asms, i);
     for (int i = 0; asms->tab_f[i]; i++) {
-        if (asms->tab_f[0][0] != '.') {
+        if (asms->tab_f[0][0] != '.')
             ++asms->tab_f;
-        }
     }
     for (int i = 0; asms->tab_f[i]; i++) {
-        if (asms->tab_f[i][0] == '\0') {
+        if (asms->tab_f[i][0] == '\0')
             asms->tab_f[i] = 0;
-        }
     }
 }
 
