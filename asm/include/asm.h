@@ -67,5 +67,7 @@ void aff(asms_t *asms, char **tab);
 void sti(asms_t *asms, char **tab);
 int str_to_int(char *str);
 int prog(asms_t *asms);
+void name_new_file(char *input, asms_t *asms);
+char **my_str_to_asm_array(char const *str, int j, int k);
 
 #endif /* !ASM_H_ */
