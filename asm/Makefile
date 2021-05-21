@@ -6,11 +6,10 @@
 ##
 
 SRC		=	./src/main.c 					\
-			./src/parsing.c					\
 			./src/splitter.c				\
-			./src/core.c					\
+			./src/compiler.c				\
 			./src/write_file.c				\
-			./src/file_reader.c				\
+			./src/file.c					\
 			./src/label.c					\
 			./src/utils.c					\
 			./src/operations/arguments.c	\

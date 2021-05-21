@@ -37,7 +37,7 @@ int get_operation_size(char **line)
     size = op->has_coding_byte ? 2 : 1;
     get_operation_arguments(line, args);
     for (int i = 0; i < 4; i++) {
-        if (args[i] == NONE_ARG)
+        if (!args[i] || args[i] == NONE_ARG)
             break;
         if (args[i] == REG_ARG)
             size += sizeof(char);

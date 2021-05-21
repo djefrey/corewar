@@ -15,21 +15,27 @@ int main(int ac, char **av)
         return (put_error("usage: ./asm file_name[.s]\n"));
     else if (my_strcmp(&av[1][my_strlen(av[1]) - 2], ".s") != 0)
         return (put_error("Can't read file\n"));
-    return (compile(av[1], &asms));
+    return (init_compilation(av[1], &asms));
 }
 
-int compile(char *input, asms_t *asms)
+int init_compilation(char *input, asms_t *asms)
 {
-    if ((asms->fd_in = open(input, O_RDONLY)) < 0)
-        return (put_error("Can't read file\n"));
-    name_new_file(input, asms);
-    if ((asms->fd_out = open(asms->output,
-    O_CREAT | O_WRONLY | O_TRUNC, 0644)) < 0)
-        return (put_error("Fail with open\n"));
-    else if (read_source_file(asms))
+    int in_fd = open(input, O_RDONLY);
+    char *file_content;
+
+    if (in_fd == -1)
+        return (put_error("Can't read input file\n"));
+    open_output_file(input, asms);
+    if (!(file_content = read_source_file(in_fd)))
         return (84);
-    asms->tab_f = split_file(asms->file);
-    return (parse_struct(asms));
+    close(in_fd);
+    asms->lines = split_file(file_content);
+    precompile(asms);
+    compile(asms);
+    free_split(asms->lines);
+    free(file_content);
+    close(asms->fd_out);
+    return (0);
 }
 
 int put_error(char *str)

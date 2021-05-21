@@ -39,7 +39,7 @@ int values[4], asms_t *asms)
     for (int i = 0; i < 4 && args_type[i] && args_type[i] != NONE_ARG; i++) {
         if ((args_type[i] == DIR_ARG && args[i + 1][1] == LABEL_CHAR)
         || (args_type[i] == IND_ARG && args[i + 1][0] == LABEL_CHAR))
-            value = get_label_value();
+            value = get_label_value(args[i + 1] + 1, asms) - asms->compile_pos;
         else if (args_type[i] == DIR_ARG || args_type[i] == REG_ARG)
             value = str_to_int(args[i + 1] + 1);
         else
