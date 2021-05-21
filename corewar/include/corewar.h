@@ -38,6 +38,7 @@
 
 typedef int reg_t;
 
+typedef struct champion_s champion_t;
 typedef struct process_s process_t;
 typedef struct vm_s vm_t;
 
@@ -72,12 +73,15 @@ void argument_setup_struct(setup_t *setup);
 int argument_read_value(int *id, int *addr, char **arg, vm_t *vm);
 int argument_add_champion(setup_t *setup, int *id, int *addr, char *arg);
 int argument_create_champions(setup_t *setup, vm_t *vm);
+void calculate_minimum_champions_ids(setup_t *setup);
+int champion_cmp_ids(void *data1, void *data2);
 
 void read_header(header_t *header, int fd, unsigned int len);
 
 void get_arguments_type(argument_t args[], process_t *process, vm_t *vm);
 int get_arguments_value(argument_t args[],
 int values[], char indexes, couple_t couple);
+int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm);
 int check_args_validity(argument_t args[], int values[],
 char instruction_value);
 int read_register_arg(int *addr, vm_t *vm);
@@ -90,7 +94,7 @@ int write_file_in_memory(int addr, int fd, int size, vm_t *vm);
 
 int get_file_size(int fd);
 void inverse_endian(void *data, void *buf, size_t size);
-int get_arg_real_value(argument_t arg, int value, process_t *process, vm_t *vm);
 int str_to_int(char *str);
+champion_t *get_champion_by_id(vm_t *vm, int id);
 
 #endif /* !COREWAR_H_ */

@@ -17,6 +17,8 @@ int create_criterion_vm(vm_t *vm)
     vm->cycles = 0;
     vm->dead_cycles = 100;
     vm->dump_cycles = -1;
+    vm->nb_lives = 0;
+    vm->last_live = -1;
     vm->champions = NULL;
     return (0);
 }
@@ -27,6 +29,8 @@ void create_criterion_process(process_t *process)
         process->registers[i] = 0;
     process->pc = 0;
     process->carry = 0;
+    process->cycles = 0;
+    process->live_cycles = 0;
 }
 
 int create_real_test_environment(vm_t *vm,
@@ -43,8 +47,6 @@ champion_t *champion, process_t *process)
     my_strcpy(header->prog_comment, "A test champion\0");
     champion->header = header;
     champion->id = 1;
-    champion->dead = 0;
-    champion->live_cycles = 0;
     champion->processes = NULL;
     create_list(&(champion->processes), process);
     create_list(&(vm->champions), champion);

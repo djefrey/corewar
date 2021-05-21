@@ -37,46 +37,6 @@ int vm_init(vm_t *vm)
     return (0);
 }
 
-void vm_run(vm_t *vm)
-{
-    int living = 4;
-
-    while (living > 1) {
-        living = vm_update_champions(vm);
-        if (vm->cycles == vm->dump_cycles) {
-            vm_dump(vm);
-            break;
-        } else if (vm->nb_lives == NBR_LIVE) {
-            vm->nb_lives = 0;
-            vm->dead_cycles -= CYCLE_DELTA;
-            if (vm->dead_cycles <= 0)
-                vm->dead_cycles = 1;
-        }
-        #ifdef BONUS
-        if (!bonus_update(vm->bonus, vm))
-            break;
-        #endif
-        vm->cycles++;
-    }
-}
-
-/*
-** Update all champions
-** Return the number of living ones
-*/
-int vm_update_champions(vm_t *vm)
-{
-    champion_t *champion;
-    int living = 0;
-
-    for (list_t *list = vm->champions; list; list = list->next) {
-        champion = (champion_t*) list->data;
-        champion_update(champion, vm);
-        living += !champion->nb_processes;
-    }
-    return (living);
-}
-
 void vm_dump(vm_t *vm)
 {
     unsigned char value_str[4] = {'0', '0', ' ', '\n'};
@@ -99,6 +59,17 @@ void vm_dump(vm_t *vm)
         else
             write(1, value_str, 3);
     }
+}
+
+void vm_print_winner(vm_t *vm)
+{
+    champion_t *last_live = get_champion_by_id(vm, vm->last_live);
+
+    if (last_live)
+        my_printf("The player %i (%s) has won.\n",
+        vm->last_live, last_live->header->prog_name);
+    else
+        my_printf("Nobody won.\n");
 }
 
 void vm_destroy(vm_t *vm)

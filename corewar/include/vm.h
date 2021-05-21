@@ -35,9 +35,12 @@ typedef struct vm_s {
 } vm_t;
 
 int vm_init(vm_t *vm);
+void vm_dump(vm_t *vm);
+void vm_print_winner(vm_t *vm);
+void vm_destroy(vm_t *vm);
+
 void vm_run(vm_t *vm);
 int vm_update_champions(vm_t *vm);
-void vm_dump(vm_t *vm);
-void vm_destroy(vm_t *vm);
+int vm_cycles(vm_t *vm);
 
 #endif /* !VM_H_ */

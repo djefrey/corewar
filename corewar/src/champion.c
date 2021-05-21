@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "my_list.h"
 #include "corewar.h"
 #include "champion.h"
 #include "process.h"
