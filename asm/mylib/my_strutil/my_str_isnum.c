@@ -15,6 +15,8 @@ unsigned char is_digit(char c)
 
 int my_str_isnum(char const *str)
 {
+    if (str[0] == '-')
+        str++;
     for (int i = 0; str[i] != '\0'; i++) {
         if (!is_digit(str[i]))
             return (0);

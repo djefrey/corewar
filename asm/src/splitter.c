@@ -13,8 +13,10 @@ int *size, char *start, int *element_size)
 {
     char *element;
 
-    if (start[0] == COMMENT_CHAR)
+    if (start[0] == COMMENT_CHAR) {
+        *element_size = 0;
         return;
+    }
     if (!(element = malloc(sizeof(char) * (*element_size + 1))))
         exit(84);
     my_strncpy(element, start, *element_size);
