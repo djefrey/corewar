@@ -41,7 +41,7 @@ process_t *process_fork(process_t *original, int pc)
         fork->registers[i] = original->registers[i];
     fork->pc = pc;
     fork->carry = original->carry;
-    fork->cycles = original->cycles;
+    fork->cycles = -2;
     fork->is_alive = 0;
     return (fork);
 }
@@ -74,6 +74,9 @@ int process_update(process_t *process, champion_t *champion, vm_t *vm)
 ** Check next instruction validity
 ** - If valid, set process->cycles
 ** - Else move to next instruction
+** process->cycles:
+** - 0 / -2 => Execute instruction after n cycles (-2 = fork)
+** - -1 => Execute instruction after n - 1 cycles
 */
 void process_next_instruction(process_t *process, vm_t *vm)
 {
@@ -81,7 +84,7 @@ void process_next_instruction(process_t *process, vm_t *vm)
 
     for (int i = 0; i < INSTRUCTIONS_NB; i++) {
         if (INSTRUCTIONS[i].value == instruction) {
-            process->cycles = process->cycles == 0
+            process->cycles = process->cycles == 0 || process->cycles == -2
             ? INSTRUCTIONS[i].cycles
             : INSTRUCTIONS[i].cycles - 1;
             #ifdef BONUS
