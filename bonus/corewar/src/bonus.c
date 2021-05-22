@@ -18,9 +18,10 @@ bonus_t *bonus_create(void)
     bonus_t *bonus = malloc(sizeof(bonus_t));
     sfWindow *window = window_create();
     unsigned int *memory = malloc(sizeof(int) * MEM_SIZE);
+    hud_t *hud = hud_create();
     scene_t *scene;
 
-    if (!bonus || !window || !memory)
+    if (!bonus || !window || !memory || !hud)
         return (NULL);
     memset(memory, 0, sizeof(int) * MEM_SIZE);
     bonus->window = window;
@@ -28,6 +29,7 @@ bonus_t *bonus_create(void)
     bonus->cam_rot_x = 180;
     bonus->cam_rot_y = 65;
     bonus->cam_distance = 300;
+    bonus->hud = hud;
     if (!(scene = scene_create(bonus)))
         return (NULL);
     scene_create_cubes(scene);
@@ -71,6 +73,7 @@ void bonus_draw(bonus_t *bonus)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     scene_draw(bonus->scene, bonus);
+    hud_render(bonus->hud);
     sfWindow_display(bonus->window);
 }
 

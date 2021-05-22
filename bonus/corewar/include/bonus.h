@@ -27,6 +27,7 @@ typedef struct bonus_s {
     sfWindow *window;
     unsigned int *memory;
     scene_t *scene;
+    hud_t *hud;
     float cam_distance;
     float cam_rot_x;
     float cam_rot_y;

@@ -25,7 +25,6 @@ typedef struct scene_s {
     list_t *meshes;
     list_t *cubes;
     camera_t *camera;
-    hud_t *hud;
 } scene_t;
 
 scene_t *scene_create(bonus_t *bonus);

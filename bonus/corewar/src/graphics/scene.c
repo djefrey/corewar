@@ -14,9 +14,8 @@ scene_t *scene_create(bonus_t *bonus)
 {
     scene_t *scene = malloc(sizeof(scene_t));
     camera_t *camera = camera_create();
-    hud_t *hud = hud_create();
 
-    if (!scene || !camera || !hud)
+    if (!scene || !camera)
         return (NULL);
     camera_set_target(camera, 80, 0, 480);
     camera_calculate_pos(camera, bonus->cam_distance,
@@ -24,7 +23,6 @@ scene_t *scene_create(bonus_t *bonus)
     scene->meshes = NULL;
     scene->cubes = NULL;
     scene->camera = camera;
-    scene->hud = hud;
     return (scene);
 }
 
@@ -39,7 +37,6 @@ void scene_draw(scene_t *scene, bonus_t *bonus)
         mesh = (mesh_t*) list->data;
         mesh->mesh_drawlist_fct(mesh, projection_matrix, bonus);
     }
-    hud_render(scene->hud);
 }
 
 void scene_destroy(scene_t *scene)
