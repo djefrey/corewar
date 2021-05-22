@@ -27,11 +27,16 @@ typedef struct bonus_s {
     sfWindow *window;
     unsigned int *memory;
     scene_t *scene;
+    float cam_distance;
+    float cam_rot_x;
+    float cam_rot_y;
 } bonus_t;
 
 bonus_t *bonus_create(void);
 int bonus_update(bonus_t *bonus, vm_t *vm);
 void bonus_event(bonus_t *bonus, int *run);
+void bonus_camera_move_update(bonus_t *bonus);
+void bonus_camera_zoom(bonus_t *bonus, sfMouseWheelScrollEvent event);
 void bonus_draw(bonus_t *bonus);
 void bonus_destroy(bonus_t *bonus);
 

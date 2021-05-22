@@ -5,6 +5,7 @@
 ** camera
 */
 
+#include <math.h>
 #include "bonus.h"
 #include "camera.h"
 
@@ -38,6 +39,15 @@ void camera_get_projection_matrix(camera_t *camera, mat4 matrix)
 
     glm_lookat(camera->pos, camera->target, (vec3) {0, 1, 0}, look_at);
     glm_mat4_mul(camera->projection_matrix, look_at, matrix);
+}
+
+void camera_calculate_pos(camera_t *camera, float dist, float angle_x, float angle_y)
+{
+    float x = camera->target[0] + cos(angle_x * 3.14 / 180) * dist;
+    float y = camera->target[1] + sin(angle_y * 3.14 / 180) * dist;
+    float z = camera->target[2] + cos((angle_x + 90) * 3.14 / 180) * dist;
+
+    camera_set_pos(camera, x, y, z);
 }
 
 void camera_destroy(camera_t *camera)

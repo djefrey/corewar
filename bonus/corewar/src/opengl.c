@@ -12,15 +12,18 @@
 sfWindow *window_create(void)
 {
     sfVideoMode mode = {WINDOW_WIDTH, WINDOW_HEIGHT, 32};
+    sfContextSettings settings = {24, 8, 2, 3, 3};
     sfWindow *window = sfWindow_create(mode,
-    WINDOW_TITLE, sfDefaultStyle, NULL);
+    WINDOW_TITLE, sfDefaultStyle, &settings);
 
     if (!window)
         return (NULL);
     glewInit();
     glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    glDepthFunc(GL_LEQUAL);
     glDepthRange(0.0f, 1.0f);
-    glDepthFunc(GL_LESS);
+    glClearDepth(1.0f);
 	glEnable(GL_CULL_FACE);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);

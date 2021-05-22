@@ -28,7 +28,7 @@ typedef struct scene_s {
     hud_t *hud;
 } scene_t;
 
-scene_t *scene_create(void);
+scene_t *scene_create(bonus_t *bonus);
 void scene_draw(scene_t *scene, bonus_t *bonus);
 void scene_destroy(scene_t *scene);
 

@@ -10,7 +10,7 @@
 #include "mesh.h"
 #include "gameitem.h"
 
-scene_t *scene_create(void)
+scene_t *scene_create(bonus_t *bonus)
 {
     scene_t *scene = malloc(sizeof(scene_t));
     camera_t *camera = camera_create();
@@ -18,8 +18,9 @@ scene_t *scene_create(void)
 
     if (!scene || !camera || !hud)
         return (NULL);
-    camera_set_pos(camera, -120, 320, 480);
     camera_set_target(camera, 80, 0, 480);
+    camera_calculate_pos(camera, bonus->cam_distance,
+    bonus->cam_rot_x, bonus->cam_rot_y);
     scene->meshes = NULL;
     scene->cubes = NULL;
     scene->camera = camera;
