@@ -9,7 +9,7 @@
 
 sfVector3f generate_color(unsigned int value)
 {
-    float factor = 1.0 - (value / 6) / 10.0;
+    float factor = 0.6 - (value / 6) / 20.0;
 
     if (value == 0)
         return ((sfVector3f) {0.5, 0.5, 0.5});
