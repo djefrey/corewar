@@ -14,7 +14,7 @@
 typedef struct bonus_s bonus_t;
 typedef struct vm_s vm_t;
 
-bonus_t *bonus_create(void);
+void bonus_create(vm_t *vm);
 int bonus_update(bonus_t *bonus, vm_t *vm);
 void bonus_write_champion_id(bonus_t *bonus, int addr, int size, int id);
 void bonus_set_actual_pc(bonus_t *bonus, int addr, char actual);
@@ -29,6 +29,7 @@ typedef struct vm_s {
     int dump_cycles;
     int last_live;
     int nb_lives;
+    int lives_cycles;
     list_t *champions;
 #ifdef BONUS
     bonus_t *bonus;
@@ -43,5 +44,6 @@ void vm_destroy(vm_t *vm);
 void vm_run(vm_t *vm);
 int vm_update_champions(vm_t *vm);
 int vm_cycles(vm_t *vm);
+void vm_process_alive(vm_t *vm);
 
 #endif /* !VM_H_ */

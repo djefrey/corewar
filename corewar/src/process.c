@@ -26,7 +26,7 @@ process_t *process_create(champion_t *champion, int addr)
     process->pc = addr;
     process->carry = 0;
     process->cycles = -1;
-    process->live_cycles = 0;
+    process->is_alive = 0;
     champion_add_process(champion, process);
     return (process);
 }
@@ -42,7 +42,7 @@ process_t *process_fork(process_t *original, int pc)
     fork->pc = pc;
     fork->carry = original->carry;
     fork->cycles = original->cycles;
-    fork->live_cycles = 0;
+    fork->is_alive = 0;
     return (fork);
 }
 
@@ -50,13 +50,6 @@ int process_update(process_t *process, champion_t *champion, vm_t *vm)
 {
     char instruction = 0;
 
-    process->live_cycles++;
-    if (process->live_cycles > vm->dead_cycles) {
-        #ifdef BONUS
-        bonus_set_actual_pc(vm->bonus, process->pc, 0);
-        #endif
-        return (1);
-    }
     if (process->cycles > 0) {
         process->cycles--;
         return (0);

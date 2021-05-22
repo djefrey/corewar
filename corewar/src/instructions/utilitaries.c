@@ -20,7 +20,7 @@ void live_instruction(process_t *process, champion_t *champion, vm_t *vm)
     UNUSED(champion);
     value = read_int(process->pc + 1, 4, vm);
     process->pc = (process->pc + 5) % MEM_SIZE;
-    process->live_cycles = 0;
+    process->is_alive = 1;
     vm->nb_lives++;
     if ((alive = get_champion_by_id(vm, value))) {
         my_printf("The player %i (%s) is alive.\n",

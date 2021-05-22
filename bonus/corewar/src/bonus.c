@@ -5,6 +5,10 @@
 ** bonus main
 */
 
+#ifndef BONUS
+#define BONUS
+#endif
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -14,7 +18,7 @@
 #include "mesh.h"
 #include "info_text.h"
 
-bonus_t *bonus_create(void)
+void bonus_create(vm_t *vm)
 {
     bonus_t *bonus = malloc(sizeof(bonus_t));
     sfWindow *window = window_create();
@@ -23,7 +27,8 @@ bonus_t *bonus_create(void)
     scene_t *scene;
 
     if (!bonus || !window || !memory || !hud)
-        return (NULL);
+        return;
+    vm->bonus = bonus;
     memset(memory, 0, sizeof(int) * MEM_SIZE);
     bonus->window = window;
     bonus->memory = memory;
@@ -32,10 +37,9 @@ bonus_t *bonus_create(void)
     bonus->cam_distance = 300;
     bonus->hud = hud;
     if (!(scene = scene_create(bonus)))
-        return (NULL);
+        return;
     scene_create_cubes(scene);
     bonus->scene = scene;
-    return (bonus);
 }
 
 int bonus_update(bonus_t *bonus, vm_t *vm)

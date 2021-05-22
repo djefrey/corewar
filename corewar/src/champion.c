@@ -64,11 +64,7 @@ void champion_update(champion_t *champion, vm_t *vm)
     for (list_t *list = champion->processes; list; list = next) {
         next = list->next;
         process = (process_t*) list->data;
-        if (process_update(process, champion, vm)) {
-            my_delete_node(&(champion->processes), process);
-            process_destroy(process);
-            champion->nb_processes--;
-        }
+        process_update(process, champion, vm);
     }
 }
 

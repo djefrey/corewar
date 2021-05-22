@@ -18,7 +18,7 @@ typedef struct process_s {
     reg_t pc;
     char carry;
     int cycles;
-    int live_cycles;
+    char is_alive;
 } process_t;
 
 process_t *process_create(champion_t *champion, int addr);

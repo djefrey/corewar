@@ -49,6 +49,9 @@ void hud_update_cycles_text(text_t *text, vm_t *vm)
     gcvt(vm->cycles, 6, text->string + len);
     my_strcat(text->string, " - Lives cycles: ");
     len = my_strlen(text->string);
+    gcvt(vm->lives_cycles, 4, text->string + len);
+    my_strcat(text->string, " / ");
+    len = my_strlen(text->string);
     gcvt(vm->dead_cycles, 4, text->string + len);
     len = my_strlen(text->string);
     text->pos.x = 400 - (len * 9) / 2;

@@ -15,9 +15,6 @@
 
 int vm_init(vm_t *vm)
 {
-    #ifdef BONUS
-    bonus_t *bonus = bonus_create();
-    #endif
     char *memory = malloc(sizeof(char) * MEM_SIZE);
 
     if (!memory)
@@ -28,12 +25,13 @@ int vm_init(vm_t *vm)
     vm->dump_cycles = -1;
     vm->last_live = -1;
     vm->nb_lives = 0;
+    vm->lives_cycles = 0;
     vm->champions = NULL;
-    #ifdef BONUS
-    vm->bonus = bonus;
-    #endif
     for (int i = 0; i < MEM_SIZE; i++)
         *(memory + i) = 0;
+    #ifdef BONUS
+    bonus_create(vm);
+    #endif
     return (0);
 }
 

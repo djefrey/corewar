@@ -34,7 +34,7 @@ typedef struct bonus_s {
     float cam_rot_y;
 } bonus_t;
 
-bonus_t *bonus_create(void);
+void bonus_create(vm_t *vm);
 int bonus_update(bonus_t *bonus, vm_t *vm);
 void bonus_event(bonus_t *bonus, int *run);
 void bonus_camera_move_update(bonus_t *bonus);
