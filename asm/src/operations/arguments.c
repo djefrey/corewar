@@ -43,10 +43,10 @@ int values[4], asms_t *asms)
         else if (args_type[i] == DIR_ARG || args_type[i] == REG_ARG)
             value = str_to_int(args[i + 1] + 1);
         else
-            value = str_to_int(args[i + 1] + 1);
+            value = str_to_int(args[i + 1]);
         if ((((args_type[i] == DIR_ARG && args[i + 1][1] != LABEL_CHAR)
         || args_type[i] == REG_ARG) && !my_str_isnum(args[i + 1] + 1))
-        || (args_type[i] == IND_ARG && !my_str_isnum(args[i]))
+        || (args_type[i] == IND_ARG && !my_str_isnum(args[i + 1]))
         || (args_type[i] == REG_ARG && (value < 1 || value > REG_NUMBER)))
             exit(put_error("Invalid argument value\n"));
         values[i] = value;
