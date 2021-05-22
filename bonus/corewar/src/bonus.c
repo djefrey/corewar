@@ -12,6 +12,7 @@
 #include "bonus.h"
 #include "scene.h"
 #include "mesh.h"
+#include "info_text.h"
 
 bonus_t *bonus_create(void)
 {
@@ -44,6 +45,7 @@ int bonus_update(bonus_t *bonus, vm_t *vm)
     UNUSED(vm);
     bonus_event(bonus, &run);
     bonus_camera_move_update(bonus);
+    hud_update(bonus->hud, vm);
     bonus_draw(bonus);
     return (run);
 }
@@ -104,6 +106,14 @@ void bonus_camera_zoom(bonus_t *bonus, sfMouseWheelScrollEvent event)
     bonus->cam_distance += event.delta * -5;
     camera_calculate_pos(bonus->scene->camera,
     bonus->cam_distance, bonus->cam_rot_x, bonus->cam_rot_y);
+}
+
+void bonus_add_infotext(bonus_t *bonus, int champion_id)
+{
+    int size = my_list_size(bonus->hud->infotexts);
+    sfVector2f pos = {(size + 0.66) * (800 / 5), 580};
+
+    infotext_create(champion_id, pos, bonus->hud);
 }
 
 void bonus_destroy(bonus_t *bonus)

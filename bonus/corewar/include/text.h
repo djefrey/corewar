@@ -24,10 +24,12 @@ typedef struct texts_s {
 typedef struct text_s {
     char *string;
     sfVector2f pos;
+    sfVector3f color;
 } text_t;
 
 texts_t *texts_create(char *font_path);
 text_t *text_create(char *str, sfVector2f pos, texts_t *texts);
+text_t *text_create_size(size_t size, sfVector2f pos, texts_t *texts);
 void texts_renderlist(texts_t *texts, GLuint program_id);
 void text_render(text_t *text);
 void texts_destroy(texts_t *texts);

@@ -58,26 +58,8 @@ void cube_set_height(cube_t *cube, bonus_t *bonus)
 void cube_set_color_factor_uniform(cube_t *cube,
 GLuint color_fact_id, bonus_t *bonus)
 {
-    float lum = is_cube_pc(cube, bonus) ? 2.0f : 0.8f;
+    float lum = is_cube_pc(cube, bonus) ? 2.0f : 0.75f;
+    sfVector3f color = generate_color(get_cube_champion(cube, bonus));
 
-    switch (get_cube_champion(cube, bonus)) {
-        case 1:
-        glUniform3f(color_fact_id, lum, 0.0f, 0.0f);
-        break;
-        case 2:
-        glUniform3f(color_fact_id, 0.0f, lum, 0.0f);
-        break;
-        case 3:
-        glUniform3f(color_fact_id, 0.0f, 0.0f, lum);
-        break;
-        case 4:
-        glUniform3f(color_fact_id, lum, lum, 0.0f);
-        break;
-        case 5:
-        glUniform3f(color_fact_id, lum, 0.0f, lum);
-        break;
-        default:
-        glUniform3f(color_fact_id, lum * 0.5f, lum * 0.5f, lum * 0.5f);
-        break;
-    }
+    glUniform3f(color_fact_id, color.x * lum, color.y * lum, color.z * lum);
 }

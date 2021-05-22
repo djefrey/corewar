@@ -29,7 +29,7 @@ sfWindow *window_create(void)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0.0f, 0.1f, 0.0f, 0.0f);
-    sfWindow_setFramerateLimit(window, 120);
+    sfWindow_setFramerateLimit(window, 60);
     return (window);
 }
 

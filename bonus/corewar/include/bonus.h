@@ -28,6 +28,7 @@ typedef struct bonus_s {
     unsigned int *memory;
     scene_t *scene;
     hud_t *hud;
+    list_t *infotexts;
     float cam_distance;
     float cam_rot_x;
     float cam_rot_y;
@@ -50,5 +51,7 @@ GLuint create_program(int vertex_shader_id, int fragment_shader_id);
 void check_program(int program_id);
 
 char *read_file(char *path);
+
+sfVector3f generate_color(unsigned int value);
 
 #endif /* !BONUS_H_ */

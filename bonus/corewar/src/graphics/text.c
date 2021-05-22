@@ -34,12 +34,28 @@ text_t *text_create(char *str, sfVector2f pos, texts_t *texts)
         return (NULL);
     text->string = my_strdup(str);
     text->pos = pos;
+    text->color = (sfVector3f) {1.0f, 1.0f, 1.0f};
+    create_list(&(texts->texts), text);
+    return (text);
+}
+
+text_t *text_create_size(size_t size, sfVector2f pos, texts_t *texts)
+{
+    text_t *text = malloc(sizeof(text_t));
+    char *str = malloc(size);
+
+    if (!text || !str)
+        return (NULL);
+    text->string = str;
+    text->pos = pos;
+    text->color = (sfVector3f) {1.0f, 1.0f, 1.0f};
     create_list(&(texts->texts), text);
     return (text);
 }
 
 void texts_renderlist(texts_t *texts, GLuint program_id)
 {
+    GLuint color_fact_id = glGetUniformLocation(program_id, "colorFactor");
     text_t *text;
 
     glUseProgram(program_id);
@@ -49,6 +65,7 @@ void texts_renderlist(texts_t *texts, GLuint program_id)
     sfTexture_bind(texts->font_texture);
     for (list_t *list = texts->texts; list; list = list->next) {
         text = (text_t*) list->data;
+        glUniform3f(color_fact_id, text->color.x, text->color.y, text->color.z);
         text_render(text);
     }
     sfTexture_bind(NULL);
@@ -61,20 +78,26 @@ void text_render(text_t *text)
     unsigned int c;
     sfVector2f pos = text->pos;
     float x = 0;
-    const float width = 32.0f;
-    const float height = 32.0f;
-    const float padding = 16.0f;
+    float y = 0;
+    const float width = 24.0f;
+    const float height = 24.0f;
+    const float padding = 8.0f;
     sfVector2f text_pos;
 
     for (int i = 0; text->string[i]; i++) {
         c = text->string[i];
+        if (c == '\n') {
+            y -= height;
+            x = 0;
+            continue;
+        }
         text_pos.x = (c % 16) / 16.0f;
         text_pos.y = (c / 16) / 16.0f;
         GLfloat box[4][4] = {
-            {pos.x + x,         pos.y,          text_pos.x,                 (text_pos.y + 1.0f / 16.0f)},
-            {pos.x + x + width, pos.y,          text_pos.x + 1.0f / 16.0f,  (text_pos.y + 1.0f / 16.0f)},
-            {pos.x + x,         pos.y + height, text_pos.x,                 text_pos.y},
-            {pos.x + x + width, pos.y + height, text_pos.x + 1.0f / 16.0f,  text_pos.y},
+            {pos.x + x,         pos.y + y,          text_pos.x,                 (text_pos.y + 1.0f / 16.0f)},
+            {pos.x + x + width, pos.y + y,          text_pos.x + 1.0f / 16.0f,  (text_pos.y + 1.0f / 16.0f)},
+            {pos.x + x,         pos.y + y + height, text_pos.x,                 text_pos.y},
+            {pos.x + x + width, pos.y + y + height, text_pos.x + 1.0f / 16.0f,  text_pos.y},
         };
         glBufferData(GL_ARRAY_BUFFER, sizeof(box), &box[0][0], GL_DYNAMIC_DRAW);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
