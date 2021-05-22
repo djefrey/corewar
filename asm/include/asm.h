@@ -37,6 +37,8 @@
 
 #define COREWAR_MAGIC_NUMBER 0xea83f3
 
+#define UNUSED(var) ((void) var)
+
 typedef struct asms_s {
     int fd_out;
     int prog_size;

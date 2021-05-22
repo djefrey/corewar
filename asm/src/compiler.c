@@ -44,24 +44,24 @@ void precompile(asms_t *asms)
 
 /*
 ** Write the header in fd_out
-** There is a problem with variable alignment
-** Garbage values are written at the end
-** The solution was to write outside of the struct,
-** but it's dangerous
+** Malloc needed to prevent garbage values due to padding
 */
 void write_header(asms_t *asms)
 {
-    header_t header;
+    header_t *header = malloc(sizeof(header_t));
 
-    header.magic = COREWAR_MAGIC_NUMBER;
-    inverse_endian(&(header.magic), sizeof(int));
+    if (!header)
+        exit(84);
+    header->magic = COREWAR_MAGIC_NUMBER;
+    inverse_endian(&(header->magic), sizeof(int));
     get_cmd(NAME_CMD_STRING, asms->lines[0],
-    (char*) &(header.prog_name), PROG_NAME_LENGTH + 1);
-    header.prog_size = asms->prog_size;
-    inverse_endian(&(header.prog_size), sizeof(int));
+    (char*) &(header->prog_name), PROG_NAME_LENGTH + 1);
+    header->prog_size = asms->prog_size;
+    inverse_endian(&(header->prog_size), sizeof(int));
     get_cmd(COMMENT_CMD_STRING, asms->lines[1],
-    (char*) &(header.comment), COMMENT_LENGTH + 4);
-    write(asms->fd_out, &header, sizeof(header_t));
+    (char*) &(header->comment), COMMENT_LENGTH + 1);
+    write(asms->fd_out, header, sizeof(header_t));
+    free(header);
 }
 
 /*
