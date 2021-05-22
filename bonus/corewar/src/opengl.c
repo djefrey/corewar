@@ -12,7 +12,7 @@
 sfWindow *window_create(void)
 {
     sfVideoMode mode = {WINDOW_WIDTH, WINDOW_HEIGHT, 32};
-    sfContextSettings settings = {24, 8, 2, 3, 3};
+    sfContextSettings settings = {24, 8, 2, 3, 3, sfContextDefault, 0};
     sfWindow *window = sfWindow_create(mode,
     WINDOW_TITLE, sfDefaultStyle, &settings);
 

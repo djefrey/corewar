@@ -87,7 +87,9 @@ void bonus_camera_move_update(bonus_t *bonus)
         move = 1;
     }
     if (sfKeyboard_isKeyPressed(sfKeyA) ^ sfKeyboard_isKeyPressed(sfKeyE)) {
-        bonus->scene->camera->target[2] += sfKeyboard_isKeyPressed(sfKeyA) ? -4 : 4;
+        bonus->scene->camera->target[2] += sfKeyboard_isKeyPressed(sfKeyA) ?
+        -4 * bonus->cam_distance / 100.0 : 4 * bonus->cam_distance / 100.0;
+        move = 1;
     }
     if (move)
         camera_calculate_pos(bonus->scene->camera,
