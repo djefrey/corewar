@@ -91,6 +91,9 @@ int argument_create_champions(setup_t *setup, vm_t *vm)
         if (!champion || !(process_create(champion, setup->addrs[i])))
             return (1);
         create_list(&(vm->champions), champion);
+        #ifdef BONUS
+        bonus_add_infotext(vm->bonus, setup->ids[i]);
+        #endif
     }
     my_sort_list(&(vm->champions), &champion_cmp_ids);
     return (0);

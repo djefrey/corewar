@@ -41,7 +41,7 @@ int vm_update_champions(vm_t *vm)
     for (list_t *list = vm->champions; list; list = list->next) {
         champion = (champion_t*) list->data;
         champion_update(champion, vm);
-        living += !champion->nb_processes;
+        living += champion->nb_processes > 0;
     }
     return (living);
 }
@@ -51,7 +51,7 @@ int vm_cycles(vm_t *vm)
     if (vm->cycles == vm->dump_cycles) {
         vm_dump(vm);
         return (1);
-    } else if (vm->nb_lives == NBR_LIVE) {
+    } else if (vm->nb_lives >= NBR_LIVE) {
         vm->nb_lives = 0;
         vm->dead_cycles -= CYCLE_DELTA;
         if (vm->dead_cycles <= 0)

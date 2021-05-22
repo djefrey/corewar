@@ -18,6 +18,7 @@ bonus_t *bonus_create(void);
 int bonus_update(bonus_t *bonus, vm_t *vm);
 void bonus_write_champion_id(bonus_t *bonus, int addr, int size, int id);
 void bonus_set_actual_pc(bonus_t *bonus, int addr, char actual);
+void bonus_add_infotext(bonus_t *bonus, int champion_id);
 void bonus_destroy(bonus_t *bonus);
 #endif
 

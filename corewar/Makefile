@@ -27,7 +27,9 @@ SRC			=	src/vm.c							\
 BONUS_SRC	=	../bonus/corewar/src/bonus.c						\
 				../bonus/corewar/src/memory.c						\
 				../bonus/corewar/src/opengl.c						\
+				../bonus/corewar/src/info_text.c					\
 				../bonus/corewar/src/file.c							\
+				../bonus/corewar/src/utils.c						\
 				../bonus/corewar/src/graphics/camera.c				\
 				../bonus/corewar/src/graphics/hud.c					\
 				../bonus/corewar/src/graphics/scene.c				\

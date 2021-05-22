@@ -27,7 +27,7 @@ process_t *process_create(champion_t *champion, int addr)
     process->carry = 0;
     process->cycles = -1;
     process->live_cycles = 0;
-    create_list(&(champion->processes), process);
+    champion_add_process(champion, process);
     return (process);
 }
 

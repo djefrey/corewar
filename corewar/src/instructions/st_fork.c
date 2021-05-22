@@ -68,7 +68,7 @@ void fork_instruction(process_t *process, champion_t *champion, vm_t *vm)
     if (fork_addr < 0)
         fork_addr += MEM_SIZE;
     if ((fork = process_fork(process, fork_addr)))
-        create_list(&(champion->processes), fork);
+        champion_add_process(champion, fork);
     process->pc = (process->pc + 3) % MEM_SIZE;
 }
 
@@ -82,6 +82,6 @@ void lfork_instruction(process_t *process, champion_t *champion, vm_t *vm)
     if (fork_addr < 0)
         fork_addr += MEM_SIZE;
     if ((fork = process_fork(process, fork_addr)))
-        create_list(&(champion->processes), fork);
+        champion_add_process(champion, fork);
     process->pc = (process->pc + 3) % MEM_SIZE;
 }
