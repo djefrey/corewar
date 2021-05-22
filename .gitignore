@@ -11,3 +11,4 @@ corewar/dump.txt
 **/*.gcda
 .vscode/
 **/dump*
+asm/tests
