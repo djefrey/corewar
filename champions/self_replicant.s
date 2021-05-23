@@ -9,6 +9,11 @@
 # r6 = test + math
 # r7 = test
 
+#
+# NOTE: This one is not functionnal
+# Check out Charge!
+#
+
 start:                  ld %:end, r5
                         sti r1, %:live, %1
                         add r5, r5, r3
