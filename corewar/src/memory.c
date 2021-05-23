@@ -53,9 +53,10 @@ void write_int(int addr, int value, int size, vm_t *vm)
 */
 int write_file_in_memory(int addr, int fd, int size, vm_t *vm)
 {
+    addr %= MEM_SIZE;
     if ((addr + size) > MEM_SIZE) {
-        read(fd, vm->memory + addr, size % MEM_SIZE);
-        size -= size % MEM_SIZE;
+        read(fd, vm->memory + addr, MEM_SIZE - addr);
+        size -= MEM_SIZE - addr;
         if (size > MEM_SIZE)
             return (1);
         read(fd, vm->memory, size);
