@@ -33,19 +33,6 @@ void calculate_minimum_champions_ids(setup_t *setup)
     }
 }
 
-void calculate_optimise_addresses(setup_t *setup)
-{
-    int already_assigned = 0;
-    int assigned_addrs[4] = {0};
-
-    for (int i = 0; i < 4; i++) {
-        if (setup->addrs[i] > -1) {
-            assigned_addrs[already_assigned] = setup->addrs[i];
-            already_assigned++;
-        }
-    }
-}
-
 int champion_cmp_ids(void *data1, void *data2)
 {
     champion_t *champion1 = (champion_t*) data1;
