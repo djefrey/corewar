@@ -22,12 +22,10 @@ Test(live, live_instruction, .init = cr_redirect_stdout)
         return;
     for (unsigned int i = 0; i < sizeof(instr); i++)
         vm.memory[i] = instr[i];
-    process.live_cycles = 10;
     live_instruction(&process, &champion, &vm);
     cr_assert_stdout_eq_str("The player 1 (TestChamp) is alive.\n");
     cr_assert_eq(vm.last_live, 1);
     cr_assert_eq(vm.nb_lives, 1);
-    cr_assert_eq(process.live_cycles, 0);
     cr_assert_eq(process.pc, 5);
     free(champion.header);
 }

@@ -30,7 +30,6 @@ void create_criterion_process(process_t *process)
     process->pc = 0;
     process->carry = 0;
     process->cycles = 0;
-    process->live_cycles = 0;
 }
 
 int create_real_test_environment(vm_t *vm,
