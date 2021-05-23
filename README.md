@@ -21,3 +21,9 @@ Vous devez ensuite compiler le Corewar avec
 > make -C ./corewar bonus
 
 Vous devez être dans à la racine du projet pour lancer l'interface
+
+Contrôles:
+ * Q / D : Rotation
+ * Z / S : Hauteur
+ * A / E : Gauche / Droite
+ * Molette : Zoom
