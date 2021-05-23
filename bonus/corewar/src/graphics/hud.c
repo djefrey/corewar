@@ -25,6 +25,7 @@ hud_t *hud_create(void)
     hud->texts = texts;
     hud->text_program_id = text_program_id;
     hud->cycles_text = text_create_size(40, (sfVector2f) {0, 24}, texts);
+    hud->infotexts = NULL;
     return (hud);
 }
 
