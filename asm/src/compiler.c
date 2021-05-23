@@ -29,6 +29,8 @@ void precompile(asms_t *asms)
     char **line;
     char **cpy;
 
+    if (!asms->lines)
+        exit(84);
     for (int i = 2; asms->lines[i]; i++) {
         line = split_line(asms->lines[i]);
         cpy = line;
